@@ -1,0 +1,117 @@
+\documentclass{semdoc}
+% Template: $Id: t01_txt.tex,v 1.7 2000/05/23 12:13:37 bless Exp $
+% -----------------------------------------------------------------------------
+% Seminarbeitrag
+% -----------------------------------------------------------------------------
+% Kommentare beginnen mit einem %-Zeichen
+\docbegin
+% --> Oberhalb der Linie bitte nichts ändern.
+% ---------------------------------------------------------------------------
+% \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ 
+% Stellen, an denen etwas geaendert werden soll, sind wie hier gekennzeichnet.
+% /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ 
+
+%
+% ---------------------------------------------------------------------------
+% \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ 
+% --> Bitte den Titel des Beitrages in die nächste Zeile eintragen:
+\title{Titel}
+%
+% --> ... und den Namen des Autors:
+\author{Thomas Bersch}
+% --> optional eine URL mailto:... oder http://www...
+\authorURL{}
+% /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ 
+% -----------------------------------------------------------------------------
+%
+%
+\maketitle
+%
+% ---------------------------------------------------------------------------
+% \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ 
+% --> ... und jetzt kommt die Zusammenfassung:
+\begin{abstract}
+%TODO: Abstract einfügen
+\end{abstract}
+% /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ 
+% -----------------------------------------------------------------------------
+% ACHTUNG - ACHTUNG - ACHTUNG - ACHTUNG - ACHTUNG - ACHTUNG - ACHTUNG - ACHTUNG
+% -----------------------------------------------------------------------------
+% --> Im Text sollte \section der "höchste" Gliederungsbefehl sein,
+%     also bitte kein \chapter oder gar \part verwenden.
+%     Der Text kann aber mit \section{}, \subsection{}, \subsubsection{}
+%     untergliedert werden.
+%
+%     Bitte _neue_ Rechtschreibung verwenden!
+%
+%     Bitte nicht die Befehle \input oder \include verwenden, also den
+%     Text _nicht_ in mehrere Dateien aufteilen! 
+%
+%     \newpage oder manuelle Zeilenumbrüche (\\) sollten ebenfalls nicht 
+%     verwendet werden.
+%
+%     Bitte darauf achten, dass im _Quelltext_ ein Abschnitt nicht nur 
+%     in einer Zeile steht (das macht z.B. Word beim Exportieren ohne
+%     Zeilenumbruch), der Abschnitt sollte auch bei 80 Zeichen pro Zeile
+%     noch lesbar sein, d.h. Zeilenumbrüche im Quelltext bitte entsprechend
+%     einfügen.
+%
+%     Referenzen auf andere Abschnitte sind bitte mit \ref{...}, wie 
+%     anschliessend gezeigt, anzugeben und nicht etwa als Text wie
+%     "siehe auch Abschnitt 2.2"
+%
+%     Anführungszeichen sind nicht einfach so "Text" einzugeben, sondern so:
+%     "`Text"', andernfalls gibt es Fehler.
+%
+%     Das Zeichen ~ erzeugt einen Leerraum an dem aber nicht getrennt wird.
+%     Weitere Trennstellen:
+%     "- = zusätzliche Trennstelle
+%     "| = Vermeidung von Ligaturen und mögliche Trennung (bsp: Schaf"|fell)
+%     "~ = Bindestrich an dem keine Trennung erlaubt ist (bsp: bergauf und "~ab)
+%     "= = Bindestrich bei dem Worte vor und dahinter getrennt werden dürfen
+%     "" = Trennstelle ohne Erzeugung eines Trennstrichs (bsp: und/""oder)
+%
+%     Weiterer Hinweis: 
+%     KEIN Glossar erstellen! Abkürzungen sind im Text zu erklären!
+%     Der Text ist mit z.B. mit ispell auf Schreibfehler zu prüfen 
+%     (am besten aus dem Emacs heraus, 
+%     Menü: Edit -> Spell -> Select Deutsch8, dann Edit -> Spell -> Check Buffer)
+%
+% ---------------------------------------------------------------------------
+% \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ 
+
+\section{Einleitung} % in die Klammern die Ueberschrift 
+\label{tD2_Einleitung} % und ein Label
+
+Hier steht die Einleitung!
+
+\section{Grundlagen} % in die Klammern die Ueberschrift 
+\label{tD2_Grundlagen} % und ein Label
+
+\section{Verwandte Arbeiten}
+\label{tD2_Verwandte_Arbeiten}
+
+\section{Implementierung}
+\label{tD2_Implementierung}
+
+\section{Evaluierung}
+\label{tD2_Evaluierung}
+
+\section{Zusammenfassung}
+\label{tD2_Zusammenfassung}
+
+% /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ 
+% -----------------------------------------------------------------------------
+% Bitte keinen Text mehr unterhalb dieser Zeile eintragen!!
+% -----------------------------------------------------------------------------
+%
+% --> Üblicherweise wird nur die Literatur aufgelistet, die auch referenziert
+%     wird. Möchte man auch nichtreferenzierte Literatur einschließen, so
+%     kann man dies mit \nocite{<citelabel>} tun.
+\nocite{*}
+%     In die folgende Zeile sollte die benötigte Literaturdatenbankdatei
+%     eingetragen werden (im Normalfall nicht zu ändern):
+\bibliography{t01_txt}
+%
+\docend
+%%% end of document
