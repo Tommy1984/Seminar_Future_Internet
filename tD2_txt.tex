@@ -5,7 +5,7 @@
 % -----------------------------------------------------------------------------
 % Kommentare beginnen mit einem %-Zeichen
 \docbegin
-% --> Oberhalb der Linie bitte nichts ändern.
+% --> Oberhalb der Linie bitte nichts ndern.
 % ---------------------------------------------------------------------------
 % \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ 
 % Stellen, an denen etwas geaendert werden soll, sind wie hier gekennzeichnet.
@@ -14,8 +14,8 @@
 %
 % ---------------------------------------------------------------------------
 % \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ 
-% --> Bitte den Titel des Beitrages in die nächste Zeile eintragen:
-\title{Titel}
+% --> Bitte den Titel des Beitrages in die nchste Zeile eintragen:
+\title{Seminararbeit - R3: Resilient Routing Reconfiguration}
 %
 % --> ... und den Namen des Autors:
 \author{Thomas Bersch}
@@ -31,13 +31,14 @@
 % \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ 
 % --> ... und jetzt kommt die Zusammenfassung:
 \begin{abstract}
-%TODO: Abstract einfügen
+%TODO: Abstract einfÃ¼gen
+Hier steht der Abstract
 \end{abstract}
 % /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ 
 % -----------------------------------------------------------------------------
 % ACHTUNG - ACHTUNG - ACHTUNG - ACHTUNG - ACHTUNG - ACHTUNG - ACHTUNG - ACHTUNG
 % -----------------------------------------------------------------------------
-% --> Im Text sollte \section der "höchste" Gliederungsbefehl sein,
+% --> Im Text sollte \section der "hchste" Gliederungsbefehl sein,
 %     also bitte kein \chapter oder gar \part verwenden.
 %     Der Text kann aber mit \section{}, \subsection{}, \subsubsection{}
 %     untergliedert werden.
@@ -47,71 +48,116 @@
 %     Bitte nicht die Befehle \input oder \include verwenden, also den
 %     Text _nicht_ in mehrere Dateien aufteilen! 
 %
-%     \newpage oder manuelle Zeilenumbrüche (\\) sollten ebenfalls nicht 
+%     \newpage oder manuelle Zeilenumbrche (\\) sollten ebenfalls nicht 
 %     verwendet werden.
 %
 %     Bitte darauf achten, dass im _Quelltext_ ein Abschnitt nicht nur 
 %     in einer Zeile steht (das macht z.B. Word beim Exportieren ohne
 %     Zeilenumbruch), der Abschnitt sollte auch bei 80 Zeichen pro Zeile
-%     noch lesbar sein, d.h. Zeilenumbrüche im Quelltext bitte entsprechend
-%     einfügen.
+%     noch lesbar sein, d.h. Zeilenumbrche im Quelltext bitte entsprechend
+%     einfgen.
 %
 %     Referenzen auf andere Abschnitte sind bitte mit \ref{...}, wie 
 %     anschliessend gezeigt, anzugeben und nicht etwa als Text wie
 %     "siehe auch Abschnitt 2.2"
 %
-%     Anführungszeichen sind nicht einfach so "Text" einzugeben, sondern so:
+%     Anfhrungszeichen sind nicht einfach so "Text" einzugeben, sondern so:
 %     "`Text"', andernfalls gibt es Fehler.
 %
 %     Das Zeichen ~ erzeugt einen Leerraum an dem aber nicht getrennt wird.
 %     Weitere Trennstellen:
-%     "- = zusätzliche Trennstelle
-%     "| = Vermeidung von Ligaturen und mögliche Trennung (bsp: Schaf"|fell)
+%     "- = zustzliche Trennstelle
+%     "| = Vermeidung von Ligaturen und mgliche Trennung (bsp: Schaf"|fell)
 %     "~ = Bindestrich an dem keine Trennung erlaubt ist (bsp: bergauf und "~ab)
-%     "= = Bindestrich bei dem Worte vor und dahinter getrennt werden dürfen
+%     "= = Bindestrich bei dem Worte vor und dahinter getrennt werden drfen
 %     "" = Trennstelle ohne Erzeugung eines Trennstrichs (bsp: und/""oder)
 %
 %     Weiterer Hinweis: 
-%     KEIN Glossar erstellen! Abkürzungen sind im Text zu erklären!
-%     Der Text ist mit z.B. mit ispell auf Schreibfehler zu prüfen 
+%     KEIN Glossar erstellen! Abkrzungen sind im Text zu erklren!
+%     Der Text ist mit z.B. mit ispell auf Schreibfehler zu prfen 
 %     (am besten aus dem Emacs heraus, 
-%     Menü: Edit -> Spell -> Select Deutsch8, dann Edit -> Spell -> Check Buffer)
+%     Men: Edit -> Spell -> Select Deutsch8, dann Edit -> Spell -> Check Buffer)
 %
 % ---------------------------------------------------------------------------
 % \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ 
 
-\section{Einleitung} % in die Klammern die Ueberschrift 
-\label{tD2_Einleitung} % und ein Label
+\section{Einleitung}
+\label{tD2_Einleitung}
+Heutige IP-basierte Netze wie beispielsweise das Internet, 
+bestehen in der Regel aus einer Vielzahl einzelner Netzknoten, 
+die nicht notwendigerweise direkt, 
+sondern über mehrere Knoten hinweg miteinander verbunden sind.
+Sollen Information zu einem entfernten Knoten transportiert werden, 
+müssen diese von den dazwischen liegenden Netzknoten weitergereicht werden, 
+bis sie den Zielknoten erreicht haben.
+Die Wahl der zu verwendeten Zwischensysteme, 
+also eines Weges wird als Routing bezeichnet.
+Ein wichtiger Aspekt dabei ist die Optimierung des Weges bezüglich einer Metrik, 
+wie z.B die anfallenden Kosten, der kürzeste Weg, oder die aktuelle Netzauslastung.
 
-Hier steht die Einleitung!
+\section{Grundlagen}
+\label{tD2_Grundlagen}
+%TODO Routing (nun detailierter)
 
-\section{Grundlagen} % in die Klammern die Ueberschrift 
-\label{tD2_Grundlagen} % und ein Label
 
-\section{Verwandte Arbeiten}
-\label{tD2_Verwandte_Arbeiten}
+%TODO Label Switching
+Label Switching
+%TODO MPLS
+Multi-Protokoll-Label-Switching (MPLS) 
+%TODO MPLS-ff
+%TODO flow-based routing representation
+
+%TODO Network resiliency
+%TODO Deutscher Begriff für "Network Resiliency"
+In \cite{WWMA10} wird 'Network resiliency' als die Fähigkeit eines Computernetzes definiert, 
+sich schnell und problemlos von einer Reihen von Fehlern oder Unterbrechungen zu erholen. 
+Eine zunehmend wichtiger werdende Eigenschaft für moderne IP-basierte Netze.
+
+%TODO Notationen
+
+\section{Resilient Routing Reconfiguration}
+
+
+
+
+
+R3 - Resilient Routing Reconfiguration besteht prinzipiell aus zwei Teilen, 
+einer Vorberechnung und einer ständigen Rekonfiguration während des Netzbetriebs.
+
+\subsection{Vorberechnung}
+In der Vorberechnungsphase wird, sofern noch nicht gegeben, 
+ein Routing $r$ für eine Verkehrsmatrix $d$ berechnet, 
+Auf dieser Grundlage wird ein weiteres Routing $p$ berechnet, was 
+
+\subsection{Rekonfiguration}
+
 
 \section{Implementierung}
-\label{tD2_Implementierung}
+%Wie scheibt man das?
+%Die haben das so implementiert? oder Das kann man so implementieren
+%Ist die Implementierung überhaupt wichtig
 
 \section{Evaluierung}
-\label{tD2_Evaluierung}
+
 
 \section{Zusammenfassung}
-\label{tD2_Zusammenfassung}
+
+
+
+
 
 % /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ 
 % -----------------------------------------------------------------------------
 % Bitte keinen Text mehr unterhalb dieser Zeile eintragen!!
 % -----------------------------------------------------------------------------
 %
-% --> Üblicherweise wird nur die Literatur aufgelistet, die auch referenziert
-%     wird. Möchte man auch nichtreferenzierte Literatur einschließen, so
+% --> blicherweise wird nur die Literatur aufgelistet, die auch referenziert
+%     wird. Mchte man auch nichtreferenzierte Literatur einschlieen, so
 %     kann man dies mit \nocite{<citelabel>} tun.
 \nocite{*}
-%     In die folgende Zeile sollte die benötigte Literaturdatenbankdatei
-%     eingetragen werden (im Normalfall nicht zu ändern):
-\bibliography{t01_txt}
+%     In die folgende Zeile sollte die bentigte Literaturdatenbankdatei
+%     eingetragen werden (im Normalfall nicht zu ndern):
+\bibliography{tD2_txt}
 %
 \docend
 %%% end of document
