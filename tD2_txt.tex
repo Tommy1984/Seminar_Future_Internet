@@ -100,11 +100,17 @@ wie z.B die anfallenden Kosten, der kürzeste Weg, oder die aktuelle Netzauslastu
 %TODO Routing (nun detailierter)
 
 
-%TODO Label Switching
-Label Switching
 %TODO MPLS
-Multi-Protokoll-Label-Switching (MPLS) 
+Multiprotokol Label Switching (MPLS) \cite{RFC3031} ist ein Verfahren, 
+welches eine verbindungsorientierte Datenübertragung auch in ansonsten verbindungslosen Netzen ermöglicht. 
+Während beim klassichen Routing auf Schicht 3 jeder Router aufs neue den nächsten Knoten (Next Hop) einer Dateneinheit bestimmen muss,
+wird bei MPLS zu Beginn einer Übertragung jede Dateneinheit einer Weiterleitungsklasse (Forwarding Equivalent Class - FEC) zugeordnet, 
+die den Pfad (Lable Switch Path - LSP) durch das Netz bestimmt. 
+Dazu wird ihr ein kurze Kennung fester Länge, ein sog. Label zugeordnet. 
+Die nachfolgenden Knoten können daraus anhand einer Tabelle (Incoming Lable Mapping - ILM), den nächsten Knoten bestimmen. 
+Eine Auswertung des kompletten Paketkopfes ist nicht mehr notwendig.
 
+ 
 %TODO flow-based routing representation
 
 %TODO Network resiliency
@@ -151,6 +157,7 @@ Auf dieser Grundlage wird ein Protection-Routing $p$ berechnet,
 %Die haben das so implementiert? oder Das kann man so implementieren
 %Ist die Implementierung überhaupt wichtig
 %TODO MPLS-ff
+\subsection{MPLS-ff - Erweiterung von MPLS}
 
 
 \section{Evaluierung}
