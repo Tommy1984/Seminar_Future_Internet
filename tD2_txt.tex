@@ -83,7 +83,7 @@ Hier steht der Abstract
 
 \section{Einleitung}
 \label{tD2_Einleitung}
-Heutige IP-basierte Netze wie beispielsweise das Internet, 
+Heutige Netze wie beispielsweise das  IP-basierte Internet, 
 bestehen in der Regel aus einer Vielzahl einzelner Netzknoten, 
 die nicht notwendigerweise direkt, 
 sondern über mehrere Knoten hinweg miteinander verbunden sind.
@@ -104,7 +104,7 @@ wie z.B die anfallenden Kosten, der kürzeste Weg, oder die aktuelle Netzauslastu
 Label Switching
 %TODO MPLS
 Multi-Protokoll-Label-Switching (MPLS) 
-%TODO MPLS-ff
+
 %TODO flow-based routing representation
 
 %TODO Network resiliency
@@ -115,29 +115,49 @@ Eine zunehmend wichtiger werdende Eigenschaft für moderne IP-basierte Netze.
 
 %TODO Notationen
 
+%TODO Verwandte Arbeiten
+Im Gegensatz zu \cite{WWMA10}, der Grundlage dieser Seminararbeit, 
+behandeln bissherige Arbeiten entweder Routing im Fehlerfall oder Routing für variable Netzauslastungen.
+
+
+
 \section{Resilient Routing Reconfiguration}
 
-
-
-
-
+%TODO: Bessere Begriffe für Base-Routing und Protection Routing suchen
 R3 - Resilient Routing Reconfiguration besteht prinzipiell aus zwei Teilen, 
-einer Vorberechnung und einer ständigen Rekonfiguration während des Netzbetriebs.
+einer vom eignetlichen Netzbetrieb unabhängigen Vorberechnung (Offline-Phase) 
+sowohl eines Base-Routings als auch eines Protection-Routings 
+und einer ständigen Rekonfiguration (Online-Phase) des Protection Routings während des Netzbetriebs.
 
-\subsection{Vorberechnung}
+\subsection{Vorberechnung (Offline-Phase)}
 In der Vorberechnungsphase wird, sofern noch nicht gegeben, 
 ein Routing $r$ für eine Verkehrsmatrix $d$ berechnet, 
-Auf dieser Grundlage wird ein weiteres Routing $p$ berechnet, was 
+Auf dieser Grundlage wird ein Protection-Routing $p$ berechnet, 
 
-\subsection{Rekonfiguration}
+\subsection{Rekonfiguration (Online-Phase)}
 
+\subsection{Beweise}
+
+\subsection{Erweiterungen}
+%TODO Überschrifften besser formulieren
+\subsubsection{Behandlung von unterschiedlichem Verkehrsaufkommen}
+\subsubsection{Behandlung von realisitschen Fehlerszenarien}
+\subsubsection{Behanldung von Priorisiertem Verkehr}
+\subsubsection{Abwägung zwischne Performance unter normalen Bedinngungen und im Fehlerfall}
+\subsubsection{Abwägung zwischne Netzauslastung und Verzögerungszeiten} 
 
 \section{Implementierung}
 %Wie scheibt man das?
 %Die haben das so implementiert? oder Das kann man so implementieren
 %Ist die Implementierung überhaupt wichtig
+%TODO MPLS-ff
+
 
 \section{Evaluierung}
+
+\subsection{Simulation}
+
+\subsection{Reale Implementierung}
 
 
 \section{Zusammenfassung}
