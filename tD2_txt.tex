@@ -5,16 +5,16 @@
 % -----------------------------------------------------------------------------
 % Kommentare beginnen mit einem %-Zeichen
 \docbegin
-% --> Oberhalb der Linie bitte nichts ndern.
+% --> Oberhalb der Linie bitte nichts ändern.
 % ---------------------------------------------------------------------------
 % \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ 
-% Stellen, an denen etwas geaendert werden soll, sind wie hier gekennzeichnet.
+% Stellen, an denen etwas geändert werden soll, sind wie hier gekennzeichnet.
 % /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ 
 
 %
 % ---------------------------------------------------------------------------
 % \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ 
-% --> Bitte den Titel des Beitrages in die nchste Zeile eintragen:
+% --> Bitte den Titel des Beitrages in die nächste Zeile eintragen:
 \title{Seminararbeit - R3: Resilient Routing Reconfiguration}
 %
 % --> ... und den Namen des Autors:
@@ -31,14 +31,14 @@
 % \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ 
 % --> ... und jetzt kommt die Zusammenfassung:
 \begin{abstract}
-%TODO: Abstract einfÃ¼gen
+%TODO: Abstract einfügen
 Hier steht der Abstract
 \end{abstract}
 % /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ 
 % -----------------------------------------------------------------------------
 % ACHTUNG - ACHTUNG - ACHTUNG - ACHTUNG - ACHTUNG - ACHTUNG - ACHTUNG - ACHTUNG
 % -----------------------------------------------------------------------------
-% --> Im Text sollte \section der "hchste" Gliederungsbefehl sein,
+% --> Im Text sollte \section der "höchste" Gliederungsbefehl sein,
 %     also bitte kein \chapter oder gar \part verwenden.
 %     Der Text kann aber mit \section{}, \subsection{}, \subsubsection{}
 %     untergliedert werden.
@@ -95,12 +95,31 @@ also eines Weges wird als Routing bezeichnet.
 Ein wichtiger Aspekt dabei ist die Optimierung des Weges bezüglich einer Metrik, 
 wie z.B die anfallenden Kosten, der kürzeste Weg, oder die aktuelle Netzauslastung.
 
+Ein Herausforderung beim Routings besteht darin, dass sich die Netzstruktur ständig ändern kann,
+wodurch zuvor gefunden Routen durch das Netz ungültig werden können.
+Grunde dafür sind z.B der Ausfall eines Netzknotens, 
+das Ändern von Routing-Metriken, die aktuelle Netzauslastung etc..
+Um auf solche Situationen reagieren zu können, 
+müssen die einzelnen Router untereinander Informationen über den aktuelle Zustand des Netzes austauschen.
+Hierzu gibt es eine Reihe von Routing-Protokollen 
+wie beispielsweise die im Internet eingesetzten Protokolle 
+Open Shortest Path First (OSPF) \cite{RFC2328} oder IS-IS \cite{RFC1142}. 
+
+%TODO Überleitung zu Network Resiliency
+
+
 \section{Grundlagen}
 \label{tD2_Grundlagen}
+%TODO Network resiliency
+%TODO Deutscher Begriff für "Network Resiliency"
+In \cite{WWMA10} wird 'Network resiliency' als die Fähigkeit eines Computernetzes definiert, 
+sich schnell und problemlos von einer Reihen von Fehlern oder Unterbrechungen zu erholen. 
+Eine zunehmend wichtiger werdende Eigenschaft für moderne IP-basierte Netze.
+
 %TODO Routing (nun detailierter)
+%TODO flow-based routing representation
 
-
-%TODO MPLS
+%TODO MPLS - Ausführlicher?
 Multiprotokol Label Switching (MPLS) \cite{RFC3031} ist ein Verfahren, 
 welches eine verbindungsorientierte Datenübertragung auch in ansonsten verbindungslosen Netzen ermöglicht. 
 Während beim klassichen Routing auf Schicht 3 jeder Router aufs neue den nächsten Knoten (Next Hop) einer Dateneinheit bestimmen muss,
@@ -110,14 +129,26 @@ Dazu wird ihr ein kurze Kennung fester Länge, ein sog. Label zugeordnet.
 Die nachfolgenden Knoten können daraus anhand einer Tabelle (Incoming Lable Mapping - ILM), den nächsten Knoten bestimmen. 
 Eine Auswertung des kompletten Paketkopfes ist nicht mehr notwendig.
 
- 
-%TODO flow-based routing representation
+%TODO Fast rerouting (FRR) - Ausführlicher?
+Ein häufig genutztes Verfahren um auf Netzwerkfehler wie beispielweise der Ausfall einer Verbindung 
+oder eines ganzen Netzknotens zu reagieren, 
+ist das in \cite{RFC5714} für IP definierte Fast-Rerotuing.
+Wird bei der Paketübertragung ein Netzwerkfehler von einem Router erkannt, 
+muss für den ursprünglichen Pfad eine Alternative gefunden werden, 
+die die ausgefallenen Netzkomponenten nicht verwendet. Solange ist keien Übertragung möglich.
+Die Dauer dieser Unterbrechung setzt sich dabei zusammen, 
+aus der Zeit bis der Fehler erkannt wird, 
+der Zeit bis der lokale Router auf den Fehler reagiert, 
+die Zeit bis die Informationen über den Fehler an die anderen Router weitergeleitet ist, 
+der Zeit zur Neuberechnung der Routing-Tabellen 
+und der Zeit um die Routing-Tabellen in die Hardware zu übertragen.
+Um nun diese Ausfallzeit möglichst kurz zu halten, 
+verwendet Fast-Rerouting eine schon vorab berechnete alternative Route 
+um die ausgefallenen Komponenten zu umgehen.
+Dadurch kann die auf die Erkennung des Fehlers am lokalen Router und das aktivieren der Alterniv-Route beschränkt werden. 
+Eine Information der anderen Router im Netz ist nicht zwingen erforderlich.
+Für MPLS gibt es eine ähnlich arbeitenden Variante die in \cite{RFC4090} beschrieben wird.
 
-%TODO Network resiliency
-%TODO Deutscher Begriff für "Network Resiliency"
-In \cite{WWMA10} wird 'Network resiliency' als die Fähigkeit eines Computernetzes definiert, 
-sich schnell und problemlos von einer Reihen von Fehlern oder Unterbrechungen zu erholen. 
-Eine zunehmend wichtiger werdende Eigenschaft für moderne IP-basierte Netze.
 
 %TODO Notationen
 
@@ -131,7 +162,7 @@ behandeln bissherige Arbeiten entweder Routing im Fehlerfall oder Routing für va
 
 %TODO: Bessere Begriffe für Base-Routing und Protection Routing suchen
 R3 - Resilient Routing Reconfiguration besteht prinzipiell aus zwei Teilen, 
-einer vom eignetlichen Netzbetrieb unabhängigen Vorberechnung (Offline-Phase) 
+einer vom eigentlichen Netzbetrieb unabhängigen Vorberechnung (Offline-Phase) 
 sowohl eines Base-Routings als auch eines Protection-Routings 
 und einer ständigen Rekonfiguration (Online-Phase) des Protection Routings während des Netzbetriebs.
 
