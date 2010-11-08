@@ -103,7 +103,7 @@ Um auf solche Situationen reagieren zu können,
 müssen die einzelnen Router untereinander Informationen über den aktuelle Zustand des Netzes austauschen.
 Hierzu gibt es eine Reihe von Routing-Protokollen 
 wie beispielsweise die im Internet eingesetzten Protokolle 
-Open Shortest Path First (OSPF) \cite{RFC2328} oder IS-IS \cite{RFC1142}. 
+Open Shortest Path First (OSPF) \cite{RFC2328} oder Intermediate System - Intermediate System (IS-IS) \cite{RFC1142}. 
 
 %TODO Überleitung zu Network Resiliency
 
@@ -118,6 +118,17 @@ Eine zunehmend wichtiger werdende Eigenschaft für moderne IP-basierte Netze.
 
 %TODO Routing (nun detailierter)
 %TODO flow-based routing representation
+Mit Routing wird die Auswahl eines Weges (Route) durch ein Netzwerk bezeichnet, 
+der bestimmt über welche Netzknoten eine Dateneinheit von der Quelle (Orgin) bis zum Ziel (Destination) übertragen wird.
+Häufig ist eine Route nicht eindeutig, sondner es gibt mehrer Routen für das gleiche Quell/Ziel-Paar. 
+Dabei kann für die Datenübertragung nicht nur ein Pfad sondern auch mehrere unterschiedliche Pfade gleichzeitig genutzt werden. 
+Jeder Pfad überträgt dann einen gewissen Anteil der zu übermittelnden Informationen.
+So gesehen kann Routing auch wie in \cite{ApCo03} beschrieben als Fluss aufgefasst und dargestellt werden. 
+Sei dazu $r$ ein Routing und der Graph $G=(V,E)$ das zu betrachtende Netzwerk, 
+wobei $V$ der Menge der Router und $E$ der Menge der Verbindunge zwischen den Routern entspricht.
+Ein Routing wird dann durch eine Menge $\{r_{ab}(e)|a,b \in V \land e \in E\}$ von Werten $r_{ab}(e)$ definiert, 
+die angeben welcher Anbteil am Datenvolumen das von $a$ nach $b$ übertragen soll von der Verbindung $e$ getragen wird.
+ 
 
 %TODO MPLS - Ausführlicher?
 Multiprotokol Label Switching (MPLS) \cite{RFC3031} ist ein Verfahren, 
