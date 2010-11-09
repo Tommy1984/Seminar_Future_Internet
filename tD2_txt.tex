@@ -107,6 +107,7 @@ Open Shortest Path First (OSPF) \cite{RFC2328} oder Intermediate System - Interm
 
 %TODO Worin besteht das Problem?
 %TODO Überleitung zu Network Resiliency
+%TODO Beispiel für größeren Link-Ausfall: Sprint backbone network 2006
 
 
 \section{Grundlagen}
@@ -169,7 +170,7 @@ oder eines ganzen Netzknotens zu reagieren,
 ist das in \cite{RFC5714} für IP definierte Fast-Rerotuing.
 Wird bei der Paketübertragung ein Netzwerkfehler von einem Router erkannt, 
 muss für den ursprünglichen Pfad eine Alternative gefunden werden, 
-die die ausgefallenen Netzkomponenten nicht verwendet. Solange ist keien Übertragung möglich.
+die die ausgefallenen Netzkomponenten nicht verwendet. Solange ist keine Übertragung möglich.
 Die Dauer dieser Unterbrechung setzt sich dabei zusammen, 
 aus der Zeit bis der Fehler erkannt wird, 
 der Zeit bis der lokale Router auf den Fehler reagiert, 
@@ -184,9 +185,26 @@ Eine Information der anderen Router im Netz ist nicht zwingen erforderlich.
 Für MPLS gibt es eine ähnlich arbeitenden Variante die in \cite{RFC4090} beschrieben wird.
 
 
-%TODO Verwandte Arbeiten
-Im Gegensatz zu \cite{WWMA10}, der Grundlage dieser Seminararbeit, 
-behandeln bissherige Arbeiten entweder Routing im Fehlerfall oder Routing für variable Netzauslastungen.
+%TODO Verwandte Arbeiten, bessere Einleitung suchen.
+%TODO "Routing für sich ändernde Netzauslastungen" ist das so richtig?
+%TODO Referenzen einfügen
+Bissherige Arbeiten zum diesem Thema behandeln meistens nur eine Seite, 
+entweder \textit{Routing im Fehlerfall} oder \textit{Routing für sich ändernde Netzauslastungen}.
+
+Der Hauptaugenmerk bei Routing im Fehlerfall liegt dabei in aller Regel auf der Ausfallzeit 
+und wie dieser minimiert werden kann. 
+Ein häufig verwender Ansatz ist die Vorbrechnung von Alternativ-Routen und das schnell Umschalten im Fehlerfall.
+Dieser Ansatz bietet allerdings noch keine Möglichkleit um Stausituation zu vermeiden oder die vorraussichtliche Leistung zu bestimmen.
+
+Alternatiev zu Vorberechnung können bestehende Routen auch nach jedem Fehler angepasst und optimiert werden. 
+Der Vorteil besteht darin, dass die neuen Routen jeweils auf die aktuelle Netztopology angepasst sind und diese optimal auslasten können.
+Der Nachteil liegt in der schlechteren Reaktionszeit. 
+Mitunter kann die Reorganisation des Routings für die neue Netztopology sehr aufwendig zu berechnen und einzurichten sein.
+
+Der andere Aspekt mit dem sich viele Arbeiten befassen ist die Tatsache, 
+dass sich die Verkehrssituationen in einem Netz wie beispielweise dem Internet sehr häufig ändern 
+und man daher ein Routing benötigt, was dies berücksichtigt.
+
 
 \section{Resilient Routing Reconfiguration}
 
@@ -221,8 +239,16 @@ Auf dieser Grundlage wird ein Protection-Routing $p$ berechnet,
 %Wie scheibt man das?
 %Die haben das so implementiert? oder Das kann man so implementieren
 %Ist die Implementierung überhaupt wichtig
-%TODO MPLS-ff
-\subsection{MPLS-ff - Erweiterung von MPLS}
+
+Die Grundlage von R3 bildet eine flussbasierte Darstellung des Routings.
+Da eine solches Routing-Schema von heutigen Routern noch nicht unterstütz wird, 
+müssen für eine Implementierung bestehende Verfahren daraufhin angepasst oder neue implementiert werden.
+Aufgrud dessen dass viele Anbieter für Router MPLS unterstützen 
+und MPLS relative einfach durch MPLS-ff \cite{WWMA10} für flussbasiertes Routing erweitert werden kann, 
+eignet es sich sehr gut als Basismechanismus.
+Nachfolgend soll nun diese Erweiterung beschieben werden.
+
+
 
 
 \section{Evaluierung}
