@@ -260,12 +260,27 @@ diesem Label zugeordneten Interfaces aufteilen kann.
 
 %TODO Wie wird die next-hop Splitting Ratio implementiert?
 %TODO Bessere Erklärung für Protection Routing p.
-%TODO Refernz zu FEhlererkennung auf Schicht 2 einfügen
+%TODO Refernz zu Fehlererkennung auf Schicht 2 einfügen
+%TODO Was ist mit mehreren Link-Ausfällen?
+%TODO Speicherung von p in RIB. Nötig?
+%TODO evt. Beispiel fpr MPSL-ff einfügen
 Mithilfe der Erweiterung MPLS-ff kann nun R3 implementiert werden.
 Die Vorberechnung des \textit{Protection Routings p} und die Einrichtung von MPLS-ff kann von einem zentralen Server erledigt werden.
-Die Rekonfiguration während des Betriebes kann von jedem Router selbst übernommen werden.
+Die Rekonfiguration während des Betriebes muss jedeer Router selbst durchführen.
 Zu Fehlererkennung während des Betriebs kann die Sicherungsschicht (Layer 2) auf Fehlerereignisse beobachtet werden. 
 Auch andere Fehlererkennungsverfahren wie z.B \cite{KYGS05} sind möglich.
+Wird ein fehlerhafter Link erkannt, 
+werden alle andern Router mittels ICMP Paketen üder den Fehler informiert, 
+so das diese entsprechend ihr Protection Routing anpassen können.
+Dazu muss jeder Router die next-hop spitting ratio für die zu dem ausgefallenen Link gehörenden Sicherungs-Links anpassen.
+
+Um nun Pakete im Fehlerfall umzuleiten wird der Label-Stack von MPLS verwendet. 
+Erkennt ein Router einen Linkfehler wird die für das Label des Paketes definierte Alternative-Route aktiviert.
+Dazu pusht der Router ein weiters Label auf den Label-Stack des Paketes und ordent es damit der Alternative-Route zu.
+Das Paket wird dann entsprechend diesem Lable weitergeleitet. 
+Erreicht ein Paket wieder die Ursprungsroute, 
+wird das neue Lable wieder vom Label-Stack entfernt und kann auf normalem Weg weitergeleitet werden.
+
 
 
 
