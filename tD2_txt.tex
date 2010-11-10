@@ -83,6 +83,7 @@ Hier steht der Abstract
 
 \section{Einleitung}
 \label{tD2_Einleitung}
+%TODO besserer Begriff für Netzwerkfehler (trifft nicht unbedingt genau die Sache)
 Heutige Netze wie beispielsweise das  IP-basierte Internet, 
 bestehen in der Regel aus einer Vielzahl einzelner Netzknoten, 
 die nicht notwendigerweise direkt, 
@@ -95,7 +96,7 @@ also eines Weges wird als Routing bezeichnet.
 Ein wichtiger Aspekt dabei ist die Optimierung des Weges bezüglich einer Metrik, 
 wie z.B die anfallenden Kosten, der kürzeste Weg, oder die aktuelle Netzauslastung.
 
-Ein Herausforderung beim Routings besteht darin, dass sich die Netzstruktur ständig ändern kann,
+Ein Herausforderung beim Routings besteht darin, dass sich die Netztopology ständig ändern kann,
 wodurch zuvor gefunden Routen durch das Netz ungültig werden können.
 Grunde dafür sind z.B der Ausfall eines Netzknotens, 
 das Ändern von Routing-Metriken, die aktuelle Netzauslastung etc..
@@ -105,20 +106,40 @@ Hierzu gibt es eine Reihe von Routing-Protokollen
 wie beispielsweise die im Internet eingesetzten Protokolle 
 Open Shortest Path First (OSPF) \cite{RFC2328} oder Intermediate System - Intermediate System (IS-IS) \cite{RFC1142}. 
 
-%TODO Worin besteht das Problem?
-%TODO Überleitung zu Network Resiliency
+%TODO Bessere Erklärung für Network resiliency
+%TODO Deutscher Begriff für Network resiliency suchen
+Ein wichtiger Aspekt bei der Behandlung von Netzwerkfehlern ist Network Resiliency \cite{WWMA10}.
+Damit gemeint ist die Fähigkeit eines Netzes,  
+schnell und problemlos von einer Reihen von Fehlern oder Unterbrechungen zu kompensieren.
+Hauptaugenmerk vieler Studien und heutiger Verfahren liegt vorwiegend auf der Erreichbarkeit von Netz-Komponenten. 
+Dazu zählt die Verkürzung von Ausfallzeiten bzw. die Umgehung defekter Routenabschnitte 
+um die dahinterliegenden Ziele wieder erreichbar zu machen.
+Weitergehende Problem wie die eventuelle Häufung von Stausituation, 
+verursacht durch die verminderte Netzkapazität und den umleigleiteten Verkehr, 
+sowie fehlende Vorhersagbarkeit über die geänderte Leistungsfähigkeit eines Netzes werden dabei häufig außer acht gelassen.
+Das Routing, welches sich ausschließlich auf Erreichbarkeit konzentriert tatsächlich anfällig für vermehrte Stausituationen ist, 
+wird ebenfalls in \cite{WWMA10} untersucht und gezeigt.
+
+Eine Schwierigkeit bei der Entwicklung von Routing-Verfahren die auch die oben genannten Probleme berücksichtigen, 
+ist die Vielzahl von möglichen Fehlerszenarian.
+Geht man von einer Obergenze $F$ von möglichen Fehlern in einem Netzwerk mit $|E|$ Links aus, 
+so entspricht die Anzahl der möglichen Fehlerszenarien $\sum_{i=1}^{F} {|E| \choose i}$.
+Die Berücksichtigung jedes dieser Szenarien bedeutet i.d.R ein zu hochen Berechnungsaufwand, 
+weshalb sich die meisten Verfahren nur auf die Wiederherstellung der Erreichbarkeit beschränken und Staufreiheit etc. außer acht lassen.
+
+%TODO besseres Wort für Routing-Absicherung suchen
+R3 - Resilient Routing Reconfiguration \cite{WWMA10} ist nun ein neuer Ansatz zur Routing-Absicherung, 
+der trotz der Vielzahl von Szenarien Rechnung Staufreiheit garantieren kann.
+Das Verfahren ist zudem effizient in hinsicht auf Berechnungs-Overhead und Speicherverbrauch, 
+kann felxiebel an verschieden Leistungsanforderungen angepasst werden 
+und ist robust gegenüber Änderungen der Netzbelastung und der Netztopolgie.
+
+
 %TODO Beispiel für größeren Link-Ausfall: Sprint backbone network 2006
 
 
 \section{Grundlagen}
 \label{tD2_Grundlagen}
-%TODO Network resiliency
-%TODO Deutscher Begriff für "Network Resiliency" suchen
-In \cite{WWMA10} wird 'Network resiliency' als die Fähigkeit eines Computernetzes definiert, 
-sich schnell und problemlos von einer Reihen von Fehlern oder Unterbrechungen zu erholen. 
-Eine zunehmend wichtiger werdende Eigenschaft für moderne IP-basierte Netze.
-
-
 %TODO Definition Verkehrsmatrix
 Mit Routing wird die Auswahl eines Weges (Route) durch ein Netzwerk bezeichnet, 
 der bestimmt über welche Netzknoten eine Dateneinheit von der Quelle (Orgin) bis zum Ziel (Destination) übertragen wird.
