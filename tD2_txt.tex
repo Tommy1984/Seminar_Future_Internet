@@ -154,15 +154,21 @@ Die vierte Bedinung fordert das der weitergeleitete Anteil zwischen $0\%$ und $1
 
 
 %TODO MPLS - Ausführlicher?
+%TODO FEC im zusammenhang mit Packet-Reihenfolge
 Multiprotokol Label Switching (MPLS) \cite{RFC3031} ist ein Verfahren, 
 welches eine verbindungsorientierte Datenübertragung auch in ansonsten verbindungslosen Netzen ermöglicht. 
-Während beim klassichen Routing auf Schicht 3 jeder Router aufs neue den nächsten Knoten (Next Hop) einer Dateneinheit bestimmen muss,
+Während beim klassichen Routing auf Schicht 3 jeder Router aufs neue den nächsten Knoten (Next Hop) für eine Dateneinheit bestimmen muss,
 wird bei MPLS zu Beginn einer Übertragung jede Dateneinheit einer Weiterleitungsklasse (Forwarding Equivalent Class - FEC) zugeordnet, 
 die den Pfad (Lable Switch Path - LSP) durch das Netz bestimmt. 
 Dazu wird ihr ein kurze Kennung fester Länge, ein sog. Label zugeordnet. 
-Die nachfolgenden Knoten können daraus anhand einer Tabelle (Incoming Lable Mapping - ILM), den nächsten Knoten bestimmen. 
+Die nachfolgenden Knoten können anhand dieses Labels aus einer Tabelle (Incoming Lable Mapping - ILM) den nächsten Knoten bestimmen. 
 Eine Auswertung des kompletten Paketkopfes ist nicht mehr notwendig.
-
+MPSL biete außerdem die Möglichkeit einem Paket auch mehr als ein Label zuzuordnen. 
+Dazu werden die Labels auf einem Stack, dem Lable-Stack abgelegt. 
+Ein Router kann neu Labels auf dem Stack ablegen. 
+Für die Auswertung des nächstens Routers wird immer das oberste Stackelement herangezogen. 
+Ist der nächste Route aktuelle Router muss das Label wieder Stack entfernt werden.
+Der Label-Stack von MPLS wird später bei der Implementierung von R3 in Abschnitt \ref{tD2_Implementierung} benötigt.
 
 %TODO Fast rerouting (FRR) - Ausführlicher?
 Ein häufig genutztes Verfahren um auf Netzwerkfehler wie beispielweise der Ausfall einer Verbindung 
@@ -188,7 +194,7 @@ Für MPLS gibt es eine ähnlich arbeitenden Variante die in \cite{RFC4090} beschri
 %TODO Verwandte Arbeiten, bessere Einleitung suchen.
 %TODO "Routing für sich ändernde Netzauslastungen" ist das so richtig?
 %TODO Referenzen einfügen
-Bissherige Arbeiten zum diesem Thema behandeln meistens nur eine Seite, 
+Bisherige Arbeiten zum diesem Thema behandeln meistens nur eine Seite, 
 entweder \textit{Routing im Fehlerfall} oder \textit{Routing für sich ändernde Netzauslastungen}.
 
 Der Hauptaugenmerk bei Routing im Fehlerfall liegt dabei in aller Regel auf der Ausfallzeit 
@@ -236,6 +242,7 @@ Auf dieser Grundlage wird ein Protection-Routing $p$ berechnet,
 \textbf{Abwägung zwischne Netzauslastung und Verzögerungszeiten} 
 
 \section{Implementierung}
+\label{tD2_Implementierung}
 Die Grundlage von R3 bildet eine flussbasierte Darstellung des Routings.
 Da eine solches Routing-Schema von heutigen Routern noch nicht unterstütz wird, 
 müssen für eine Implementierung bestehende Verfahren daraufhin angepasst oder neue implementiert werden.
