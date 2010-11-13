@@ -1,4 +1,5 @@
 \documentclass{semdoc}
+
 % Template: $Id: t01_txt.tex,v 1.7 2000/05/23 12:13:37 bless Exp $
 % -----------------------------------------------------------------------------
 % Seminarbeitrag
@@ -10,7 +11,7 @@
 % \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ 
 % Stellen, an denen etwas geändert werden soll, sind wie hier gekennzeichnet.
 % /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ 
-
+\newtheorem{mydef}{Definition}
 %
 % ---------------------------------------------------------------------------
 % \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ 
@@ -48,7 +49,7 @@ Hier steht der Abstract
 %     Bitte nicht die Befehle \input oder \include verwenden, also den
 %     Text _nicht_ in mehrere Dateien aufteilen! 
 %
-%     \newpage oder manuelle Zeilenumbrche (\\) sollten ebenfalls nicht 
+%     \newpage oder manuelle Zeilenumbürche (\\) sollten ebenfalls nicht 
 %     verwendet werden.
 %
 %     Bitte darauf achten, dass im _Quelltext_ ein Abschnitt nicht nur 
@@ -61,7 +62,7 @@ Hier steht der Abstract
 %     anschliessend gezeigt, anzugeben und nicht etwa als Text wie
 %     "siehe auch Abschnitt 2.2"
 %
-%     Anfhrungszeichen sind nicht einfach so "Text" einzugeben, sondern so:
+%     Anführungszeichen sind nicht einfach so "Text" einzugeben, sondern so:
 %     "`Text"', andernfalls gibt es Fehler.
 %
 %     Das Zeichen ~ erzeugt einen Leerraum an dem aber nicht getrennt wird.
@@ -131,22 +132,19 @@ weshalb sich die meisten Verfahren nur auf die Wiederherstellung der Erreichbark
 R3 - Resilient Routing Reconfiguration \cite{WWMA10} ist nun ein neuer Ansatz zur Routing-Absicherung, 
 der trotz der Vielzahl von Szenarien Rechnung Staufreiheit garantieren kann.
 Das Verfahren ist zudem effizient in hinsicht auf Berechnungs-Overhead und Speicherverbrauch, 
-kann felxiebel an verschieden Leistungsanforderungen angepasst werden 
-und ist robust gegenüber Änderungen der Netzbelastung und der Netztopolgie.
-
-
-%TODO Beispiel für größeren Link-Ausfall: Sprint backbone network 2006
+kann flxiebel an verschieden Leistungsanforderungen (z.B zur Einhaltung von Service Level Agreements) angepasst werden 
+und ist robust gegenüber Änderungen der Netzauslastung oder der Netztopolgie.
 
 
 \section{Grundlagen}
 \label{tD2_Grundlagen}
+%TODO Protectin Routing erklären, definieren
 %TODO Definition Verkehrsmatrix
 Mit Routing wird die Auswahl eines Weges (Route) durch ein Netzwerk bezeichnet, 
 der bestimmt über welche Netzknoten eine Dateneinheit von der Quelle (Orgin) bis zum Ziel (Destination) übertragen wird.
 Häufig ist eine Route nicht eindeutig, sondner es gibt mehrer Routen für das gleiche Quell/Ziel-Paar. 
 Dabei kann für die Datenübertragung nicht nur ein Pfad sondern auch mehrere unterschiedliche Pfade gleichzeitig genutzt werden. 
 Jeder Pfad überträgt dann einen gewissen Anteil der zu übermittelnden Informationen.
-
 Fasst man ein IP-Netzwerk als gerichteten Graph $G=(V,E)$ auf, 
 wobei $V$ der Menge der Router und $E$ der Menge der Netzwerkverbindungen zwischen den Routern entspircht, 
 lässt sich eine Routing $r$ auch als Fluss auffassen \cite{ApCo03}. 
@@ -155,23 +153,45 @@ der über die Verbindung $e \in E$ geroutet wird.
 Als Menge $\{r_{ab}(e)|a,b \in V \land e \in E\}$ zusammengefasst beschreiben diese Werte so das gesammte Routing $r$.
 Der Beitrag zur Auslastung einer Verbindung $e$ entspricht dem Produkt $d_{ab}r_{ab}(e)$, 
 wobei $d_{ab}$ dem aktuell von Sender $a$ initiierte Verkehr zum Empfänger $b$ entpsicht und $r_{ab}(e)$ der wie oben beschriebene Anteil.
-
 Ein so definiertes Routing gilt als korrekt wenn es die in \cite{WWMA10} beschiebenen Bedingungen erfüllt. 
-Nachfolgend sollen diese nocheinmal aufgeführt werden:
-
+Nachfolgend sollen diese nocheinmal aufgeführt werden.
 Eine Menge $\{r_{ab}(e)\}$ ist ein korrektes Routing, wenn gilt:
+\begin{mydef}
+Ein Routing $r$ ist gültig, wenn $r$ die nachfolgenden Bediungen [R1]-[R4] erfüllt.
+%TODO Quellenangabe einfügen
 \begin{eqnarray}
-\forall i \neq a,b: \sum_{(i,j) \in E} r_{ab}(i,j) = \sum_{(j,i) \in E} r_ab(j,i)\\ 
-\sum_{(a,i) \in E} r_{ab}(a,i) = 1\\
-\forall(i,a) \in E : r_{ab}(i,a) = 0\\
-\forall e \in E : 0 \le r_{ab}(e) \le 1
+ \begin{array}{rl}
+	\mbox{[R1]} & \forall i \neq a,b: \sum_{(i,j) \in E} r_{ab}(i,j) = \sum_{(j,i) \in E} r_ab(j,i) \\ 
+	\mbox{[R2]} & \sum_{(a,i) \in E} r_{ab}(a,i) = 1 \\
+	\mbox{[R3]} & \forall(i,a) \in E : r_{ab}(i,a) = 0 \\
+	\mbox{[R4]} & \forall e \in E : 0 \le r_{ab}(e) \le 1
+ \end{array}
+ \label{tD2_RoutingConstraints}
 \end{eqnarray}
-
+\end{mydef}
 Die erste Bedingung entspricht dem für Flussnetzwerke üblichen Flusserhalt und fordert, 
 dass jeder Zwischenknoten genausoviel weiterleitet wie in ihn hineinfließt.
 Die zweite Bedingun forde, dass der gesamte von einer Quelle initierte Verkehr weitergeleitet wird,
 während die dritte Bedimng verbeitet ein Teil davon wieder zur Quelle zurückgeleitet wird.
 Die vierte Bedinung fordert das der weitergeleitete Anteil zwischen $0\%$ und $100\%$ liegt.
+
+
+%TODO Verwandte Arbeiten, bessere Einleitung suchen.
+%TODO "Routing für sich ändernde Netzauslastungen" ist das so richtig?
+%TODO Referenzen einfügen
+Bisherige Arbeiten zum diesem Thema behandeln meistens nur eine Seite, 
+entweder \textit{Routing im Fehlerfall} oder \textit{Routing für sich ändernde Netzauslastungen}.
+Das Hauptaugenmerk bei Routing im Fehlerfall liegt dabei in aller Regel auf der Ausfallzeit 
+und wie dieser minimiert werden kann. 
+Ein häufig verwender Ansatz ist die Vorbrechnung von Alternativ-Routen und das schnell Umschalten im Fehlerfall.
+Dieser Ansatz bietet allerdings noch keine Möglichkleit um Stausituation zu vermeiden oder die vorraussichtliche Leistung zu bestimmen.
+Alternatiev zu Vorberechnung können bestehende Routen auch nach jedem Fehler angepasst und optimiert werden. 
+Der Vorteil besteht darin, dass die neuen Routen jeweils auf die aktuelle Netztopology angepasst sind und diese optimal auslasten können.
+Der Nachteil liegt in der schlechteren Reaktionszeit. 
+Mitunter kann die Reorganisation des Routings für die neue Netztopology sehr aufwendig zu berechnen und einzurichten sein.
+Der andere Aspekt mit dem sich viele Arbeiten befassen ist die Tatsache, 
+dass sich die Verkehrssituationen in einem Netz wie beispielweise dem Internet sehr häufig ändern 
+und man daher ein Routing benötigt, was dies berücksichtigt.
 
 
 %TODO MPLS - Ausführlicher?
@@ -182,7 +202,7 @@ Während beim klassichen Routing auf Schicht 3 jeder Router aufs neue den nächste
 wird bei MPLS zu Beginn einer Übertragung jede Dateneinheit einer Weiterleitungsklasse (Forwarding Equivalent Class - FEC) zugeordnet, 
 die den Pfad (Lable Switch Path - LSP) durch das Netz bestimmt. 
 Dazu wird ihr ein kurze Kennung fester Länge, ein sog. Label zugeordnet. 
-Die nachfolgenden Knoten können anhand dieses Labels aus einer Tabelle (Incoming Lable Mapping - ILM) den nächsten Knoten bestimmen. 
+Die nachfolgenden Knoten können anhand dieses Labels aus einer Tabelle (Incoming Lable Map - ILM) den nächsten Knoten bestimmen. 
 Eine Auswertung des kompletten Paketkopfes ist nicht mehr notwendig.
 MPSL biete außerdem die Möglichkeit einem Paket auch mehr als ein Label zuzuordnen. 
 Dazu werden die Labels auf einem Stack, dem Lable-Stack abgelegt. 
@@ -190,6 +210,7 @@ Ein Router kann neu Labels auf dem Stack ablegen.
 Für die Auswertung des nächstens Routers wird immer das oberste Stackelement herangezogen. 
 Ist der nächste Route aktuelle Router muss das Label wieder Stack entfernt werden.
 Der Label-Stack von MPLS wird später bei der Implementierung von R3 in Abschnitt \ref{tD2_Implementierung} benötigt.
+
 
 %TODO Fast rerouting (FRR) - Ausführlicher?
 Ein häufig genutztes Verfahren um auf Netzwerkfehler wie beispielweise der Ausfall einer Verbindung 
@@ -212,41 +233,142 @@ Eine Information der anderen Router im Netz ist nicht zwingen erforderlich.
 Für MPLS gibt es eine ähnlich arbeitenden Variante die in \cite{RFC4090} beschrieben wird.
 
 
-%TODO Verwandte Arbeiten, bessere Einleitung suchen.
-%TODO "Routing für sich ändernde Netzauslastungen" ist das so richtig?
-%TODO Referenzen einfügen
-Bisherige Arbeiten zum diesem Thema behandeln meistens nur eine Seite, 
-entweder \textit{Routing im Fehlerfall} oder \textit{Routing für sich ändernde Netzauslastungen}.
-
-Der Hauptaugenmerk bei Routing im Fehlerfall liegt dabei in aller Regel auf der Ausfallzeit 
-und wie dieser minimiert werden kann. 
-Ein häufig verwender Ansatz ist die Vorbrechnung von Alternativ-Routen und das schnell Umschalten im Fehlerfall.
-Dieser Ansatz bietet allerdings noch keine Möglichkleit um Stausituation zu vermeiden oder die vorraussichtliche Leistung zu bestimmen.
-
-Alternatiev zu Vorberechnung können bestehende Routen auch nach jedem Fehler angepasst und optimiert werden. 
-Der Vorteil besteht darin, dass die neuen Routen jeweils auf die aktuelle Netztopology angepasst sind und diese optimal auslasten können.
-Der Nachteil liegt in der schlechteren Reaktionszeit. 
-Mitunter kann die Reorganisation des Routings für die neue Netztopology sehr aufwendig zu berechnen und einzurichten sein.
-
-Der andere Aspekt mit dem sich viele Arbeiten befassen ist die Tatsache, 
-dass sich die Verkehrssituationen in einem Netz wie beispielweise dem Internet sehr häufig ändern 
-und man daher ein Routing benötigt, was dies berücksichtigt.
-
+Leider kann auch mit FRR nicht sichergestellt werden, 
+dass es aufgrund ausgefallern Links und dadurch umgeleiten Netzwerkverkehr zu Stausitutation kommt. 
+Mit R3 hat Wang et al. in \cite{WWMA10} nun ein Ansatz vorgestellt, 
+der es ermöglicht ein Routing Schema zu berechnen, 
+das in der Lage ist für bis zu $F$ beliebige fehlerhafte Links Staufreiheit in einem Netzwerk zu garantieren.
+Das zugrundeliegende Routing $r$ kann dabei vorgegeben (z.b durch OSPF) oder ebenfalls von R3 berechnet werden. 
 
 \section{Resilient Routing Reconfiguration}
+\label{tD2_R3}
 
-%TODO: Bessere Begriffe für Base-Routing und Protection Routing suchen
-R3 - Resilient Routing Reconfiguration besteht prinzipiell aus zwei Teilen, 
-einer vom eigentlichen Netzbetrieb unabhängigen Vorberechnung (Offline-Phase) 
-sowohl eines Base-Routings als auch eines Protection-Routings 
-und einer ständigen Rekonfiguration (Online-Phase) des Protection Routings während des Netzbetriebs.
+Wie zuvor erwähnt besteht ein Problem beim Entwickeln von Routing-Schematas in der vielzahl möglicher Fehlerszenarien 
+und der daraus resultierenden Unkenntnis der genauen Netztopologie.
+Die Grundidee von R3 besteht nun darin nicht jede dieser mögliche Topologie zu berücksichtigen, 
+sondern das Problem in eine besser handhabbare Form zu transformieren.
+
+Angenommen ein Link $e$ auf einem Pfad zwischen zwei Routern $a$ und $b$ in einem Netz $G=(V,E)$ fällt aus, 
+so muss das verbleibende Netz $G'=(V, E \backslash \{e\})$ zusätzlich den vormals diesen Link transportierten Verkehr übertragen.
+Diese Zusatzbelastung hängt von dem aktuellen Verkehr des Links ab, 
+kann aber höchsten so groß wie die Kapazität $c_{e}$ des defekten Links sein 
+und wird als \textit{Virtual Demand} bezeichent. 
+Ordnet man jedem Link $e \in E$ einen solchen Virtual Demand entsprechend seiner Kapaziät zu, 
+dann deckt die Konvexkombination aller Virtual Demands den gesamten umzuleitenden Verkehr ab.
+
+Ordnet man jedem Link $e \in E$ einen Variable $x_{e}$ für den Virtual Demand des Links zu
+und erlaubt man bis zu $F$ fehlerhafte Links,  
+dann überdeckt die Menge 
+\begin{equation}
+X_{F} = \{x|0 \le \frac{x_{e}}{c_{e}} \le 1 (\forall e \in V), \sum_{e \in E} \frac{x_{e}}{c_{e}} \le F\}
+\label{tD2_VirtualDemandSet}
+\end{equation} 
+den gesamten umzuleitenden Verkehr, unabhängig vom konkreten Fehlerszenario.
+Anderst ausgedrückt, 
+für jedes mögliche Fehlerszenario mit maximal $F$ fehlerhaften Links enthält $X_{F}$ den gesamten umzuleitenden Verkehr.
+Anstelle eines Routings für ein konstante Verkehrsmatrix $d$ bei variabler Netztopologie zu berechnen, 
+kann nun ein Routing für die Origianltopologie bei variablen Verkehrsaufkommen $d+X_{F}$ berechnet werden. 
+Beschrieben wird das Verkehrsaufkomme $d+X_{F}$ durch die Summe des aktuellen Verkehrs $d$ und der Menge von Virtual Demands $X_{f}$ 
+und entspricht $d+X_{f} = \{d+x|x \in X_{f}\}$.
+%TODO Warum ist d+X_F unendlich
+Zu beachten ist hierbei, das im Gegensatz zur endlichen Anzahl möglicher Netztopologien die Anzahl möglicher neuer Verkehrsmatrizen $d+X_{F}$ leider unendlich ist. 
+Dies stellt jedoch kein Problem dar, 
+da sich die Menge dieser Verkehrzmatrizen mittels \ref{tD2_VirtualDemandSet} als enliche Menge linearer Bedingunge formulieren lässt.
+Dadurch kann Lineare Programmierung zur Berechnung und Optimierung eines Routings $r$ und eines Protection Routings $p$ verwendet werden.
+Das explizite Aufzählen der unterschiedlichen Vekehrmatrizen ist nicht notwendig.
+
+R3 nutzt nun diese Überlegungen als Grundlage.
+Prinzipiell gliedert sich R3 in zwei Teile, 
+einer vom Netzbetrieb unabhängen Vorberechnung (Offline-Phase), die sowohl ein Routing $r$ als auch ein Protection Routing $p$ berechnet 
+und einer ständigen Rekonfiguration (Online-Phase) von $p$ während des eigentlichen Netzbetriebs.
 
 \subsection{Vorberechnung (Offline-Phase)}
-In der Vorberechnungsphase wird, sofern noch nicht gegeben, 
-ein Routing $r$ für eine Verkehrsmatrix $d$ berechnet, 
-Auf dieser Grundlage wird ein Protection-Routing $p$ berechnet, 
+Aufgabe der Vorberechnungsphase ist es ein möglichst optimales Routing $r$ für eine gegeben Verkehrsmatrix $d$ 
+sowie ein entsprechendes Protection Routing $p$ für den Virtual Demand $X_{F}$ zu berechnen.
+Optimierungssziel ist dabei die Mimimierung der Maximalen Link-Auslastung (MLU) für die originale Netztopologie 
+und das kombinierten Verkehrsaufkommen $d+X_{F}$ aus aktuellem Verkehr $d$ und Virtual Demand $X_{F}$.
+Wie Eingangs schon erwähnt lässt sich dieses Problem mittels Linearer Programmierung effizient lösen.
+
+Formal entspricht das Problem den nachfolgenden linearen Programm:
+\begin{eqnarray}
+ \begin{array}{rl}
+    \mbox{\textbf{minimize}}_{(r,p)}    & MLU \\
+    \mbox{\textbf{subject to:}}  	& \\
+    \mbox{[C1]}         		& r = \{r_{a,b}(e)|a,b \in V, e \in E\}~\mbox{ist ein Routing nach \ref{tD2_RoutingConstraints}} \\
+					& p = \{p_{l}(e)|l,e \in E\}~\mbox{ist ein Routing nach \ref{tD2_RoutingConstraints}} \\
+    \mbox{[C2]}         		& \forall x \in X_{F}, \forall e \in E:\\
+					& \frac{\sum_{a,b \in V}d_{a,b}r_{ab}(e)+\sum_{l \in E}x_{l}p_{l}(e)}{c_{e}} \le MLU
+ \end{array}
+ \label{tD2_LPOriginal}
+\end{eqnarray}
+
+Während [C1] sicherstellt,  dass $r$ und $p$ die Bedignunge für ein gültiges Routing einhalten 
+fordert [C2] , dass die Maximal-Auslastung (MLU) für jeden Link und jeden Virtual Demand $x \in X_{F}$ nicht überschritten wird.
+In dieser Form des linearen Programm besteht weiterhin das Problem, 
+dass es sich bei $X_{F}$ um eine nicht endliche Menge handelt 
+und sich daraus auch unendlich viele Bedingungen ergeben.
+
+Nun kann aber die Dualität von linearen Programmen ausgenutz werden,  
+um das ursprüngliche Programm \ref{tD2_LPOriginal} in das nachfolgende einfachere lineares Programm
+mit polynomialer Anzahl an Bedingungen zu transformieren.
+
+\begin{eqnarray}
+ \begin{array}{rl}
+    \mbox{\textbf{minimize}}_{(r,p,\pi,\lambda)}    & MLU \\
+    \mbox{\textbf{subject to:}}  	& \\
+    		         		& r = \{r_{a,b}(e)|a,b \in V, e \in E\}~\mbox{ist ein Routing nach \ref{tD2_RoutingConstraints}} \\
+					& p = \{p_{l}(e)|l,e \in E\}~\mbox{ist ein Routing nach \ref{tD2_RoutingConstraints}} \\
+   		        		& \forall e \ in E: \frac{\sum_{a,b \in V}d_{a,b}r_{ab}(e)+\sum_{l \in E}\pi_{e}(l)+\lambda_{e}F}{c_{e}} \le MLU \\
+					& \forall e,l \in E: \frac{\pi_{e}(l)+\lambda_{e}}{c_{l}} \ge p_{l}(e) \\
+					& \forall e,l \in E. \pi_{e}(l) \ge 0 \\
+					& \forall e \in E: \lambda_{e} \ge 0
+ \end{array}
+ \label{tD2_LPSimple}
+\end{eqnarray}
+
+Für ein genau Beschreibung der Transformation zwischen \ref{tD2_LPSimple} und \ref{tD2_LPSimple} siehe \cite{WWMA10}
+
+%Dazu kann in Bedingung [C2] die Summe  $\sum_{l \in E}x_{l}p_{l}(e)$ durch die maximal mögliche Auslastung $ML(p,e)$ von $e$ für alle $x \in X_{f}$ ersetzt werden. 
+%Die Bedingung bleibt dadurch äquivalent. 
+%%TODO Warum beleibt die Bedingung äquivalent
+%Die Suche nach $ML(p,e)$ definiert ein weiteres lineares Programm:
+%\begin{eqnarray}
+% \begin{array}{rl}
+%    \mbox{\textbf{maximize}}_{x}    	& \sum_{l \in E}x_{l}p_{l}(e) \\
+%    \mbox{\textbf{subject to:}}     	& \forall l \in E: \frac{x_{l}}{c_{l}} \le 1\\
+%					& \sum_{l \in E} \frac{x_l}{c_l} \le F
+% \end{array}
+%\end{eqnarray}
+
 
 \subsection{Rekonfiguration (Online-Phase)}
+Da sich im Fehlerfall, z.B durch den Ausfall eines Links während des Betriebes die Netztopologie ändert, 
+muss das von der Offline-Phase für das gesamte Netzwerk ermittelte Protection Routing $p$ so angepasst werden, 
+dass $p$ keine ungültigen (defekten) Links verwendet. 
+
+Nachdem ein Link-Fehler auf einem Link $e$ von einem Router erkannt wird, 
+aktiviert dieser sofort sein Protection Routing $p$ und leitet den Verkehr entsprechen einer Routing-Alternative $\xi_{e}$ um.
+Da $p$ allerdings nicht für die Topologie in diesem konkreten Fehlerfall, 
+sondern auf der ursprünglichen Netztopologie definert wurde, 
+muss $p$ zuvor entsprechend des Fehlers angepasst werden, 
+um sicherzustellen das der defekte Link $e$ nicht mehr verwendet wird.  
+Um dies zu erreichen muss lediglich eine einfache Anpassung (re-scaling) der verbliebenen Links durchgeführt werden, 
+die den Verkehr von $e$ nun mittragen müssen. Die Anpassung erfolgt nach folgender Formel:
+\begin{equation}
+\xi_{e}(l) = \frac{p_{e}(l)}{1-p_{e}(e)};~\forall l \in E \backslash \{e\} 
+\end{equation}
+Damit wird sichergestellt, dass der gesamte Verkehr auch weiterleitet wird 
+und somit Routing-Bedingung [R2] in \ref{tD2_RoutingConstraints} gültig bleibt.
+
+Um den fehlerhaften Link $e$ nun generell nicht mehr zu benutzen, 
+müssen sowohl Routing $r$ als auch Protection Routing $p$ angepasst werden.
+Dazu kann einfach der vormals an $e$ zugeteiltet Verkehr $r_{ab}(e)$ 
+bzw. $p_{ab}(e)$ auf die Routing-Alternative $xi_{e}$ verteilt werden.
+Die Mehrbelastung für die betroffenen Links entspricht $r_{ab}*\xi_{e}(l);~\forall a,b \in V, \forall l \in E \backslash \{e\}$
+bzw. $p_{uv}(e)*\xi_{e}(l);~\forall u,v \in E \backslash \{e\}, \forall l \in E \backslash \{e\}$.
+
+
+
 
 \subsection{Beweise}
 
@@ -264,7 +386,7 @@ Auf dieser Grundlage wird ein Protection-Routing $p$ berechnet,
 
 \section{Implementierung}
 \label{tD2_Implementierung}
-Die Grundlage von R3 bildet eine flussbasierte Darstellung des Routings.
+Die Grundlage von R3 bildet die flussbasierte Darstellung des Routings.
 Da eine solches Routing-Schema von heutigen Routern noch nicht unterstütz wird, 
 müssen für eine Implementierung bestehende Verfahren daraufhin angepasst oder neue implementiert werden.
 Aufgrud dessen dass viele Anbieter für Router MPLS unterstützen 
@@ -275,7 +397,7 @@ Die hierfür notwendigen Erweiterung werden nun nachfolgend beschieben.
 Bei reinem MPLS wählt der Router beim Eintreffen eines Paketes anhand dessen Label das zu verwendende Interface, 
 über das das Paket weitergeleitet werden soll.
 Dazu führt der Router eine Datenstruktur in Form einer Tabel, 
-die für jedes Label eine entsprechende "next-hop label forwarding instruction (NHLFE)" enthält. 
+die für jedes Label eine entsprechende "next-hop label forwarding instruction (NHLFE) enthält. 
 Da für jedes Label nur ein Eintrag vorhanden ist, 
 wird der gesammt Verkehr der mit demselben Lable gekennzeichnet ist auch immer über dasselbe Interface geroutet.
 Um nun eine flussbasiertes Routing mit MPLS zu ermöglichen muss MPLS so erweitert werden, 
