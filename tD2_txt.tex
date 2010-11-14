@@ -387,20 +387,23 @@ bzw. $p_{uv}(e)*\xi_{e}(l);~\forall u,v \in E \backslash \{e\}, \forall l \in E 
 
 \section{Implementierung}
 \label{tD2_Implementierung}
+Im nachfolgenden Abschnitt soll eine mögliche Implementierung von R3, 
+wie sie von Wange et al. in \cite{WWMA10} vorgeschlagen wird vorgestellt werden.
+
 Die Grundlage von R3 bildet die flussbasierte Darstellung des Routings.
-Da eine solches Routing-Schema von heutigen Routern noch nicht unterstütz wird, 
-müssen für eine Implementierung bestehende Verfahren daraufhin angepasst oder neue implementiert werden.
-Aufgrud dessen dass viele Anbieter für Router MPLS unterstützen 
-und MPLS relative einfach durch MPLS-ff \cite{WWMA10} für flussbasiertes Routing erweitert werden kann, 
-eignet es sich sehr gut als Basismechanismus.
-Die hierfür notwendigen Erweiterung werden nun nachfolgend beschieben.
+Eine solches Routing-Schema wird von heutigen Routern allerdings noch unterstütz,
+weshalb für eine Implementierung bestehende Verfahren daraufhin angepasst 
+oder neue implementiert werden müssen.
+Wang et al. verwendet MPLS als Grundlage 
+und gib eine darauf aufbauende Erweiterung für flussbasiertes Routing an, 
+genannt MPLS-ff.
 
 Bei reinem MPLS wählt der Router beim Eintreffen eines Paketes anhand dessen Label das zu verwendende Interface, 
-über das das Paket weitergeleitet werden soll.
-Dazu führt der Router eine Datenstruktur in Form einer Tabel, 
+über welches das Paket weitergeleitet werden soll.
+Dazu führt der Router eine Datenstruktur in Form einer Tabel (ILM), 
 die für jedes Label eine entsprechende "next-hop label forwarding instruction (NHLFE) enthält. 
 Da für jedes Label nur ein Eintrag vorhanden ist, 
-wird der gesammt Verkehr der mit demselben Lable gekennzeichnet ist auch immer über dasselbe Interface geroutet.
+wird der gesammte Verkehr der mit demselben Lable gekennzeichnet ist auch immer über dasselbe Interface geroutet.
 Um nun eine flussbasiertes Routing mit MPLS zu ermöglichen muss MPLS so erweitert werden, 
 dass der zu einem Label gehörende Datenverkehr anteilig auf mehrer Interfaces verteilt  werden kann.
 MPLS-ff erweitert dazu die Datenstruktur so, 
