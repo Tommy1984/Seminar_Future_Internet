@@ -11,7 +11,8 @@
 % \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ 
 % Stellen, an denen etwas geändert werden soll, sind wie hier gekennzeichnet.
 % /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ 
-\newtheorem{mydef}{Definition}
+\newtheorem{Def}{Definition}
+\newtheorem{Bsp}{Beispiel} 
 %
 % ---------------------------------------------------------------------------
 % \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ 
@@ -156,7 +157,7 @@ wobei $d_{ab}$ dem aktuell von Sender $a$ initiierte Verkehr zum Empfänger $b$ e
 Ein so definiertes Routing gilt als korrekt wenn es die in \cite{WWMA10} beschiebenen Bedingungen erfüllt. 
 Nachfolgend sollen diese nocheinmal aufgeführt werden.
 Eine Menge $\{r_{ab}(e)\}$ ist ein korrektes Routing, wenn gilt:
-\begin{mydef}
+\begin{Def}
 Ein Routing $r$ ist gültig, wenn $r$ die nachfolgenden Bediungen [R1]-[R4] erfüllt.
 %TODO Quellenangabe einfügen
 \begin{eqnarray}
@@ -168,7 +169,7 @@ Ein Routing $r$ ist gültig, wenn $r$ die nachfolgenden Bediungen [R1]-[R4] erfül
  \end{array}
  \label{tD2_RoutingConstraints}
 \end{eqnarray}
-\end{mydef}
+\end{Def}
 Die erste Bedingung entspricht dem für Flussnetzwerke üblichen Flusserhalt und fordert, 
 dass jeder Zwischenknoten genausoviel weiterleitet wie in ihn hineinfließt.
 Die zweite Bedingun forde, dass der gesamte von einer Quelle initierte Verkehr weitergeleitet wird,
@@ -404,25 +405,28 @@ Um nun eine flussbasiertes Routing mit MPLS zu ermöglichen muss MPLS so erweiter
 dass der zu einem Label gehörende Datenverkehr anteilig auf mehrer Interfaces verteilt  werden kann.
 MPLS-ff erweitert dazu die Datenstruktur so, 
 dass sie mehrere NHLFE Einträge enthalten kann. 
-Außerdem wird jedem NHLFE Eintrag ein Faktor (next-hop splitting ratio) zugeordnet, 
-anhand dessen der Router die Pakete auf die, 
-diesem Label zugeordneten Interfaces aufteilen kann. 
+Außerdem wird jedem NHLFE ein Faktor (\textit{next-hop splitting ratio}) zugeordnet, 
+anhand dessen der Router die Pakete wie in \ref{tD2_R3} beschrieben, 
+auf die diesem Label zugeordneten Interfaces aufteilen kann. 
 
-%TODO Wie wird die next-hop Splitting Ratio implementiert?
-%TODO Bessere Erklärung für Protection Routing p.
+Damit Pakete die zu einer TCP-Verbindung gehören nicht unnötig über unterschiedliche Wege durch das Netz geschickt werden, 
+wodurch Laufzeitunterschiede entstehen können, 
+verwednet Wang et al. in \cite{WWMA10} ein Hashfunktion um die Pakete auf die zur Verfügung stehenden Links zu verteilen.
+Die Hashfunktion erhält als Eingabe die Quell- und Ziel-IP, die Quell- und Ziel-Ports sowie eine ID, abhängig vom aktuellen Router.
+Ziel der Hash-Funktion ist es, Pakten die zur selben TCP-Verbindung gehören auf einem Router immer denselben Hash-Wert zuzuordnen, 
+für unterschieldiche Router aber unterschiedlich zu sein.
+So wird erreicht, dass die Pakete einer TCP-Verbindung denselben Weg nehmen.  
+
 %TODO Refernz zu Fehlererkennung auf Schicht 2 einfügen
-%TODO Was ist mit mehreren Link-Ausfällen?
-%TODO Speicherung von p in RIB. Nötig?
-%TODO evt. Beispiel fpr MPSL-ff einfügen
 Mithilfe der Erweiterung MPLS-ff kann nun R3 implementiert werden.
-Die Vorberechnung des \textit{Protection Routings p} und die Einrichtung von MPLS-ff kann von einem zentralen Server erledigt werden.
-Die Rekonfiguration während des Betriebes muss jedeer Router selbst durchführen.
+Die Vorberechnung des \textit{Protection Routing p} und die Einrichtung von MPLS-ff kann von einem zentralen Server erledigt werden.
+Die Rekonfiguration während des Betriebes muss jeder Router selbst durchführen.
 Zu Fehlererkennung während des Betriebs kann die Sicherungsschicht (Layer 2) auf Fehlerereignisse beobachtet werden. 
 Auch andere Fehlererkennungsverfahren wie z.B \cite{KYGS05} sind möglich.
 Wird ein fehlerhafter Link erkannt, 
 werden alle andern Router mittels ICMP Paketen üder den Fehler informiert, 
 so das diese entsprechend ihr Protection Routing anpassen können.
-Dazu muss jeder Router die next-hop spitting ratio für die zu dem ausgefallenen Link gehörenden Sicherungs-Links anpassen.
+Dazu muss jeder Router die \textit{next-hop spitting ratio} für die zu dem ausgefallenen Link gehörenden Alternative-Links anpassen.
 
 Um nun Pakete im Fehlerfall umzuleiten wird der Label-Stack von MPLS verwendet. 
 Erkennt ein Router einen Linkfehler wird die für das Label des Paketes definierte Alternative-Route aktiviert.
@@ -431,6 +435,32 @@ Das Paket wird dann entsprechend diesem Lable weitergeleitet.
 Erreicht ein Paket wieder die Ursprungsroute, 
 wird das neue Lable wieder vom Label-Stack entfernt und kann auf normalem Weg weitergeleitet werden.
 
+\begin{Bsp}
+\label{tD2_ExampleFailurResponse}
+Angenommen O1 und O2 wollen beide mittels eine TCP-Verbindung Daten über das Netzwerk an D1 übertragen.
+Sei weiter angenommen, der normale Label Switch Pfad von R1 zu R3 führt über R2, wie in \ref{tD2_Implementation_Example_01} gezeigt.
+Trifft ein Paket bei Router R1 ein, so ordnet er diesem Paket ein Label zu, z.B das Label 100 für den Pfad R1-R2-R3 und leitet das Paket entsprechend weiter.
+
+\Abbildungf{!htb}{width= 0.50\textwidth}{tD2_Implementation_Example_01}{tD2_Implementation_Example_01}{Routing ohne Link-Fehler}
+
+Kommt es nun zu einem Link-Ausfall zwischen zwischen R1 und R2, wie in \ref{tD2_Implementation_Example_02} dargestellt, 
+so muss R1 sein Protection Routing aktivieren 
+und die Pakete entsprechend über die Alternativrouten umleiten. 
+Dazu ordnet R1 anhand seiner ILM den Paketen ein neues Protection Label, 
+bsw. 101 zu und legt es auf den Label Stack der MPLS Dateneinheit.
+Für dieses Label existiern nun angenommen zwei NHLFE in der ILM von R1, die besagen, 
+dass jeweils jeweils 50\% des Verkehrs von (R1,R2) nun über (R1,R4) und (R1,R5) übertragen werden.
+Um nun Pakete für dieselbe TCP-Verbindung auch auf demselbe Weg zu transportieren, 
+berechnet R1 wie oben beschieben eine Hashwert. 
+Anhand dieses Wertes teilt die Pakete entprechend für O1 an den nächsten Router R4 zu 
+und die Pakete von O2 an den nächsten Router R5.
+R4 und R5 leiten die Pakte dann entsprechend des Labels 101 an R2 weiter, 
+wo das oberste Label 101 wieder vom Stack entfernt und auf normalem Weg weiter zu R3 geleitet wird. 
+Ein ähnliches Beispiel findet sich auch in \cite{WWMA10}
+
+\Abbildungf{!htb}{width= 0.50\textwidth}{tD2_Implementation_Example_02}{tD2_Implementation_Example_02}{Routing im Fehlerfall}
+
+\end{Bsp}
 
 
 
@@ -456,7 +486,7 @@ wird das neue Lable wieder vom Label-Stack entfernt und kann auf normalem Weg we
 % Bitte keinen Text mehr unterhalb dieser Zeile eintragen!!
 % -----------------------------------------------------------------------------
 %
-% --> blicherweise wird nur die Literatur aufgelistet, die auch referenziert
+% --> Üblicherweise wird nur die Literatur aufgelistet, die auch referenziert
 %     wird. Mchte man auch nichtreferenzierte Literatur einschlieen, so
 %     kann man dies mit \nocite{<citelabel>} tun.
 \nocite{*}
