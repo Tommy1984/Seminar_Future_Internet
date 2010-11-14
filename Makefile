@@ -31,12 +31,17 @@ $(FILE).ps: $(FILE).dvi
 
 ps: $(FILE).ps
 
-pdf:
+pdf:	
+	epstopdf tD2_Implementation_Example_01.eps
+	epstopdf tD2_Implementation_Example_02.eps
+	pdflatex $(FILE)
+	bibtex $(FILE)
+	pdflatex $(FILE)
 	pdflatex $(FILE)
 
 gv:     ps
 	ghostview $(FILE).ps &
 
 clean: 
-	echo "Removing: *.aux *.log *.blg *.bbl *.dvi"
-	rm -f *.aux *.log *.blg *.bbl *.dvi *.out
+	echo "Removing: *.aux *.log *.blg *.bbl *.dvi *.pdf"
+	rm -f *.aux *.log *.blg *.bbl *.dvi *.out *.pdf
