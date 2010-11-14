@@ -83,6 +83,9 @@ Hier steht der Abstract
 % ---------------------------------------------------------------------------
 % \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ \/ 
 
+%------------------------------------------------------------------------------
+% Kapitel - Einleitung
+%------------------------------------------------------------------------------
 \section{Einleitung}
 \label{tD2_Einleitung}
 %TODO besserer Begriff für Netzwerkfehler (trifft nicht unbedingt genau die Sache)
@@ -137,6 +140,9 @@ kann flxiebel an verschieden Leistungsanforderungen (z.B zur Einhaltung von Serv
 und ist robust gegenüber Änderungen der Netzauslastung oder der Netztopolgie.
 
 
+%------------------------------------------------------------------------------
+% Kapitel - Grundlagen
+%------------------------------------------------------------------------------
 \section{Grundlagen}
 \label{tD2_Grundlagen}
 %TODO Protectin Routing erklären, definieren
@@ -241,6 +247,11 @@ der es ermöglicht ein Routing Schema zu berechnen,
 das in der Lage ist für bis zu $F$ beliebige fehlerhafte Links Staufreiheit in einem Netzwerk zu garantieren.
 Das zugrundeliegende Routing $r$ kann dabei vorgegeben (z.b durch OSPF) oder ebenfalls von R3 berechnet werden. 
 
+%TODO Routing Resiliency erklären, definieren
+
+%------------------------------------------------------------------------------
+% Kapitel - Resilient Routing Reconfiguration
+%------------------------------------------------------------------------------
 \section{Resilient Routing Reconfiguration}
 \label{tD2_R3}
 
@@ -315,14 +326,14 @@ mit polynomialer Anzahl an Bedingungen zu transformieren.
 
 \begin{eqnarray}
  \begin{array}{rl}
-    \mbox{\textbf{minimize}}_{(r,p,\pi,\lambda)}    & MLU \\
-    \mbox{\textbf{subject to:}}  	& \\
-    		         		& r = \{r_{a,b}(e)|a,b \in V, e \in E\}~\mbox{ist ein Routing nach \ref{tD2_RoutingConstraints}} \\
-					& p = \{p_{l}(e)|l,e \in E\}~\mbox{ist ein Routing nach \ref{tD2_RoutingConstraints}} \\
-   		        		& \forall e \ in E: \frac{\sum_{a,b \in V}d_{a,b}r_{ab}(e)+\sum_{l \in E}\pi_{e}(l)+\lambda_{e}F}{c_{e}} \le MLU \\
-					& \forall e,l \in E: \frac{\pi_{e}(l)+\lambda_{e}}{c_{l}} \ge p_{l}(e) \\
-					& \forall e,l \in E. \pi_{e}(l) \ge 0 \\
-					& \forall e \in E: \lambda_{e} \ge 0
+    \mbox{\textbf{minimize}}_{(r,p,\pi,\lambda)} & MLU \\
+    \mbox{\textbf{subject to:}}  		 & \\
+    		         			 & r = \{r_{a,b}(e)|a,b \in V, e \in E\}~\mbox{ist ein Routing nach \ref{tD2_RoutingConstraints}} \\
+						 & p = \{p_{l}(e)|l,e \in E\}~\mbox{ist ein Routing nach \ref{tD2_RoutingConstraints}} \\
+   		        			 & \forall e \ in E: \frac{\sum_{a,b \in V}d_{a,b}r_{ab}(e)+\sum_{l \in E}\pi_{e}(l)+\lambda_{e}F}{c_{e}} \le MLU \\
+						 & \forall e,l \in E: \frac{\pi_{e}(l)+\lambda_{e}}{c_{l}} \ge p_{l}(e) \\
+						 & \forall e,l \in E. \pi_{e}(l) \ge 0 \\
+						 & \forall e \in E: \lambda_{e} \ge 0
  \end{array}
  \label{tD2_LPSimple}
 \end{eqnarray}
@@ -368,23 +379,40 @@ bzw. $p_{ab}(e)$ auf die Routing-Alternative $xi_{e}$ verteilt werden.
 Die Mehrbelastung für die betroffenen Links entspricht $r_{ab}*\xi_{e}(l);~\forall a,b \in V, \forall l \in E \backslash \{e\}$
 bzw. $p_{uv}(e)*\xi_{e}(l);~\forall u,v \in E \backslash \{e\}, \forall l \in E \backslash \{e\}$.
 
-
-
-
-\subsection{Beweise}
-
 \subsection{Erweiterungen}
-%TODO Überschrifften besser formulieren
-\textbf{Behandlung von unterschiedlichem Verkehrsaufkommen}
+%TODO Erweiterungen genauer erklären
+Wang et al. bescheibt in \cite{WWMA10} einige Erweiterung mit denen der 
+Standartansatz von R3 erweitert werden kann.
 
-\textbf{Behandlung von realisitschen Fehlerszenarien}
+Eine Erweiterung ist der Umgang mit variablen Verkehrmatrizen, 
+ansteller der wie bisher angenommen konstanten Verkehrsmatrix $d$. 
 
-\textbf{Behanldung von Priorisiertem Verkehr}
+Die nächste Erweiterung ist die Behandlung von Zusammenhängenden Link-Ausfällen.
+Link-Ausfälle treten nicht immer einzeln und unabhängig voneinander auf, sondern 
+können in einem gewissen Zusammenhang stehen. Als Beispiel wird in \cite{WWMA10}
+der Ausfall einer von mehreren IP-Links gemeinsam genutzen Komponente angeben, 
+oder das gleichzeitige Abschalten mehrerer Links durch den Netzbetreiber für 
+Wartungsarbeiten. Wang et al. unterscheidet dazu die beiden Klassen, 
+Shared Risk Link Group (SRLG) zu den das erste Beispiel gehört 
+und die Maintenance Link Group (MLG) zu der das zweite Beispiel gehört.
+Eine Shared Risk Link Group besteht aus Links die immer gleichzeitig unterbrochen 
+werden.
+Eine MLG besteht aus Links die vom Netzbetrieber zu Wartungszwecken zusammen 
+abgeschlaten werden.
+R3 kann nun ergänzt werden um soche Fehlerkarakteristiken zu berücksichtigen.
 
-\textbf{Abwägung zwischne Performance unter normalen Bedinngungen und im Fehlerfall}
+Eine weitere Möglichkeit von R3 besteht darin unterschiedliche Verkehrsklassen 
+unterschiedlich zu behandeln, indem eine Klasse mehr und die andere weniger 
+gleichzeitig bestehende Fehler tolerieren kann.
 
-\textbf{Abwägung zwischne Netzauslastung und Verzögerungszeiten} 
+Die letzten beiden vorgestellten Erweiterungen befassen sich mit dem Verhältnis 
+zwischen Leistung im Normalbetrieb und Fehlerfall und mit dem Verhältnis 
+zwischen Netzauslastung und Verzögerungszeit.
 
+
+%------------------------------------------------------------------------------
+% Kapitel - Implementierung
+%------------------------------------------------------------------------------
 \section{Implementierung}
 \label{tD2_Implementierung}
 Im nachfolgenden Abschnitt soll eine mögliche Implementierung von R3, 
@@ -394,7 +422,7 @@ Die Grundlage von R3 bildet die flussbasierte Darstellung des Routings.
 Eine solches Routing-Schema wird von heutigen Routern allerdings noch unterstütz,
 weshalb für eine Implementierung bestehende Verfahren daraufhin angepasst 
 oder neue implementiert werden müssen.
-Wang et al. verwendet MPLS als Grundlage 
+Wang et al. verwendet MPLS (Linux MPLS) als Grundlage 
 und gib eine darauf aufbauende Erweiterung für flussbasiertes Routing an, 
 genannt MPLS-ff.
 
@@ -420,7 +448,7 @@ Ziel der Hash-Funktion ist es, Pakten die zur selben TCP-Verbindung gehören auf 
 für unterschieldiche Router aber unterschiedlich zu sein.
 So wird erreicht, dass die Pakete einer TCP-Verbindung denselben Weg nehmen.  
 
-%TODO Refernz zu Fehlererkennung auf Schicht 2 einfügen
+%TODO Referenz zu Fehlererkennung auf Schicht 2 einfügen
 Mithilfe der Erweiterung MPLS-ff kann nun R3 implementiert werden.
 Die Vorberechnung des \textit{Protection Routing p} und die Einrichtung von MPLS-ff kann von einem zentralen Server erledigt werden.
 Die Rekonfiguration während des Betriebes muss jeder Router selbst durchführen.
@@ -446,7 +474,8 @@ Trifft ein Paket bei Router R1 ein, so ordnet er diesem Paket ein Label zu, z.B 
 
 \Abbildungf{!htb}{width= 0.50\textwidth}{tD2_Implementation_Example_01}{tD2_Implementation_Example_01}{Routing ohne Link-Fehler}
 
-Kommt es nun zu einem Link-Ausfall zwischen zwischen R1 und R2, wie in \ref{tD2_Implementation_Example_02} dargestellt, 
+Kommt es nun zu einem Link-Ausfall zwischen zwischen R1 und R2, 
+wie in \ref{tD2_Implementation_Example_02} dargestellt, 
 so muss R1 sein Protection Routing aktivieren 
 und die Pakete entsprechend über die Alternativrouten umleiten. 
 Dazu ordnet R1 anhand seiner ILM den Paketen ein neues Protection Label, 
@@ -466,18 +495,46 @@ Ein ähnliches Beispiel findet sich auch in \cite{WWMA10}
 \end{Bsp}
 
 
-
-
-
-
-
+%------------------------------------------------------------------------------
+% Kapitel - Evaluierung
+%------------------------------------------------------------------------------
 \section{Evaluierung}
+Der nachfolgende Abschnitt gibt einen Überblick über die in \cite{WWMA10} 
+vorgestellte Evaluierung von R3.
+Zur Evaluierung wurden zum einen Simulationen und zum anderen die ebenfalls in 
+\cite{WWMA10} vorgestellte, auf Linux MPLS basierende reale Implementierung von 
+R3 verwendet. 
+
+Die verwendeten Netztopologien zur Simulation sind zum einen die Topologie von 
+US-ISP, einem führenden Internet Service Provieder und zum anderen die durch das 
+Rocketfuel-Projekt \cite{tD2_SpMW02} aufgezeichneten Netztopologien von Level-3, 
+SBC und UUNet, sowie einer mittels GT-ITM generierten Backbonetopologie.
+Zur Evaluierung der experimentellen Implementierung von R3 wurde mittels Emulab 
+die Backbone-Topologie des Abilene Netzwerks emuliert.
+%TODO Traffic
+%TODO Verkehrsdicht hier richtig?
+Als mögliche Fehlerszenarien wurden alle Einzel-Linkfehler sowie alle möglichen 
+Zwei-Link-Fehler berücksichtigt. 
+Außerdem wurden insgesamt 1100 verschiedene Drei- und Vier-Link-Fehler 
+berücksichtigt, die zufällig ausgewählt wurden.
+Gemessen wurde zum einen die Verkehrsdichte, bzw die Netzwerkstauung und zum 
+Anderen das Verhältnis aus Verkehrsdicht und optimalem flussbasiertem Routing.
+
+%TODO Verfahren nochmal überarbeiten
+Verglichen wurden die beiden Routingverfahren OSPF und MPLS-ff im Zusammenhang 
+mit den Sicherungs-Verfahren Constrained Shortest Path First (CSPF), 
+OSPF reconvergence (recon), Failur-Carring-Packet (FCP), Path Splicing 
+(PathSplicing), R3 und Flow-based optimal link detour routing (opt).
+
 
 \subsection{Simulation}
 
 \subsection{Reale Implementierung}
 
 
+%------------------------------------------------------------------------------
+% Kapitel - Zusammenfassung
+%------------------------------------------------------------------------------
 \section{Zusammenfassung}
 
 
