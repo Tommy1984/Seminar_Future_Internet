@@ -408,6 +408,18 @@ gleichzeitig bestehende Fehler tolerieren kann.
 Die letzten beiden vorgestellten Erweiterungen befassen sich mit dem Verhältnis 
 zwischen Leistung im Normalbetrieb und Fehlerfall und mit dem Verhältnis 
 zwischen Netzauslastung und Verzögerungszeit.
+%TODO Formaler?
+Da bei Ausfall eines oder mehrere Links die Netzkapazität gemindert wird und 
+der Zusatzverkehr des defekten Links zusätzlich übetragen werden muss, 
+müssen entsprechende Redundanz in Form von Kapazitätsreserven berücksichtigt werden. 
+Will man im Fehlerfall weiterhin eine hohe Leistung ermöglichen, 
+muss diese Redundanz entsprechend groß sein. 
+Umgekehr bedeutet dies das im Normalbetrieb nicht die best mögliche 
+Auslastung erreicht werden kann. 
+Um die Auslastung für den regulären Betrieb zu beeinfluss bzw. zu verbessern,
+wird das Lineare Programm \ref{tD2_LPSimple} um zusätzliche Bedinungen ergänzt, 
+mit denen der Abstand der Normallseitung vom Optimum beeinflusst werden kann.  
+%TODO Trade off between network utilization and delay
 
 
 %------------------------------------------------------------------------------
