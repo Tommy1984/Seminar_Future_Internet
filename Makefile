@@ -34,6 +34,7 @@ ps: $(FILE).ps
 pdf:	
 	epstopdf tD2_Implementation_Example_01.eps
 	epstopdf tD2_Implementation_Example_02.eps
+	epstopdf tD2_RTT_Measurement.eps
 	pdflatex $(FILE)
 	bibtex $(FILE)
 	pdflatex $(FILE)

@@ -154,7 +154,7 @@ Dabei kann für die Datenübertragung nicht nur ein Pfad sondern auch mehrere unte
 Jeder Pfad überträgt dann einen gewissen Anteil der zu übermittelnden Informationen.
 Fasst man ein IP-Netzwerk als gerichteten Graph $G=(V,E)$ auf, 
 wobei $V$ der Menge der Router und $E$ der Menge der Netzwerkverbindungen zwischen den Routern entspircht, 
-lässt sich eine Routing $r$ auch als Fluss auffassen \cite{ApCo03}. 
+lässt sich eine Routing $r$ auch als Fluss auffassen \cite{tD2_ApCo03}. 
 Die Werte $r_{ab}(e)$ geben dazu jeweils den Anteil einer Übertragung von $a \in V$ nach $b \in V$ an, 
 der über die Verbindung $e \in E$ geroutet wird.
 Als Menge $\{r_{ab}(e)|a,b \in V \land e \in E\}$ zusammengefasst beschreiben diese Werte so das gesammte Routing $r$.
@@ -203,7 +203,7 @@ und man daher ein Routing benötigt, was dies berücksichtigt.
 
 %TODO MPLS - Ausführlicher?
 %TODO FEC im zusammenhang mit Packet-Reihenfolge
-Multiprotokol Label Switching (MPLS) \cite{RFC3031} ist ein Verfahren, 
+Multiprotokol Label Switching (MPLS) \cite{tD2_RFC3031} ist ein Verfahren, 
 welches eine verbindungsorientierte Datenübertragung auch in ansonsten verbindungslosen Netzen ermöglicht. 
 Während beim klassichen Routing auf Schicht 3 jeder Router aufs neue den nächsten Knoten (Next Hop) für eine Dateneinheit bestimmen muss,
 wird bei MPLS zu Beginn einer Übertragung jede Dateneinheit einer Weiterleitungsklasse (Forwarding Equivalent Class - FEC) zugeordnet, 
@@ -419,59 +419,75 @@ Im nachfolgenden Abschnitt soll eine mögliche Implementierung von R3,
 wie sie von Wange et al. in \cite{WWMA10} vorgeschlagen wird vorgestellt werden.
 
 Die Grundlage von R3 bildet die flussbasierte Darstellung des Routings.
-Eine solches Routing-Schema wird von heutigen Routern allerdings noch unterstütz,
-weshalb für eine Implementierung bestehende Verfahren daraufhin angepasst 
-oder neue implementiert werden müssen.
+Eine solches Routing-Schema wird von heutigen Routern allerdings noch 
+unterstütz, weshalb für eine Implementierung bestehende Verfahren daraufhin 
+angepasst oder neue implementiert werden müssen.
 Wang et al. verwendet MPLS (Linux MPLS) als Grundlage 
 und gib eine darauf aufbauende Erweiterung für flussbasiertes Routing an, 
 genannt MPLS-ff.
 
-Bei reinem MPLS wählt der Router beim Eintreffen eines Paketes anhand dessen Label das zu verwendende Interface, 
-über welches das Paket weitergeleitet werden soll.
-Dazu führt der Router eine Datenstruktur in Form einer Tabel (ILM), 
-die für jedes Label eine entsprechende "next-hop label forwarding instruction (NHLFE) enthält. 
-Da für jedes Label nur ein Eintrag vorhanden ist, 
-wird der gesammte Verkehr der mit demselben Lable gekennzeichnet ist auch immer über dasselbe Interface geroutet.
-Um nun eine flussbasiertes Routing mit MPLS zu ermöglichen muss MPLS so erweitert werden, 
-dass der zu einem Label gehörende Datenverkehr anteilig auf mehrer Interfaces verteilt  werden kann.
-MPLS-ff erweitert dazu die Datenstruktur so, 
-dass sie mehrere NHLFE Einträge enthalten kann. 
-Außerdem wird jedem NHLFE ein Faktor (\textit{next-hop splitting ratio}) zugeordnet, 
-anhand dessen der Router die Pakete wie in \ref{tD2_R3} beschrieben, 
+Bei reinem MPLS wählt der Router beim Eintreffen eines Paketes anhand dessen 
+Label das zu verwendende Interface, über welches das Paket weitergeleitet 
+werden soll.
+Dazu führt der Router eine Datenstruktur in Form einer Tabel (ILM), die für 
+jedes Label eine entsprechende "next-hop label forwarding instruction (NHLFE) 
+enthält. 
+Da für jedes Label nur ein Eintrag vorhanden ist, wird der gesammte Verkehr der 
+mit demselben Lable gekennzeichnet ist auch immer über dasselbe Interface 
+geroutet.
+Um nun eine flussbasiertes Routing mit MPLS zu ermöglichen muss MPLS so 
+erweitert werden, dass der zu einem Label gehörende Datenverkehr anteilig auf 
+mehrer Interfaces verteilt  werden kann.
+MPLS-ff erweitert dazu die Datenstruktur so, dass sie mehrere NHLFE Einträge 
+enthalten kann. 
+Außerdem wird jedem NHLFE ein Faktor (\textit{next-hop splitting ratio}) 
+zugeordnet, anhand dessen der Router die Pakete wie in \ref{tD2_R3} beschrieben, 
 auf die diesem Label zugeordneten Interfaces aufteilen kann. 
 
-Damit Pakete die zu einer TCP-Verbindung gehören nicht unnötig über unterschiedliche Wege durch das Netz geschickt werden, 
-wodurch Laufzeitunterschiede entstehen können, 
-verwednet Wang et al. in \cite{WWMA10} ein Hashfunktion um die Pakete auf die zur Verfügung stehenden Links zu verteilen.
-Die Hashfunktion erhält als Eingabe die Quell- und Ziel-IP, die Quell- und Ziel-Ports sowie eine ID, abhängig vom aktuellen Router.
-Ziel der Hash-Funktion ist es, Pakten die zur selben TCP-Verbindung gehören auf einem Router immer denselben Hash-Wert zuzuordnen, 
+Damit Pakete die zu einer TCP-Verbindung gehören nicht unnötig über 
+unterschiedliche Wege durch das Netz geschickt werden, wodurch 
+Laufzeitunterschiede entstehen können, verwednet Wang et al. in \cite{WWMA10} 
+ein Hashfunktion um die Pakete auf die zur Verfügung stehenden Links zu 
+verteilen.
+Die Hashfunktion erhält als Eingabe die Quell- und Ziel-IP, die Quell- und 
+Ziel-Ports sowie eine ID, abhängig vom aktuellen Router.
+Ziel der Hash-Funktion ist es, Pakten die zur selben TCP-Verbindung gehören auf 
+einem Router immer denselben Hash-Wert zuzuordnen, 
 für unterschieldiche Router aber unterschiedlich zu sein.
 So wird erreicht, dass die Pakete einer TCP-Verbindung denselben Weg nehmen.  
 
 %TODO Referenz zu Fehlererkennung auf Schicht 2 einfügen
 Mithilfe der Erweiterung MPLS-ff kann nun R3 implementiert werden.
-Die Vorberechnung des \textit{Protection Routing p} und die Einrichtung von MPLS-ff kann von einem zentralen Server erledigt werden.
+Die Vorberechnung des \textit{Protection Routing p} und die Einrichtung von 
+MPLS-ff kann von einem zentralen Server erledigt werden.
 Die Rekonfiguration während des Betriebes muss jeder Router selbst durchführen.
-Zu Fehlererkennung während des Betriebs kann die Sicherungsschicht (Layer 2) auf Fehlerereignisse beobachtet werden. 
-Auch andere Fehlererkennungsverfahren wie z.B \cite{KYGS05} sind möglich.
+Zu Fehlererkennung während des Betriebs kann die Sicherungsschicht (Layer 2) 
+auf Fehlerereignisse beobachtet werden. 
+Auch andere Fehlererkennungsverfahren wie z.B \cite{tD2_KYGS05} sind möglich.
 Wird ein fehlerhafter Link erkannt, 
-werden alle andern Router mittels ICMP Paketen üder den Fehler informiert, 
-so das diese entsprechend ihr Protection Routing anpassen können.
-Dazu muss jeder Router die \textit{next-hop spitting ratio} für die zu dem ausgefallenen Link gehörenden Alternative-Links anpassen.
+werden alle andern Router mittels ICMP Paketen üder den Fehler informiert, so 
+das diese entsprechend ihr Protection Routing anpassen können.
+Dazu muss jeder Router die \textit{next-hop spitting ratio} für die zu dem 
+ausgefallenen Link gehörenden Alternative-Links anpassen.
 
 Um nun Pakete im Fehlerfall umzuleiten wird der Label-Stack von MPLS verwendet. 
-Erkennt ein Router einen Linkfehler wird die für das Label des Paketes definierte Alternative-Route aktiviert.
-Dazu pusht der Router ein weiters Label auf den Label-Stack des Paketes und ordent es damit der Alternative-Route zu.
+Erkennt ein Router einen Linkfehler wird die für das Label des Paketes 
+definierte Alternative-Route aktiviert.
+Dazu pusht der Router ein weiters Label auf den Label-Stack des Paketes und 
+ordent es damit der Alternative-Route zu.
 Das Paket wird dann entsprechend diesem Lable weitergeleitet. 
 Erreicht ein Paket wieder die Ursprungsroute, 
-wird das neue Lable wieder vom Label-Stack entfernt und kann auf normalem Weg weitergeleitet werden.
+wird das neue Lable wieder vom Label-Stack entfernt und kann auf normalem Weg 
+weitergeleitet werden.
 
 \begin{Bsp}
 \label{tD2_ExampleFailurResponse}
-Angenommen O1 und O2 wollen beide mittels eine TCP-Verbindung Daten über das Netzwerk an D1 übertragen.
-Sei weiter angenommen, der normale Label Switch Pfad von R1 zu R3 führt über R2, wie in \ref{tD2_Implementation_Example_01} gezeigt.
-Trifft ein Paket bei Router R1 ein, so ordnet er diesem Paket ein Label zu, z.B das Label 100 für den Pfad R1-R2-R3 und leitet das Paket entsprechend weiter.
-
+Angenommen O1 und O2 wollen beide mittels eine TCP-Verbindung Daten über das 
+Netzwerk an D1 übertragen.
+Sei weiter angenommen, der normale Label Switch Pfad von R1 zu R3 führt über 
+R2, wie in \ref{tD2_Implementation_Example_01} gezeigt.
+Trifft ein Paket bei Router R1 ein, so ordnet er diesem Paket ein Label zu, z.B 
+das Label 100 für den Pfad R1-R2-R3 und leitet das Paket entsprechend weiter.
 \Abbildungf{!htb}{width= 0.50\textwidth}{tD2_Implementation_Example_01}{tD2_Implementation_Example_01}{Routing ohne Link-Fehler}
 
 Kommt es nun zu einem Link-Ausfall zwischen zwischen R1 und R2, 
@@ -480,18 +496,18 @@ so muss R1 sein Protection Routing aktivieren
 und die Pakete entsprechend über die Alternativrouten umleiten. 
 Dazu ordnet R1 anhand seiner ILM den Paketen ein neues Protection Label, 
 bsw. 101 zu und legt es auf den Label Stack der MPLS Dateneinheit.
-Für dieses Label existiern nun angenommen zwei NHLFE in der ILM von R1, die besagen, 
-dass jeweils jeweils 50\% des Verkehrs von (R1,R2) nun über (R1,R4) und (R1,R5) übertragen werden.
-Um nun Pakete für dieselbe TCP-Verbindung auch auf demselbe Weg zu transportieren, 
-berechnet R1 wie oben beschieben eine Hashwert. 
-Anhand dieses Wertes teilt die Pakete entprechend für O1 an den nächsten Router R4 zu 
-und die Pakete von O2 an den nächsten Router R5.
+Für dieses Label existiern nun angenommen zwei NHLFE in der ILM von R1, die 
+besagen, dass jeweils jeweils 50\% des Verkehrs von (R1,R2) nun über (R1,R4) 
+und (R1,R5) übertragen werden.
+Um nun Pakete für dieselbe TCP-Verbindung auch auf demselbe Weg zu 
+transportieren, berechnet R1 wie oben beschieben eine Hashwert. 
+Anhand dieses Wertes teilt die Pakete entprechend für O1 an den nächsten Router 
+R4 zu und die Pakete von O2 an den nächsten Router R5.
 R4 und R5 leiten die Pakte dann entsprechend des Labels 101 an R2 weiter, 
-wo das oberste Label 101 wieder vom Stack entfernt und auf normalem Weg weiter zu R3 geleitet wird. 
+wo das oberste Label 101 wieder vom Stack entfernt und auf normalem Weg weiter 
+zu R3 geleitet wird. 
 Ein ähnliches Beispiel findet sich auch in \cite{WWMA10}
-
 \Abbildungf{!htb}{width= 0.50\textwidth}{tD2_Implementation_Example_02}{tD2_Implementation_Example_02}{Routing im Fehlerfall}
-
 \end{Bsp}
 
 
@@ -511,6 +527,26 @@ Rocketfuel-Projekt \cite{tD2_SpMW02} aufgezeichneten Netztopologien von Level-3,
 SBC und UUNet, sowie einer mittels GT-ITM generierten Backbonetopologie.
 Zur Evaluierung der experimentellen Implementierung von R3 wurde mittels Emulab 
 die Backbone-Topologie des Abilene Netzwerks emuliert.
+
+\begin{table}[!htb]  
+\label{tD2_SummaryNetworks}                   
+\begin{center}
+\begin{tabular}{|l||c|c|c|c|c|c|}
+\hline
+Netz		& Knoten	& Links	\\
+\hline
+Abilene    	& 11	& 28 \\
+Level-3		& 17	& 72 \\
+SBC		& 19	& 70 \\
+UUNet		& 47	& 336  \\
+Generated	& 100	& 460  \\
+US-ISP		& -	& - \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Übersicht über die Netztopologien \cite{WWMA10}}
+\end{table}
+
 %TODO Traffic
 %TODO Verkehrsdicht hier richtig?
 Als mögliche Fehlerszenarien wurden alle Einzel-Linkfehler sowie alle möglichen 
@@ -530,6 +566,53 @@ OSPF reconvergence (recon), Failur-Carring-Packet (FCP), Path Splicing
 \subsection{Simulation}
 
 \subsection{Reale Implementierung}
+Neben der Simualtion des Verhaltens verschieder Routing-Protokolle in 
+verschiedenen Topologien wurde in \cite{WWMA10} auch die Leistungsfähigkeit von 
+R3 durch eine für Linux implementierten Variante von R3 evaluiert.
+Bewertet wurde dabei die Zeit für die Vorberechnung (Offline-Phase) von $r$ 
+und $p$, den zusätzlichen Speicheraufwand von MPLS-ff und die 
+Leistungsfähigkeit des Routings.
+
+Tabelle \ref{tD2_OfflinePhase} zeigt die ermittelten Zeiten der Offline-Phase. 
+Gelöst wurde das zugrundeliegende lineare Programm \ref{tD2_LPSimple} mit 
+ILOG CPLEX 10.0. Die Laufzeiten nehmen mit zunehmender Knoten- und Link Anzahl 
+zu, schwanken aber über der Anzahl der Fehler.
+
+\begin{table}[!htb]  
+\label{tD2_OfflinePhase}                   
+\begin{center}
+\begin{tabular}{|l||c|c|c|c|c|c|}
+\hline
+Netz / Anzahl Link-Fehler	& 1 	& 2 	& 3 	& 4 	& 5 	& 6 \\
+\hline
+Abilene    			& 0.3	& 0.30	& 0.30	& 0.32	& 0.33	& 0.29 \\
+Level-3				& 1.80	& 1.97	& 2.56	& 2.71	& 2.46	& 2.43 \\
+SBC				& 1.46	& 1.76	& 1.75	& 1.76	& 1.92	& 1.91 \\
+UUNet				& 1010	& 572	& 1067	& 810 	& 864	& 720 \\
+Generated			& 1388	& 929	& 1971	& 2001	& 1675	& 2131 \\
+US-ISP				& 21.3	& 21.9	& 21.4	& 20.1	& 22.1	& 21.8 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{R3 Offline-Phase in Sekunden \cite{WWMA10}}
+\end{table}
+ 
+Eine Messung des Speicherverbrauchs ergab ein moderates Ergebnis von höchstens 
+267KB für die Forwarding Information Base (UUNet) und höchstens 20MB für die 
+Routing Information Base (Generated).
+Zur Evaluierung der Leistungsfähigkeit von R3 wurde der Durchsatz zwischen 
+jedem Sender-Empfänger Paar des Abilene Netzwerks, die Link-Auslastungen und 
+die aufsummierte Verlustrate an den End-Routern gemessen. Zur Fehler-Simulation 
+wurden drei Links nacheinander abgeschaltet. Diese erkennt man an der 
+treppenartig steigenden Round Trip Time einer Verbindung in Abbildung 
+\ref{tD2_RTT_Measurement}. 
+Eine Überlastung der Links durch R3 Rerouting konnte nicht jedoch nicht 
+festgestellt werden.
+\Abbildungf{!htb}{width= 0.50\textwidth}{tD2_RTT_Measurement}{tD2_RTT_Measurement}{Round Trip Time (RTT) einer Verbindung}
+
+
+
+
 
 
 %------------------------------------------------------------------------------
