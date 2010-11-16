@@ -89,55 +89,66 @@ Hier steht der Abstract
 \section{Einleitung}
 \label{tD2_Einleitung}
 %TODO besserer Begriff für Netzwerkfehler (trifft nicht unbedingt genau die Sache)
-Heutige Netze wie beispielsweise das  IP-basierte Internet, 
-bestehen in der Regel aus einer Vielzahl einzelner Netzknoten, 
-die nicht notwendigerweise direkt, 
-sondern über mehrere Knoten hinweg miteinander verbunden sind.
-Sollen Information zu einem entfernten Knoten transportiert werden, 
-müssen diese von den dazwischen liegenden Netzknoten weitergereicht werden, 
-bis sie den Zielknoten erreicht haben.
-Die Wahl der zu verwendeten Zwischensysteme, 
-also eines Weges wird als Routing bezeichnet.
-Ein wichtiger Aspekt dabei ist die Optimierung des Weges bezüglich einer Metrik, 
-wie z.B die anfallenden Kosten, der kürzeste Weg, oder die aktuelle Netzauslastung.
+Heutige Computernetze wie beispielsweise das IP-basierte Internet, bestehen in 
+der Regel aus vielen einzelnen Netzknoten. Diese sind nicht notwendigerweise 
+direkt, sondern über mehrere Knoten hinweg miteinander verbunden. 
+In diesm Fall soricht man spricht von einem vermaschten Netz.
+Um Information über das NEtz zu entfernten Knoten zu übertragen, müssen 
+diese von den dazwischen liegenden Netzknoten solange weitergereicht werden, 
+bis der Zielknoten erreicht wird.
+Die Wahl der zu verwendeten Zwischensysteme, also die Wahl eines Weges durch 
+das Netz wird als Routing bezeichnet.
+Da in aller Regel mehrere Weg zu Verfügung stehen, ist die Optimierung des 
+Weges bezüglich eine Metrik, wie z.B die anfallenden Kosten, der kürzeste Weg, 
+oder die aktuelle Netzauslastung ein wichtiger Aspekt beim Routing.
 
-Ein Herausforderung beim Routings besteht darin, dass sich die Netztopology ständig ändern kann,
-wodurch zuvor gefunden Routen durch das Netz ungültig werden können.
-Grunde dafür sind z.B der Ausfall eines Netzknotens, 
-das Ändern von Routing-Metriken, die aktuelle Netzauslastung etc..
-Um auf solche Situationen reagieren zu können, 
-müssen die einzelnen Router untereinander Informationen über den aktuelle Zustand des Netzes austauschen.
-Hierzu gibt es eine Reihe von Routing-Protokollen 
-wie beispielsweise die im Internet eingesetzten Protokolle 
-Open Shortest Path First (OSPF) \cite{RFC2328} oder Intermediate System - Intermediate System (IS-IS) \cite{RFC1142}. 
+Ein Herausforderung beim Routing besteht darin, dass sich die Netztopology 
+ständig ändern kann, wodurch zuvor gefunden Routen durch das Netz ungültig 
+werden können.
+Grunde dafür sind z.B der Ausfall eines Netzknotens, das Ändern von 
+Routing-Metriken, die aktuelle Netzauslastung etc..
+Um auf solche Situationen reagieren zu können, müssen die einzelnen Router 
+untereinander Informationen über den aktuelle Zustand des Netzes austauschen.
+Hierzu gibt es eine Reihe von Routing-Protokollen wie beispielsweise die im 
+Internet eingesetzten Protokolle Open Shortest Path First (OSPF) \cite{tD2_RFC2328} 
+oder Intermediate System - Intermediate System (IS-IS) \cite{tD2_RFC1142}. 
 
-%TODO Bessere Erklärung für Network resiliency
-%TODO Deutscher Begriff für Network resiliency suchen
-Ein wichtiger Aspekt bei der Behandlung von Netzwerkfehlern ist Network Resiliency \cite{WWMA10}.
-Damit gemeint ist die Fähigkeit eines Netzes,  
-schnell und problemlos von einer Reihen von Fehlern oder Unterbrechungen zu kompensieren.
-Hauptaugenmerk vieler Studien und heutiger Verfahren liegt vorwiegend auf der Erreichbarkeit von Netz-Komponenten. 
-Dazu zählt die Verkürzung von Ausfallzeiten bzw. die Umgehung defekter Routenabschnitte 
-um die dahinterliegenden Ziele wieder erreichbar zu machen.
-Weitergehende Problem wie die eventuelle Häufung von Stausituation, 
-verursacht durch die verminderte Netzkapazität und den umleigleiteten Verkehr, 
-sowie fehlende Vorhersagbarkeit über die geänderte Leistungsfähigkeit eines Netzes werden dabei häufig außer acht gelassen.
-Das Routing, welches sich ausschließlich auf Erreichbarkeit konzentriert tatsächlich anfällig für vermehrte Stausituationen ist, 
-wird ebenfalls in \cite{WWMA10} untersucht und gezeigt.
+Ein wichtiger Aspekt bei der Behandlung von Netzwerkfehlern ist 
+Network Resiliency \cite{tD2_WWMA10}.
+Damit gemeint ist die Fähigkeit eines Netzes, schnell und problemlos nach einer 
+Reihen von Fehlern oder Unterbrechungen zu reorganisieren und eine 
+Datenübertragung wieder zu ermöglichen.
+Hauptaugenmerk vieler Studien und heutiger Verfahren liegt vorwiegend auf der 
+Erreichbarkeit von Netz-Komponenten. 
+Dazu zählt die Verkürzung von Ausfallzeiten bzw. die Umgehung defekter 
+Routenabschnitte um die dahinterliegenden Ziele wieder erreichbar zu machen.
+Weitergehende Problem wie die eventuelle Häufung von Stausituation, verursacht 
+durch die verminderte Netzkapazität und den umleigleiteten Verkehr, sowie 
+fehlende Vorhersagbarkeit über die geänderte Leistungsfähigkeit eines Netzes 
+werden dabei häufig außer acht gelassen.
+Das Routing, welches sich ausschließlich auf Erreichbarkeit konzentriert 
+tatsächlich anfällig für vermehrte Stausituationen ist, wird ebenfalls in 
+\cite{tD2_WWMA10} untersucht und gezeigt.
 
-Eine Schwierigkeit bei der Entwicklung von Routing-Verfahren die auch die oben genannten Probleme berücksichtigen, 
-ist die Vielzahl von möglichen Fehlerszenarian.
-Geht man von einer Obergenze $F$ von möglichen Fehlern in einem Netzwerk mit $|E|$ Links aus, 
-so entspricht die Anzahl der möglichen Fehlerszenarien $\sum_{i=1}^{F} {|E| \choose i}$.
-Die Berücksichtigung jedes dieser Szenarien bedeutet i.d.R ein zu hochen Berechnungsaufwand, 
-weshalb sich die meisten Verfahren nur auf die Wiederherstellung der Erreichbarkeit beschränken und Staufreiheit etc. außer acht lassen.
+Eine Schwierigkeit bei der Entwicklung von Routing-Verfahren die auch die oben 
+genannten Probleme berücksichtigen, ist die Vielzahl von möglichen 
+Fehlerszenarian.
+Geht man von einer Obergenze $F$ von möglichen Fehlern in einem Netzwerk mit 
+$|E|$ Links aus, so entspricht die Anzahl der möglichen Fehlerszenarien 
+$\sum_{i=1}^{F} {|E| \choose i}$.
+Die Berücksichtigung jedes dieser Szenarien bedeutet i.d.R ein zu hochen 
+Berechnungsaufwand, weshalb sich die meisten Verfahren nur auf die 
+Wiederherstellung der Erreichbarkeit beschränken und Staufreiheit etc. 
+außer acht lassen.
 
 %TODO besseres Wort für Routing-Absicherung suchen
-R3 - Resilient Routing Reconfiguration \cite{WWMA10} ist nun ein neuer Ansatz zur Routing-Absicherung, 
-der trotz der Vielzahl von Szenarien Rechnung Staufreiheit garantieren kann.
-Das Verfahren ist zudem effizient in hinsicht auf Berechnungs-Overhead und Speicherverbrauch, 
-kann flxiebel an verschieden Leistungsanforderungen (z.B zur Einhaltung von Service Level Agreements) angepasst werden 
-und ist robust gegenüber Änderungen der Netzauslastung oder der Netztopolgie.
+R3 - Resilient Routing Reconfiguration \cite{tD2_WWMA10} ist nun ein neuer Ansatz 
+zur Routing-Absicherung, der trotz der Vielzahl von Szenarien Rechnung 
+Staufreiheit garantieren kann.
+Das Verfahren ist zudem effizient in hinsicht auf Berechnungs-Overhead und 
+Speicherverbrauch, kann flxiebel an verschieden Leistungsanforderungen 
+(z.B zur Einhaltung von Service Level Agreements) angepasst werden und ist 
+robust gegenüber Änderungen der Netzauslastung oder der Netztopolgie.
 
 
 %------------------------------------------------------------------------------
@@ -160,7 +171,7 @@ der über die Verbindung $e \in E$ geroutet wird.
 Als Menge $\{r_{ab}(e)|a,b \in V \land e \in E\}$ zusammengefasst beschreiben diese Werte so das gesammte Routing $r$.
 Der Beitrag zur Auslastung einer Verbindung $e$ entspricht dem Produkt $d_{ab}r_{ab}(e)$, 
 wobei $d_{ab}$ dem aktuell von Sender $a$ initiierte Verkehr zum Empfänger $b$ entpsicht und $r_{ab}(e)$ der wie oben beschriebene Anteil.
-Ein so definiertes Routing gilt als korrekt wenn es die in \cite{WWMA10} beschiebenen Bedingungen erfüllt. 
+Ein so definiertes Routing gilt als korrekt wenn es die in \cite{tD2_WWMA10} beschiebenen Bedingungen erfüllt. 
 Nachfolgend sollen diese nocheinmal aufgeführt werden.
 Eine Menge $\{r_{ab}(e)\}$ ist ein korrektes Routing, wenn gilt:
 \begin{Def}
@@ -222,7 +233,7 @@ Der Label-Stack von MPLS wird später bei der Implementierung von R3 in Abschnitt
 %TODO Fast rerouting (FRR) - Ausführlicher?
 Ein häufig genutztes Verfahren um auf Netzwerkfehler wie beispielweise der Ausfall einer Verbindung 
 oder eines ganzen Netzknotens zu reagieren, 
-ist das in \cite{RFC5714} für IP definierte Fast-Rerotuing.
+ist das in \cite{tD2_RFC5714} für IP definierte Fast-Rerotuing.
 Wird bei der Paketübertragung ein Netzwerkfehler von einem Router erkannt, 
 muss für den ursprünglichen Pfad eine Alternative gefunden werden, 
 die die ausgefallenen Netzkomponenten nicht verwendet. Solange ist keine Übertragung möglich.
@@ -237,12 +248,12 @@ verwendet Fast-Rerouting eine schon vorab berechnete alternative Route
 um die ausgefallenen Komponenten zu umgehen.
 Dadurch kann die auf die Erkennung des Fehlers am lokalen Router und das aktivieren der Alterniv-Route beschränkt werden. 
 Eine Information der anderen Router im Netz ist nicht zwingen erforderlich.
-Für MPLS gibt es eine ähnlich arbeitenden Variante die in \cite{RFC4090} beschrieben wird.
+Für MPLS gibt es eine ähnlich arbeitenden Variante die in \cite{tD2_RFC4090} beschrieben wird.
 
 
 Leider kann auch mit FRR nicht sichergestellt werden, 
 dass es aufgrund ausgefallern Links und dadurch umgeleiten Netzwerkverkehr zu Stausitutation kommt. 
-Mit R3 hat Wang et al. in \cite{WWMA10} nun ein Ansatz vorgestellt, 
+Mit R3 hat Wang et al. in \cite{tD2_WWMA10} nun ein Ansatz vorgestellt, 
 der es ermöglicht ein Routing Schema zu berechnen, 
 das in der Lage ist für bis zu $F$ beliebige fehlerhafte Links Staufreiheit in einem Netzwerk zu garantieren.
 Das zugrundeliegende Routing $r$ kann dabei vorgegeben (z.b durch OSPF) oder ebenfalls von R3 berechnet werden. 
@@ -338,7 +349,7 @@ mit polynomialer Anzahl an Bedingungen zu transformieren.
  \label{tD2_LPSimple}
 \end{eqnarray}
 
-Für ein genau Beschreibung der Transformation zwischen \ref{tD2_LPSimple} und \ref{tD2_LPSimple} siehe \cite{WWMA10}
+Für ein genau Beschreibung der Transformation zwischen \ref{tD2_LPSimple} und \ref{tD2_LPSimple} siehe \cite{tD2_WWMA10}
 
 %Dazu kann in Bedingung [C2] die Summe  $\sum_{l \in E}x_{l}p_{l}(e)$ durch die maximal mögliche Auslastung $ML(p,e)$ von $e$ für alle $x \in X_{f}$ ersetzt werden. 
 %Die Bedingung bleibt dadurch äquivalent. 
@@ -381,7 +392,7 @@ bzw. $p_{uv}(e)*\xi_{e}(l);~\forall u,v \in E \backslash \{e\}, \forall l \in E 
 
 \subsection{Erweiterungen}
 %TODO Erweiterungen genauer erklären
-Wang et al. bescheibt in \cite{WWMA10} einige Erweiterung mit denen der 
+Wang et al. bescheibt in \cite{tD2_WWMA10} einige Erweiterung mit denen der 
 Standartansatz von R3 erweitert werden kann.
 
 Eine Erweiterung ist der Umgang mit variablen Verkehrmatrizen, 
@@ -389,7 +400,7 @@ ansteller der wie bisher angenommen konstanten Verkehrsmatrix $d$.
 
 Die nächste Erweiterung ist die Behandlung von Zusammenhängenden Link-Ausfällen.
 Link-Ausfälle treten nicht immer einzeln und unabhängig voneinander auf, sondern 
-können in einem gewissen Zusammenhang stehen. Als Beispiel wird in \cite{WWMA10}
+können in einem gewissen Zusammenhang stehen. Als Beispiel wird in \cite{tD2_WWMA10}
 der Ausfall einer von mehreren IP-Links gemeinsam genutzen Komponente angeben, 
 oder das gleichzeitige Abschalten mehrerer Links durch den Netzbetreiber für 
 Wartungsarbeiten. Wang et al. unterscheidet dazu die beiden Klassen, 
@@ -428,7 +439,7 @@ mit denen der Abstand der Normallseitung vom Optimum beeinflusst werden kann.
 \section{Implementierung}
 \label{tD2_Implementierung}
 Im nachfolgenden Abschnitt soll eine mögliche Implementierung von R3, 
-wie sie von Wange et al. in \cite{WWMA10} vorgeschlagen wird vorgestellt werden.
+wie sie von Wange et al. in \cite{tD2_WWMA10} vorgeschlagen wird vorgestellt werden.
 
 Die Grundlage von R3 bildet die flussbasierte Darstellung des Routings.
 Eine solches Routing-Schema wird von heutigen Routern allerdings noch 
@@ -458,7 +469,7 @@ auf die diesem Label zugeordneten Interfaces aufteilen kann.
 
 Damit Pakete die zu einer TCP-Verbindung gehören nicht unnötig über 
 unterschiedliche Wege durch das Netz geschickt werden, wodurch 
-Laufzeitunterschiede entstehen können, verwednet Wang et al. in \cite{WWMA10} 
+Laufzeitunterschiede entstehen können, verwednet Wang et al. in \cite{tD2_WWMA10} 
 ein Hashfunktion um die Pakete auf die zur Verfügung stehenden Links zu 
 verteilen.
 Die Hashfunktion erhält als Eingabe die Quell- und Ziel-IP, die Quell- und 
@@ -518,7 +529,7 @@ R4 zu und die Pakete von O2 an den nächsten Router R5.
 R4 und R5 leiten die Pakte dann entsprechend des Labels 101 an R2 weiter, 
 wo das oberste Label 101 wieder vom Stack entfernt und auf normalem Weg weiter 
 zu R3 geleitet wird. 
-Ein ähnliches Beispiel findet sich auch in \cite{WWMA10}
+Ein ähnliches Beispiel findet sich auch in \cite{tD2_WWMA10}
 \Abbildungf{!htb}{width= 0.50\textwidth}{tD2_Implementation_Example_02}{tD2_Implementation_Example_02}{Routing im Fehlerfall}
 \end{Bsp}
 
@@ -527,10 +538,10 @@ Ein ähnliches Beispiel findet sich auch in \cite{WWMA10}
 % Kapitel - Evaluierung
 %------------------------------------------------------------------------------
 \section{Evaluierung}
-Der nachfolgende Abschnitt gibt einen Überblick über die in \cite{WWMA10} 
+Der nachfolgende Abschnitt gibt einen Überblick über die in \cite{tD2_WWMA10} 
 vorgestellte Evaluierung von R3.
 Zur Evaluierung wurden zum einen Simulationen und zum anderen die ebenfalls in 
-\cite{WWMA10} vorgestellte, auf Linux MPLS basierende reale Implementierung von 
+\cite{tD2_WWMA10} vorgestellte, auf Linux MPLS basierende reale Implementierung von 
 R3 verwendet. 
 
 Die verwendeten Netztopologien zur Simulation sind zum einen die Topologie von 
@@ -556,7 +567,7 @@ US-ISP		& -	& - \\
 \hline
 \end{tabular}
 \end{center}
-\caption{Übersicht über die Netztopologien \cite{WWMA10}}
+\caption{Übersicht über die Netztopologien \cite{tD2_WWMA10}}
 \end{table}
 
 %TODO Traffic
@@ -573,12 +584,12 @@ flussbasiertem Routing.
 %TODO Verfahren nochmal überarbeiten
 Verglichen wurden die beiden Routingverfahren OSPF und MPLS-ff im Zusammenhang 
 mit den Sicherungs-Verfahren Constrained Shortest Path First (CSPF) \cite{tD2_Zieg07}, 
-OSPF reconvergence (recon) \cite{WWMA10}, Failur-Carring-Packet (FCP) \cite{tD2_LCRA07}, Path Splicing 
-(PathSplicing) \cite{tD2_MEFV08}, R3 und Flow-based optimal link detour routing (opt) \cite{WWMA10}.
+OSPF reconvergence (recon) \cite{tD2_WWMA10}, Failur-Carring-Packet (FCP) \cite{tD2_LCRA07}, Path Splicing 
+(PathSplicing) \cite{tD2_MEFV08}, R3 und Flow-based optimal link detour routing (opt) \cite{tD2_WWMA10}.
 
 
 \subsection{Simulation}
-Abbildung \ref{tD2_USISPMeasurement} zeigt die in\cite{WWMA10} ermittelten 
+Abbildung \ref{tD2_USISPMeasurement} zeigt die in\cite{tD2_WWMA10} ermittelten 
 Messergebnisse der US-ISP Topologie für alle Einzel-Fehler Events, 
 alle Zwei-Fehler Events und 1100 zufälligen Drei-Fehler Events. 
 Angegeben ist jeweils das Leistungsverhältnis für ein Szenario. 
@@ -612,7 +623,7 @@ Bei Drei-Fehler Events beträgt der Abstand hingegen mindestens 50\%
 	\centering
 	\includegraphics[width=8cm]{tD2_USISP_TwoFailure}	
 \end{minipage}
-\caption{Einzel-, Zwei- und zufällige Drei-Fehler Szenarien (US-ISP)\cite{WWMA10}}
+\caption{Einzel-, Zwei- und zufällige Drei-Fehler Szenarien (US-ISP)\cite{tD2_WWMA10}}
 \label{tD2_USISPMeasurement}
 \end{figure}
 
@@ -623,12 +634,12 @@ MPLS-ff+R3 gegenüber allen anderen Verfahren. Nach Wang et al. liegt dieses
 Verhalten in der gemeinsamen Optimierung von Routing und Protection-Routing von 
 MPLS-ff+R3 begründet udn zeigt dessen Vorteile.
 
-\Abbildungf{!htb}{width= 0.50\textwidth}{tD2_SBC_ThreeFailure}{tD2_SBC_ThreeFailure}{Leistungsverhältnis für Drei-Fehler Szenarien (SBC) \cite{WWMA10}}
+\Abbildungf{!htb}{width= 0.50\textwidth}{tD2_SBC_ThreeFailure}{tD2_SBC_ThreeFailure}{Leistungsverhältnis für Drei-Fehler Szenarien (SBC) \cite{tD2_WWMA10}}
 
 
 \subsection{Reale Implementierung}
 Neben der Simulation des Verhaltens verschiedener Routing-Protokolle in 
-verschiedenen Topologien wurde in \cite{WWMA10} auch die Leistungsfähigkeit von 
+verschiedenen Topologien wurde in \cite{tD2_WWMA10} auch die Leistungsfähigkeit von 
 R3 durch eine für Linux implementierten Variante von R3 evaluiert.
 Bewertet wurde dabei die Zeit für die Vorberechnung (Offline-Phase) von $r$ 
 und $p$, den zusätzlichen Speicheraufwand von MPLS-ff und die 
@@ -655,7 +666,7 @@ US-ISP				& 21.3	& 21.9	& 21.4	& 20.1	& 22.1	& 21.8 \\
 \hline
 \end{tabular}
 \end{center}
-\caption{R3 Offline-Phase in Sekunden \cite{WWMA10}}
+\caption{R3 Offline-Phase in Sekunden \cite{tD2_WWMA10}}
 \end{table}
  
 Eine Messung des Speicherverbrauchs ergab ein moderates Ergebnis von höchstens 
