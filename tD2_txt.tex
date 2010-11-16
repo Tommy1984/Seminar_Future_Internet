@@ -169,26 +169,30 @@ der Netztopologie.
 %------------------------------------------------------------------------------
 \section{Grundlagen}
 \label{tD2_Grundlagen}
-%TODO Protectin Routing erklären, definieren
-%TODO Definition Verkehrsmatrix
-Mit Routing wird die Auswahl eines Weges (Route) durch ein Netzwerk bezeichnet, 
-der bestimmt über welche Netzknoten eine Dateneinheit von der Quelle (Orgin) bis zum Ziel (Destination) übertragen wird.
-Häufig ist eine Route nicht eindeutig, sondner es gibt mehrer Routen für das gleiche Quell/Ziel-Paar. 
-Dabei kann für die Datenübertragung nicht nur ein Pfad sondern auch mehrere unterschiedliche Pfade gleichzeitig genutzt werden. 
-Jeder Pfad überträgt dann einen gewissen Anteil der zu übermittelnden Informationen.
-Fasst man ein IP-Netzwerk als gerichteten Graph $G=(V,E)$ auf, 
-wobei $V$ der Menge der Router und $E$ der Menge der Netzwerkverbindungen zwischen den Routern entspircht, 
-lässt sich eine Routing $r$ auch als Fluss auffassen \cite{tD2_ApCo03}. 
-Die Werte $r_{ab}(e)$ geben dazu jeweils den Anteil einer Übertragung von $a \in V$ nach $b \in V$ an, 
-der über die Verbindung $e \in E$ geroutet wird.
-Als Menge $\{r_{ab}(e)|a,b \in V \land e \in E\}$ zusammengefasst beschreiben diese Werte so das gesammte Routing $r$.
-Der Beitrag zur Auslastung einer Verbindung $e$ entspricht dem Produkt $d_{ab}r_{ab}(e)$, 
-wobei $d_{ab}$ dem aktuell von Sender $a$ initiierte Verkehr zum Empfänger $b$ entpsicht und $r_{ab}(e)$ der wie oben beschriebene Anteil.
-Ein so definiertes Routing gilt als korrekt wenn es die in \cite{tD2_WWMA10} beschiebenen Bedingungen erfüllt. 
-Nachfolgend sollen diese nocheinmal aufgeführt werden.
-Eine Menge $\{r_{ab}(e)\}$ ist ein korrektes Routing, wenn gilt:
+Neben der Pfadbasierten Auffassung von Routings, ist es auch möglich Routing 
+als Fluss aufzufassen \cite{tD2_ApCo03} und das zugrundeliegende Computernetzwerk als 
+Flussnetzwerk zu betrachten.
+Häufig ist eine Pfad (Route) von einer Quelle zur Senke nicht eindeutig, 
+sondner es gibt mehrer Pfade für das Paar aus Quell und Senke. 
+Für die Datenübertragung kann nicht nur einer dieser Pfade, sondern auch 
+mehrere unterschiedliche gleichzeitig genutzt werden. 
+Jeder Pfad überträgt dann einen gewissen Anteil der zu übermittelnden 
+Informationen.
+Fasst man das Netzwerk als gerichteten Graph $G=(V,E)$ auf, wobei $V$ der 
+Menge der Router und $E$ der Menge der Netzwerkverbindungen zwischen den 
+Routern entspircht, lässt sich so ein Flussnetzwerk definieren.
+Die Werte $r_{ab}(e)$ geben dazu jeweils den Anteil einer Übertragung von 
+$a \in V$ nach $b \in V$ an, der über die Verbindung $e \in E$ geroutet wird.
+Als Menge $\{r_{ab}(e)|a,b \in V \land e \in E\}$ zusammengefasst beschreiben 
+diese Werte so das gesammte Routing $r$.
+Der Beitrag zur Auslastung einer Verbindung $e$ entspricht dem Produkt 
+$d_{ab}r_{ab}(e)$, wobei $d_{ab}$ dem aktuell von Sender $a$ initiierte Verkehr 
+zum Empfänger $b$ entpsicht und $r_{ab}(e)$ der wie oben beschriebene Anteil.
+Ein so definiertes Routing gilt als korrekt wenn es die in \cite{tD2_WWMA10} 
+definierten Bedingungen erfüllt. Nachfolgend sidn diese Bedungen nocheinmal 
+aufgeführt. 
 \begin{Def}
-Ein Routing $r$ ist gültig, wenn $r$ die nachfolgenden Bediungen [R1]-[R4] erfüllt.
+Ein Routing $r$ ist korrekt, wenn $r$ die nachfolgenden Bedinungen erfüllt:
 %TODO Quellenangabe einfügen
 \begin{eqnarray}
  \begin{array}{rl}
@@ -200,78 +204,100 @@ Ein Routing $r$ ist gültig, wenn $r$ die nachfolgenden Bediungen [R1]-[R4] erfül
  \label{tD2_RoutingConstraints}
 \end{eqnarray}
 \end{Def}
-Die erste Bedingung entspricht dem für Flussnetzwerke üblichen Flusserhalt und fordert, 
-dass jeder Zwischenknoten genausoviel weiterleitet wie in ihn hineinfließt.
-Die zweite Bedingun forde, dass der gesamte von einer Quelle initierte Verkehr weitergeleitet wird,
-während die dritte Bedimng verbeitet ein Teil davon wieder zur Quelle zurückgeleitet wird.
-Die vierte Bedinung fordert das der weitergeleitete Anteil zwischen $0\%$ und $100\%$ liegt.
+Die erste Bedingung entspricht dem für Flussnetzwerke üblichen Flusserhalt und 
+fordert, dass jeder Zwischenknoten genausoviel weiterleitet wie in ihn gesendet 
+wird.
+Die zweite Bedingun forde, dass der gesamte von einer Quelle initierte Verkehr 
+weitergeleitet wird, während die dritte Bedingung verbietet, dass ein Teil 
+davon wieder zur Quelle zurückgesendet wird.
+Die vierte Bedinung fordert das der weitergeleitete Anteil zwischen $0\%$ und 
+$100\%$ liegt.
 
 
 %TODO Verwandte Arbeiten, bessere Einleitung suchen.
 %TODO "Routing für sich ändernde Netzauslastungen" ist das so richtig?
 %TODO Referenzen einfügen
-Bisherige Arbeiten zum diesem Thema behandeln meistens nur eine Seite, 
-entweder \textit{Routing im Fehlerfall} oder \textit{Routing für sich ändernde Netzauslastungen}.
-Das Hauptaugenmerk bei Routing im Fehlerfall liegt dabei in aller Regel auf der Ausfallzeit 
-und wie dieser minimiert werden kann. 
-Ein häufig verwender Ansatz ist die Vorbrechnung von Alternativ-Routen und das schnell Umschalten im Fehlerfall.
-Dieser Ansatz bietet allerdings noch keine Möglichkleit um Stausituation zu vermeiden oder die vorraussichtliche Leistung zu bestimmen.
-Alternatiev zu Vorberechnung können bestehende Routen auch nach jedem Fehler angepasst und optimiert werden. 
-Der Vorteil besteht darin, dass die neuen Routen jeweils auf die aktuelle Netztopology angepasst sind und diese optimal auslasten können.
-Der Nachteil liegt in der schlechteren Reaktionszeit. 
-Mitunter kann die Reorganisation des Routings für die neue Netztopology sehr aufwendig zu berechnen und einzurichten sein.
-Der andere Aspekt mit dem sich viele Arbeiten befassen ist die Tatsache, 
-dass sich die Verkehrssituationen in einem Netz wie beispielweise dem Internet sehr häufig ändern 
-und man daher ein Routing benötigt, was dies berücksichtigt.
+%Bisherige Arbeiten zum diesem Thema behandeln meistens nur eine Seite, 
+%entweder \textit{Routing im Fehlerfall} oder \textit{Routing für sich ändernde Netzauslastungen}.
+%Das Hauptaugenmerk bei Routing im Fehlerfall liegt dabei in aller Regel auf der Ausfallzeit 
+%und wie dieser minimiert werden kann. 
+%Ein häufig verwender Ansatz ist die Vorbrechnung von Alternativ-Routen und das schnell Umschalten im Fehlerfall.
+%Dieser Ansatz bietet allerdings noch keine Möglichkleit um Stausituation zu vermeiden oder die vorraussichtliche Leistung zu bestimmen.
+%Alternatiev zu Vorberechnung können bestehende Routen auch nach jedem Fehler angepasst und optimiert werden. 
+%Der Vorteil besteht darin, dass die neuen Routen jeweils auf die aktuelle Netztopology angepasst sind und diese optimal auslasten können.
+%Der Nachteil liegt in der schlechteren Reaktionszeit. 
+%Mitunter kann die Reorganisation des Routings für die neue Netztopology sehr aufwendig zu berechnen und einzurichten sein.
+%Der andere Aspekt mit dem sich viele Arbeiten befassen ist die Tatsache, 
+%dass sich die Verkehrssituationen in einem Netz wie beispielweise dem Internet sehr häufig ändern 
+%und man daher ein Routing benötigt, was dies berücksichtigt.
 
 
 %TODO MPLS - Ausführlicher?
 %TODO FEC im zusammenhang mit Packet-Reihenfolge
-Multiprotokol Label Switching (MPLS) \cite{tD2_RFC3031} ist ein Verfahren, 
-welches eine verbindungsorientierte Datenübertragung auch in ansonsten verbindungslosen Netzen ermöglicht. 
-Während beim klassichen Routing auf Schicht 3 jeder Router aufs neue den nächsten Knoten (Next Hop) für eine Dateneinheit bestimmen muss,
-wird bei MPLS zu Beginn einer Übertragung jede Dateneinheit einer Weiterleitungsklasse (Forwarding Equivalent Class - FEC) zugeordnet, 
-die den Pfad (Lable Switch Path - LSP) durch das Netz bestimmt. 
-Dazu wird ihr ein kurze Kennung fester Länge, ein sog. Label zugeordnet. 
-Die nachfolgenden Knoten können anhand dieses Labels aus einer Tabelle (Incoming Lable Map - ILM) den nächsten Knoten bestimmen. 
+Alternativ zum klassischen IP-Routing gibt es auch andere Verfahren zur 
+Weiterleitung von Dateneinheiten innerhalb eines Netzwerks.
+Ein Beispiel, welches auch in \cite{tD2_WWMA10} als Implementierungsgrundlage 
+von R3 verwendet wird ist das Multiprotolkol-Label-Switching (MPSL) 
+\cite{tD2_RFC3031}. MPLS ist ein Verfahren, welches eine verbindungsorientierte 
+Datenübertragung auch in ansonsten verbindungslosen Netzen ermöglicht. 
+Während beim klassichen Routing auf Schicht 3 jeder Router aufs neue den 
+nächsten Knoten (Next Hop) für eine Dateneinheit bestimmen muss, wird bei MPLS 
+zu Beginn einer Übertragung jede Dateneinheit einer Weiterleitungsklasse 
+(Forwarding Equivalent Class - FEC) zugeordnet, die den Pfad 
+(Lable Switch Path - LSP) durch das Netz bestimmt. 
+Dazu wird ihr eine kurze Kennung fester Länge, ein sog. Label zugeordnet. 
+Die nachfolgenden Knoten können anhand dieses Labels aus einer Tabelle 
+(Incoming Lable Map - ILM) den nächsten Knoten bestimmen. 
 Eine Auswertung des kompletten Paketkopfes ist nicht mehr notwendig.
-MPSL biete außerdem die Möglichkeit einem Paket auch mehr als ein Label zuzuordnen. 
+MPSL biete außerdem die Möglichkeit einem Paket auch mehr als ein Label 
+zuzuordnen. 
 Dazu werden die Labels auf einem Stack, dem Lable-Stack abgelegt. 
-Ein Router kann neu Labels auf dem Stack ablegen. 
-Für die Auswertung des nächstens Routers wird immer das oberste Stackelement herangezogen. 
-Ist der nächste Route aktuelle Router muss das Label wieder Stack entfernt werden.
-Der Label-Stack von MPLS wird später bei der Implementierung von R3 in Abschnitt \ref{tD2_Implementierung} benötigt.
+Ein Router kann neue Labels auf dem Stack ablegen. 
+Für die Auswertung des nächstens Routers wird immer das oberste Stackelement 
+herangezogen. 
+Ist der nächste Router der aktuelle Router, muss das Label wieder Stack 
+entfernt werden.
+Der Label-Stack von MPLS wird in \cite{tD2_WWMA10} zu Implementierung von R3 
+verwendet.
 
 
 %TODO Fast rerouting (FRR) - Ausführlicher?
-Ein häufig genutztes Verfahren um auf Netzwerkfehler wie beispielweise der Ausfall einer Verbindung 
-oder eines ganzen Netzknotens zu reagieren, 
-ist das in \cite{tD2_RFC5714} für IP definierte Fast-Rerotuing.
+Solgange die Urspüngliche Netztopologie besteht, kann das reguläre Routing verwendet werden. 
+Bei Link-Ausfällen ist dieses Routing nicht mehr gültig und muss angepasst werden. 
+Dazu existieren unterschieldiche Verfahren, sog. Routing Protection Schemes. 
+Ein häufig genutztes Verfahren ist das in \cite{tD2_RFC5714} für IP definierte 
+Fast-Rerotuing.
 Wird bei der Paketübertragung ein Netzwerkfehler von einem Router erkannt, 
 muss für den ursprünglichen Pfad eine Alternative gefunden werden, 
-die die ausgefallenen Netzkomponenten nicht verwendet. Solange ist keine Übertragung möglich.
-Die Dauer dieser Unterbrechung setzt sich dabei zusammen, 
-aus der Zeit bis der Fehler erkannt wird, 
-der Zeit bis der lokale Router auf den Fehler reagiert, 
-die Zeit bis die Informationen über den Fehler an die anderen Router weitergeleitet ist, 
-der Zeit zur Neuberechnung der Routing-Tabellen 
+die die ausgefallenen Netzkomponenten nicht verwendet. 
+Solange ist keine Übertragung möglich.
+Die Dauer dieser Unterbrechung setzt sich dabei zusammen, aus der Zeit bis der 
+Fehler erkannt wird, der Zeit bis der lokale Router auf den Fehler reagiert, 
+die Zeit bis die Informationen über den Fehler an die anderen Router 
+weitergeleitet ist, der Zeit zur Neuberechnung der Routing-Tabellen 
 und der Zeit um die Routing-Tabellen in die Hardware zu übertragen.
 Um nun diese Ausfallzeit möglichst kurz zu halten, 
 verwendet Fast-Rerouting eine schon vorab berechnete alternative Route 
 um die ausgefallenen Komponenten zu umgehen.
-Dadurch kann die auf die Erkennung des Fehlers am lokalen Router und das aktivieren der Alterniv-Route beschränkt werden. 
+Dadurch kann Ausfallzeit und damit die Verzögerung auf die Erkennung des 
+Fehlers am lokalen Router und das aktivieren der Alterniv-Route beschränkt 
+werden. 
 Eine Information der anderen Router im Netz ist nicht zwingen erforderlich.
-Für MPLS gibt es eine ähnlich arbeitenden Variante die in \cite{tD2_RFC4090} beschrieben wird.
-
+Für MPLS gibt es eine ähnlich arbeitenden Variante die in \cite{tD2_RFC4090} 
+beschrieben wird.
 
 Leider kann auch mit FRR nicht sichergestellt werden, 
-dass es aufgrund ausgefallern Links und dadurch umgeleiten Netzwerkverkehr zu Stausitutation kommt. 
-Mit R3 hat Wang et al. in \cite{tD2_WWMA10} nun ein Ansatz vorgestellt, 
-der es ermöglicht ein Routing Schema zu berechnen, 
-das in der Lage ist für bis zu $F$ beliebige fehlerhafte Links Staufreiheit in einem Netzwerk zu garantieren.
-Das zugrundeliegende Routing $r$ kann dabei vorgegeben (z.b durch OSPF) oder ebenfalls von R3 berechnet werden. 
+dass es aufgrund ausgefallern Links und dadurch umgeleiten Netzwerkverkehr 
+zu Stausitutation kommt. 
+Wang et al. \cite{tD2_WWMA10} definiert dazu das folgende Problem.
+\begin{Def} 
+(Routing Resiliency) Das Problem Routing Resiliency besteht darin, sowohl ein 
+Routing $r$ als auch ein Protection Routing $p$ zu berechnen, so dass die 
+Maximale Link Auslastung für bis zu F Link-Fehlern unter 100\% bleibt.
+\end{Def}
+Mit R3 hat Wang et al. nun ein Ansatz vorgestellt, 
+der es ermöglicht, dieses Problem zu lösen.
 
-%TODO Routing Resiliency erklären, definieren
 
 %------------------------------------------------------------------------------
 % Kapitel - Resilient Routing Reconfiguration
