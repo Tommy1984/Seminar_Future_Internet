@@ -560,25 +560,74 @@ US-ISP		& -	& - \\
 \end{table}
 
 %TODO Traffic
-%TODO Verkehrsdicht hier richtig?
+%TODO Verkehrsdichte hier richtig?
 Als mögliche Fehlerszenarien wurden alle Einzel-Linkfehler sowie alle möglichen 
 Zwei-Link-Fehler berücksichtigt. 
-Außerdem wurden insgesamt 1100 verschiedene Drei- und Vier-Link-Fehler 
+Da die Anzahl möglicher Szenarien für mehr als zwei Fehler extrem groß wird, 
+wurden insgesamt 1100 verschiedene Drei- und Vier-Link-Fehler 
 berücksichtigt, die zufällig ausgewählt wurden.
-Gemessen wurde zum einen die Verkehrsdichte, bzw die Netzwerkstauung und zum 
-Anderen das Verhältnis aus Verkehrsdicht und optimalem flussbasiertem Routing.
+Gemessen wurde zum einen die Worst-Case Verkehrsdichte, bzw die Netzwerkstauung 
+und zum Anderen das Verhältnis aus Worst-Case Verkehrsdicht und optimalem 
+flussbasiertem Routing.
 
 %TODO Verfahren nochmal überarbeiten
 Verglichen wurden die beiden Routingverfahren OSPF und MPLS-ff im Zusammenhang 
-mit den Sicherungs-Verfahren Constrained Shortest Path First (CSPF), 
-OSPF reconvergence (recon), Failur-Carring-Packet (FCP), Path Splicing 
-(PathSplicing), R3 und Flow-based optimal link detour routing (opt).
+mit den Sicherungs-Verfahren Constrained Shortest Path First (CSPF) \cite{tD2_Zieg07}, 
+OSPF reconvergence (recon) \cite{WWMA10}, Failur-Carring-Packet (FCP) \cite{tD2_LCRA07}, Path Splicing 
+(PathSplicing) \cite{tD2_MEFV08}, R3 und Flow-based optimal link detour routing (opt) \cite{WWMA10}.
 
 
 \subsection{Simulation}
+Abbildung \ref{tD2_USISPMeasurement} zeigt die in\cite{WWMA10} ermittelten 
+Messergebnisse der US-ISP Topologie für alle Einzel-Fehler Events, 
+alle Zwei-Fehler Events und 1100 zufälligen Drei-Fehler Events. 
+Angegeben ist jeweils das Leistungsverhältnis für ein Szenario. 
+Die Werte wurden entsprechend ihres Leistungswertes sortiert aufsteigend 
+sortiert.
+In alle drei Grafiken lässt sich die gleiche Gruppierung erkennen. 
+OSPF+R3, OSPF+opt, MPLS+R3 liegen immer nahe beieinander und sind dem Optimum 
+am nächsten.
+PSPF+CSPF, OSPF+recon und FCP bilden ebenfalls eien Gruppe  liegen ebenfalls 
+eng zusammen und sind zumindes für die Extremwerte am weitesten vom Optimum 
+entfernt.
+PathSplicing liegt in der Regel zwischen den beiden Gruppen. 
+In Zahlen ausgedrückt, liegt die erste Gruppe für Einzel-Fehler Events etwa 
+30\% über dem Optimum, PathSplicing liegt bis zu 100\% darüber und die 
+restlichen Verfahren sogar um bis zu 260\%.
+Für Zwei-Fehler Events ist die dritte Gruppe bis zu $3,7$-mal über dem Optimum 
+und 94\% über dem höchsten Wert der ersten Gruppe. 
+Bei Drei-Fehler Events beträgt der Abstand hingegen mindestens 50\% 
+
+\begin{figure}[!h] 
+\centering
+\includegraphics*[width=8cm]{tD2_USISP_OneFailure} 
+\end{figure}
+\begin{figure}[!h]
+\begin{minipage}[h]{8cm}
+	\centering
+	\includegraphics[width=8cm]{tD2_USISP_OneFailure}		
+\end{minipage}
+\hfill
+\begin{minipage}[hbt]{8cm}
+	\centering
+	\includegraphics[width=8cm]{tD2_USISP_TwoFailure}	
+\end{minipage}
+\caption{Einzel-, Zwei- und zufällige Drei-Fehler Szenarien (US-ISP)\cite{WWMA10}}
+\label{tD2_USISPMeasurement}
+\end{figure}
+
+Weiterhin interressant sind die Ergebnisse für die SBC Topologie, siehe 
+Abbildung \ref{tD2_SBC_ThreeFailure}.
+Die Graifk zweigt ein deutlich besseres Leistubgsverhältnis für 
+MPLS-ff+R3 gegenüber allen anderen Verfahren. Nach Wang et al. liegt dieses 
+Verhalten in der gemeinsamen Optimierung von Routing und Protection-Routing von 
+MPLS-ff+R3 begründet udn zeigt dessen Vorteile.
+
+\Abbildungf{!htb}{width= 0.50\textwidth}{tD2_SBC_ThreeFailure}{tD2_SBC_ThreeFailure}{Leistungsverhältnis für Drei-Fehler Szenarien (SBC) \cite{WWMA10}}
+
 
 \subsection{Reale Implementierung}
-Neben der Simualtion des Verhaltens verschieder Routing-Protokolle in 
+Neben der Simulation des Verhaltens verschiedener Routing-Protokolle in 
 verschiedenen Topologien wurde in \cite{WWMA10} auch die Leistungsfähigkeit von 
 R3 durch eine für Linux implementierten Variante von R3 evaluiert.
 Bewertet wurde dabei die Zeit für die Vorberechnung (Offline-Phase) von $r$ 

@@ -35,6 +35,10 @@ pdf:
 	epstopdf tD2_Implementation_Example_01.eps
 	epstopdf tD2_Implementation_Example_02.eps
 	epstopdf tD2_RTT_Measurement.eps
+	epstopdf tD2_USISP_OneFailure.eps
+	epstopdf tD2_USISP_TwoFailure.eps
+	epstopdf tD2_USISP_ThreeFailure.eps
+	epstopdf tD2_SBC_ThreeFailure.eps
 	pdflatex $(FILE)
 	bibtex $(FILE)
 	pdflatex $(FILE)
