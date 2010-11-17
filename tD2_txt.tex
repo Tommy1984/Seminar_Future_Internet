@@ -413,18 +413,22 @@ Für ein genau Beschreibung der Transformation zwischen \ref{tD2_LPOriginal}
 und \ref{tD2_LPSimple} siehe \cite{tD2_WWMA10}
 
 \subsection{Rekonfiguration (Online-Phase)}
-Da sich im Fehlerfall, z.B durch den Ausfall eines Links während des Betriebes die Netztopologie ändert, 
-muss das von der Offline-Phase für das gesamte Netzwerk ermittelte Protection Routing $p$ so angepasst werden, 
+Da sich im Fehlerfall, z.B durch den Ausfall eines Links während des 
+Betriebes die Netztopologie ändert, muss das von der Offline-Phase für das 
+gesamte Netzwerk ermittelte Protection Routing $p$ so angepasst werden, 
 dass $p$ keine ungültigen (defekten) Links verwendet. 
 
 Nachdem ein Link-Fehler auf einem Link $e$ von einem Router erkannt wird, 
-aktiviert dieser sofort sein Protection Routing $p$ und leitet den Verkehr entsprechen einer Routing-Alternative $\xi_{e}$ um.
+aktiviert dieser sofort sein Protection Routing $p$ und leitet den Verkehr 
+entsprechen einer Routing-Alternative $\xi_{e}$ um.
 Da $p$ allerdings nicht für die Topologie in diesem konkreten Fehlerfall, 
 sondern auf der ursprünglichen Netztopologie definiert wurde, 
 muss $p$ zuvor entsprechend des Fehlers angepasst werden, 
 um sicherzustellen das der defekte Link $e$ nicht mehr verwendet wird.  
-Um dies zu erreichen muss lediglich eine einfache Anpassung (re-scaling) der verbliebenen Links durchgeführt werden, 
-die den Verkehr von $e$ nun mittragen müssen. Die Anpassung erfolgt nach folgender Formel:
+Um dies zu erreichen muss lediglich eine einfache Anpassung (re-scaling) der 
+verbliebenen Links durchgeführt werden, die den Verkehr von $e$ nun mittragen 
+müssen. 
+Die Anpassung erfolgt nach folgender Formel:
 \begin{equation}
 \xi_{e}(l) = \frac{p_{e}(l)}{1-p_{e}(e)};~\forall l \in E \backslash \{e\} 
 \end{equation}
@@ -433,10 +437,13 @@ und somit Routing-Bedingung [R2] in \ref{tD2_RoutingConstraints} gültig bleibt.
 
 Um den fehlerhaften Link $e$ nun generell nicht mehr zu benutzen, 
 müssen sowohl Routing $r$ als auch Protection Routing $p$ angepasst werden.
-Dazu kann einfach der vormals an $e$ zugeteilte Verkehr $r_{ab}(e)$ 
-bzw. $p_{ab}(e)$ auf die Routing-Alternative $xi_{e}$ verteilt werden.
-Die Mehrbelastung für die betroffenen Links entspricht $r_{ab}*\xi_{e}(l);~\forall a,b \in V, \forall l \in E \backslash \{e\}$
-bzw. $p_{uv}(e)*\xi_{e}(l);~\forall u,v \in E \backslash \{e\}, \forall l \in E \backslash \{e\}$.
+Dazu kann einfach der vormals an $e$ zugeteilte Verkehr auf die 
+Routing-Alternative $\xi_{e}$ verteilt werden.
+Der über einen Link $l \in E \backslash \{e\}$ geroutete Verkehr $r_{ab}(l)$ 
+erhöht sich dann um den an ihn, durch die Umleitung $\xi_{e}$ zugeteilten 
+Anteil $r_{ab}(e)\xi_{e}(l)$. Entsprechend gilt dies auch für das Protection 
+Routing $p$.
+
 
 \subsection{Erweiterungen}
 %TODO Erweiterungen genauer erklären
@@ -481,8 +488,11 @@ Umgekehrt bedeutet dies das im Normalbetrieb nicht die bestmögliche
 Auslastung erreicht werden kann. 
 Um die Auslastung für den regulären Betrieb zu beeinflussen bzw. zu verbessern,
 wird das Lineare Programm \ref{tD2_LPSimple} um zusätzliche Bedingungen ergänzt, 
-mit denen der Abstand der Normalleistung vom Optimum beeinflusst werden kann.  
-%TODO Trade off between network utilization and delay
+mit denen die Entfernung der Leistung im Normalbetrieb vom Optimum beeinflusst 
+werden kann. 
+Auf ähnliche Weise kann auch die für die durchschnittliche Verzögerungszeit für 
+eine Ende-zu-End Übertragung beeinflusst werden. Hierzu wird \ref{tD2_LPSimple} 
+ebenfalls durch zusätzliche Bedingungen ergänzt.
 
 
 %------------------------------------------------------------------------------
@@ -564,7 +574,9 @@ Sei weiter angenommen, der normale Label Switch Pfad von R1 zu R3 führt über
 R2, wie in \ref{tD2_Implementation_Example_01} gezeigt.
 Trifft ein Paket bei Router R1 ein, so ordnet er diesem Paket ein Label zu, z.B 
 das Label 100 für den Pfad R1-R2-R3 und leitet das Paket entsprechend weiter.
-\Abbildungf{!htb}{width= 0.50\textwidth}{tD2_Implementation_Example_01}{tD2_Implementation_Example_01}{Routing ohne Link-Fehler}
+
+\Abbildungf{!h}{width= 0.50\textwidth}{tD2_Implementation_Example_01}{tD2_Implementation_Example_01}{Routing ohne Link-Fehler}
+\Abbildungf{!h}{width= 0.50\textwidth}{tD2_Implementation_Example_02}{tD2_Implementation_Example_02}{Routing im Fehlerfall}
 
 Kommt es nun zu einem Link-Ausfall zwischen zwischen R1 und R2, 
 wie in \ref{tD2_Implementation_Example_02} dargestellt, 
@@ -583,7 +595,7 @@ R4 und R5 leiten die Pakte dann entsprechend des Labels 101 an R2 weiter,
 wo das oberste Label 101 wieder vom Stack entfernt und auf normalem Weg weiter 
 zu R3 geleitet wird. 
 Ein ähnliches Beispiel findet sich auch in \cite{tD2_WWMA10}
-\Abbildungf{!htb}{width= 0.50\textwidth}{tD2_Implementation_Example_02}{tD2_Implementation_Example_02}{Routing im Fehlerfall}
+
 \end{Bsp}
 
 
