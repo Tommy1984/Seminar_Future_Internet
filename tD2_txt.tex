@@ -455,15 +455,18 @@ Abschalten mehrerer Links durch den Netzbetreiber für Wartungsarbeiten.
 Wang et al. unterscheidet dazu die beiden Klassen, Shared Risk Link Group 
 (SRLG) zu denen das erste Beispiel gehört und die Maintenance Link Group (MLG) 
 zu der das zweite Beispiel gehört.
-Eine Shared Risk Link Group besteht aus Links die immer gleichzeitig 
-unterbrochen werden.
-Eine MLG besteht aus Links die vom Netzbetreiber zu Wartungszwecken zusammen 
-abgeschaltet werden.
+Eine Shared Risk Link Group besteht aus Links, die aus technischen Gründen immer 
+gleichzeitig unterbrochen werden, da sie dieselben Komponenten nutzen, 
+z.B. dieselbe Glasfaserleitung.
+Eine MLG besteht aus Links die vom Netzbetreiber zusammengefasst werden und bei 
+Wartungsarbeiten zusammen abgeschaltet werden.
 R3 kann nun ergänzt werden um solche Fehlercharakteristiken zu berücksichtigen.
 
 Eine weitere Möglichkeit von R3 besteht darin unterschiedliche Verkehrsklassen 
-unterschiedlich zu behandeln, indem eine Klasse mehr und die andere weniger 
-gleichzeitig bestehende Fehler tolerieren kann.
+unterschiedlich zu behandeln. 
+Dazu kann für jede Klasse, die in der Regel gewissen Service Level Agreements 
+(SLA) entspricht festgelegt werden, wieviele zeitlich überlappende 
+Link-Ausfälle tolleriert werden können.
 
 Die letzten beiden vorgestellten Erweiterungen befassen sich mit dem Verhältnis 
 zwischen Leistung im Normalbetrieb und Fehlerfall und mit dem Verhältnis 
@@ -634,8 +637,9 @@ flussbasiertem Routing.
 %TODO Verfahren nochmal überarbeiten
 Verglichen wurden die beiden Routingverfahren OSPF und MPLS-ff im Zusammenhang 
 mit den Sicherungs-Verfahren Constrained Shortest Path First (CSPF) \cite{tD2_Zieg07}, 
-OSPF reconvergence (recon) \cite{tD2_WWMA10}, Failur-Carring-Packet (FCP) \cite{tD2_LCRA07}, Path Splicing 
-(PathSplicing) \cite{tD2_MEFV08}, R3 und Flow-based optimal link detour routing (opt) \cite{tD2_WWMA10}.
+OSPF reconvergence (recon) \cite{tD2_WWMA10}, Failure-Carrying-Packet (FCP) 
+\cite{tD2_LCRA07}, Path Splicing (PathSplicing) \cite{tD2_MEFV08}, R3 und 
+Flow-based optimal link detour routing (opt) \cite{tD2_WWMA10}.
 
 
 \subsection{Simulation}
