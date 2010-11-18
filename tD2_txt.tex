@@ -317,42 +317,47 @@ transformieren.
 
 Angenommen ein Link $e$ auf einem Pfad zwischen zwei Routern $a$ und $b$ in 
 einem Netz $G=(V,E)$ fällt aus, so muss das verbleibende Netz 
-$G'=(V, E \backslash \{e\})$ den vormals über diesem Link 
-transportierten Verkehr zusätzlich übertragen.
+$G'=(V, E \backslash \{e\})$ den Verkehr des ausgefallenen Links zusätzlich 
+übertragen.
 Diese Zusatzbelastung hängt von der aktuellen Auslastung des ausgefallenen 
-Links ab, kann aber höchsten so groß wie die Kapazität $c_{e}$ dieses Links sein 
+Links ab, kann aber höchsten so groß wie die Kapazität $c_{e}$ des Links sein 
 und wird als \textit{Virtual Demand} bezeichnet. 
-Ordnet man jedem Link $e \in E$ einen solchen Virtual Demand entsprechend 
-seiner Kapazität zu, dann deckt die Konvexkombination aller Virtual Demands 
-den gesamten umzuleitenden Verkehr ab.
-
-Ordnet man jedem Link $e \in E$ einen Variable $x_{e}$ für den Virtual Demand 
-des Links zu und erlaubt man bis zu $F$ fehlerhafte Links, dann überdeckt die 
-Menge 
+So lässt sich jedem Link ein Virtual Demand entsprechend seiner Kapazität 
+zuordnen. Werden alle Virtual Demands mittels Konvexkombination 
+zusammengefasst, beschreibt dies den umzuleitenden Verkehr im Fehlerfall, 
+unabhängig vom konkreten Fehlerszenario.
+Formal kann man den Virtual Demand eines Links $e$ als Variable $x_{e}$ 
+auffassen.
+Für bis zu $F$ Link-Fehler überdeckt dann die Menge 
 \begin{equation}
 X_{F} = \{x|0 \le \frac{x_{e}}{c_{e}} \le 1 (\forall e \in V), \sum_{e \in E} \frac{x_{e}}{c_{e}} \le F\}
 \label{tD2_VirtualDemandSet}
 \end{equation} 
 den gesamten umzuleitenden Verkehr, unabhängig vom konkreten Fehlerszenario.
 Anders ausgedrückt, für jedes mögliche Fehlerszenario mit maximal $F$ 
-fehlerhaften Links enthält $X_{F}$ den gesamten umzuleitenden Verkehr.
+fehlerhaften Links beschreibt $X_{F}$ den gesamten umzuleitenden Verkehr.
 Anstelle eines Routings für eine konstante Verkehrsmatrix $d$ bei variabler 
-Netztopologie zu berechnen, kann nun ein Routing für die Originaltopologie bei 
+Netztopologie zu berechnen, kann dadurch ein Routing für die Ursprungstopologie bei 
 variablem Verkehrsaufkommen $d+X_{F}$ berechnet werden. 
 Beschrieben wird das Verkehrsaufkommen $d+X_{F}$ durch die Summe des aktuellen 
 Verkehrs $d$ und der Menge von Virtual Demands $X_{f}$ und entspricht 
 $d+X_{f} = \{d+x|x \in X_{f}\}$.
 
-Zu beachten ist hierbei, dass im Gegensatz zur endlichen Anzahl möglicher 
-Netztopologien die Anzahl möglicher neuer Verkehrsmatrizen $d+X_{F}$ leider 
+Nocheinmal zusammengefasst bedeutet dies: 
+Durch die Verlagerung des Problems von der unbekannten Netztopologie (aber 
+bekanntem Verkehrsaufkommen) hin zu unbekanntem Verkehrsaufkommen (aber 
+bekannter Netztopologie), wird das Aufzählen aller möglichen Fehlerszenarien 
+zu Berechnung eines Routings sowie Protection Routings unnötig.
+
+Zu beachten ist allerdings, dass im Gegensatz zur endlichen Anzahl 
+möglicher Netztopologien die Anzahl möglicher neuer Verkehrsmatrizen $d+X_{F}$ 
 unendlich ist. 
 Dies stellt jedoch kein Problem dar, da sich die Menge dieser Verkehrsmatrizen 
 mittels \ref{tD2_VirtualDemandSet} als endliche Menge linearer Bedingungen 
 formulieren lässt.
 Dadurch kann lineare Optimierung zur Berechnung und Optimierung eines 
 Routings $r$ und eines Protection Routings $p$ verwendet werden.
-Das explizite Aufzählen der unterschiedlichen Verkehrsmatrizen ist nicht 
-notwendig.
+Die Aufzählung aller möglichen Verkehrsmatrizen ist dazu nicht nötig.
 
 R3 nutzt nun diese Überlegungen als Grundlage.
 Prinzipiell gliedert sich R3 in zwei Teile, einer vom Netzbetrieb unabhängigen 
@@ -635,18 +640,17 @@ US-ISP		& -		& - \\
 \caption{Übersicht über die Netztopologien \cite{tD2_WWMA10}}
 \end{table}
 
-%TODO Traffic
-%TODO Verkehrsdichte hier richtig?
 Als mögliche Fehlerszenarien wurden alle Einzel-Linkfehler sowie alle möglichen 
 Zwei-Link-Fehler berücksichtigt. 
 Da die Anzahl möglicher Szenarien für mehr als zwei Fehler extrem groß wird, 
 wurden insgesamt 1100 verschiedene Drei- und Vier-Link-Fehler 
 berücksichtigt, die zufällig ausgewählt wurden.
-Gemessen wurde zum einen die Worst-Case Verkehrsdichte, bzw. die Netzwerkstauung 
-und zum Anderen das Verhältnis aus Worst-Case Verkehrsdichte und optimalem 
-flussbasiertem Routing.
+Gemessen wurde die Verkehrsdichte an der Stelle im Netz mit den 
+geringsten Kapazitätsreserven. 
+Ermittelt wurde außerdem das Verhältnis dieser gemessenen Verkehrsdichte und 
+optimalem flussbasiertem Routing. Je näher dieser Wert an 1 liegt, desto besser 
+ist die Leistung des verwendeten Verfahrens.
 
-%TODO Verfahren nochmal überarbeiten
 Verglichen wurden die beiden Routingverfahren OSPF und MPLS-ff im Zusammenhang 
 mit den Sicherungs-Verfahren Constrained Shortest Path First (CSPF) \cite{tD2_Zieg07}, 
 OSPF reconvergence (recon) \cite{tD2_WWMA10}, Failure-Carrying-Packet (FCP) 
@@ -668,11 +672,11 @@ PSPF+CSPF, OSPF+recon und FCP bilden ebenfalls eine Gruppe  liegen ebenfalls
 eng zusammen und sind zumindest für die Extremwerte am weitesten vom Optimum 
 entfernt.
 PathSplicing liegt in der Regel zwischen den beiden Gruppen. 
-In Zahlen ausgedrückt, liegt die erste Gruppe für Einzel-Fehler Events etwa 
-30\% über dem Optimum, PathSplicing liegt bis zu 100\% darüber und die 
-restlichen Verfahren sogar um bis zu 260\%.
-Für Zwei-Fehler Events ist die dritte Gruppe bis zu $3,7$-mal über dem Optimum 
-und 94\% über dem höchsten Wert der ersten Gruppe. 
+In Zahlen ausgedrückt, ist die erste Gruppe für Einzel-Fehler Events bis zu 
+30\% schlechter gegenüber dem Optimum, PathSplicing ist bis zu 100\% schlechter 
+und die restlichen Verfahren sogar um bis zu 260\%.
+Für Zwei-Fehler Events ist die dritte Gruppe bis zu $3,7$-mal schlechter als im 
+Optimalfall möglich wäre und bis zu 94\% über dem höchsten Wert der ersten Gruppe. 
 Bei Drei-Fehler Events beträgt der Abstand hingegen mindestens 50\% 
 
 \begin{figure}[!h] 
