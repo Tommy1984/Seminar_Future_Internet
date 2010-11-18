@@ -343,7 +343,7 @@ Beschrieben wird das Verkehrsaufkommen $d+X_{F}$ durch die Summe des aktuellen
 Verkehrs $d$ und der Menge von Virtual Demands $X_{f}$ und entspricht 
 $d+X_{f} = \{d+x|x \in X_{f}\}$.
 
-Nocheinmal zusammengefasst bedeutet dies: 
+Noch einmal zusammengefasst bedeutet dies: 
 Durch die Verlagerung des Problems von der unbekannten Netztopologie (aber 
 bekanntem Verkehrsaufkommen) hin zu unbekanntem Verkehrsaufkommen (aber 
 bekannter Netztopologie), wird das Aufzählen aller möglichen Fehlerszenarien 
@@ -353,7 +353,7 @@ Zu beachten ist allerdings, dass im Gegensatz zur endlichen Anzahl
 möglicher Netztopologien die Anzahl möglicher neuer Verkehrsmatrizen $d+X_{F}$ 
 unendlich ist. 
 Dies stellt jedoch kein Problem dar, da sich die Menge dieser Verkehrsmatrizen 
-mittels \ref{tD2_VirtualDemandSet} als endliche Menge linearer Bedingungen 
+mittels (\ref{tD2_VirtualDemandSet}) als endliche Menge linearer Bedingungen 
 formulieren lässt.
 Dadurch kann lineare Optimierung zur Berechnung und Optimierung eines 
 Routings $r$ und eines Protection Routings $p$ verwendet werden.
@@ -380,8 +380,8 @@ Formal entspricht das Problem den nachfolgenden linearen Optimierungsproblem:
  \begin{array}{rl}
     \mbox{\textbf{minimize}}_{(r,p)}    & MLU \\
     \mbox{\textbf{subject to:}}  	& \\
-    \mbox{[C1]}         		& r = \{r_{a,b}(e)|a,b \in V, e \in E\}~\mbox{ist ein Routing nach \ref{tD2_RoutingConstraints}} \\
-					& p = \{p_{l}(e)|l,e \in E\}~\mbox{ist ein Routing nach \ref{tD2_RoutingConstraints}} \\
+    \mbox{[C1]}         		& r = \{r_{a,b}(e)|a,b \in V, e \in E\}~\mbox{ist ein Routing nach (\ref{tD2_RoutingConstraints})} \\
+					& p = \{p_{l}(e)|l,e \in E\}~\mbox{ist ein Routing nach (\ref{tD2_RoutingConstraints})} \\
     \mbox{[C2]}         		& \forall x \in X_{F}, \forall e \in E:\\
 					& \frac{\sum_{a,b \in V}d_{a,b}r_{ab}(e)+\sum_{l \in E}x_{l}p_{l}(e)}{c_{e}} \le MLU
  \end{array}
@@ -404,8 +404,8 @@ zu transformieren.
  \begin{array}{rl}
     \mbox{\textbf{minimize}}_{(r,p,\pi,\lambda)} & MLU \\
     \mbox{\textbf{subject to:}}  		 & \\
-    		         			 & r = \{r_{a,b}(e)|a,b \in V, e \in E\}~\mbox{ist ein Routing nach \ref{tD2_RoutingConstraints}} \\
-						 & p = \{p_{l}(e)|l,e \in E\}~\mbox{ist ein Routing nach \ref{tD2_RoutingConstraints}} \\
+    		         			 & r = \{r_{a,b}(e)|a,b \in V, e \in E\}~\mbox{ist ein Routing nach (\ref{tD2_RoutingConstraints})} \\
+						 & p = \{p_{l}(e)|l,e \in E\}~\mbox{ist ein Routing nach (\ref{tD2_RoutingConstraints})} \\
    		        			 & \forall e \ in E: \frac{\sum_{a,b \in V}d_{a,b}r_{ab}(e)+\sum_{l \in E}\pi_{e}(l)+\lambda_{e}F}{c_{e}} \le MLU \\
 						 & \forall e,l \in E: \frac{\pi_{e}(l)+\lambda_{e}}{c_{l}} \ge p_{l}(e) \\
 						 & \forall e,l \in E. \pi_{e}(l) \ge 0 \\
@@ -414,8 +414,10 @@ zu transformieren.
  \label{tD2_LPSimple}
 \end{eqnarray}
 
-Für ein genau Beschreibung der Transformation zwischen \ref{tD2_LPOriginal} 
-und \ref{tD2_LPSimple} siehe \cite{tD2_WWMA10}
+Die Transformation zwischen (\ref{tD2_LPOriginal}) 
+und (\ref{tD2_LPSimple}) ist hauptsächlich Teil der linearen Optimierung und 
+wird in dieser Arbeit nicht näher behandelt. 
+Für ein genau Beschreibung der Transformation siehe \cite{tD2_WWMA10}
 
 \subsection{Rekonfiguration (Online-Phase)}
 Da sich im Fehlerfall, z.B durch den Ausfall eines Links während des 
@@ -438,7 +440,7 @@ Die Anpassung erfolgt nach folgender Formel:
 \xi_{e}(l) = \frac{p_{e}(l)}{1-p_{e}(e)};~\forall l \in E \backslash \{e\} 
 \end{equation}
 Damit wird sichergestellt, dass der gesamte Verkehr auch weiterleitet wird 
-und somit Routing-Bedingung [R2] in \ref{tD2_RoutingConstraints} gültig bleibt.
+und somit Routing-Bedingung [R2] in (\ref{tD2_RoutingConstraints}) gültig bleibt.
 
 Um den fehlerhaften Link $e$ nun generell nicht mehr zu benutzen, 
 müssen sowohl Routing $r$ als auch Protection Routing $p$ angepasst werden.
@@ -451,7 +453,6 @@ Routing $p$.
 
 
 \subsection{Erweiterungen}
-%TODO Erweiterungen genauer erklären
 Wang et al. beschreibt in \cite{tD2_WWMA10} einige Erweiterungen mit denen der 
 Standartansatz von R3 erweitert werden kann.
 
@@ -477,7 +478,7 @@ R3 kann nun ergänzt werden um solche Fehlercharakteristiken zu berücksichtigen.
 Eine weitere Möglichkeit von R3 besteht darin unterschiedliche Verkehrsklassen 
 unterschiedlich zu behandeln. 
 Dazu kann für jede Klasse, die in der Regel gewissen Service Level Agreements 
-(SLA) entspricht festgelegt werden, wieviele zeitlich überlappende 
+(SLA) entspricht festgelegt werden, wie viele zeitlich überlappende 
 Link-Ausfälle tolleriert werden können.
 
 Die letzten beiden vorgestellten Erweiterungen befassen sich mit dem Verhältnis 
@@ -492,12 +493,12 @@ muss diese Redundanz entsprechend groß sein.
 Umgekehrt bedeutet dies das im Normalbetrieb nicht die bestmögliche 
 Auslastung erreicht werden kann. 
 Um die Auslastung für den regulären Betrieb zu beeinflussen bzw. zu verbessern,
-wird das Lineare Programm \ref{tD2_LPSimple} um zusätzliche Bedingungen ergänzt, 
-mit denen die Entfernung der Leistung im Normalbetrieb vom Optimum beeinflusst 
-werden kann. 
+wird das Lineare Optimierungsproblem (\ref{tD2_LPSimple}) um zusätzliche 
+Bedingungen ergänzt, mit denen die Entfernung der Leistung im Normalbetrieb 
+vom Optimum beeinflusst werden kann. 
 Auf ähnliche Weise kann auch die für die durchschnittliche Verzögerungszeit für 
-eine Ende-zu-End Übertragung beeinflusst werden. Hierzu wird \ref{tD2_LPSimple} 
-ebenfalls durch zusätzliche Bedingungen ergänzt.
+eine Ende-zu-End Übertragung beeinflusst werden. Hierzu wird 
+(\ref{tD2_LPSimple}) ebenfalls durch zusätzliche Bedingungen ergänzt.
 
 
 %------------------------------------------------------------------------------
@@ -528,12 +529,12 @@ mit demselben Label gekennzeichnet ist auch immer über dasselbe Interface
 geroutet.
 Um nun eine flussbasiertes Routing mit MPLS zu ermöglichen muss MPLS so 
 erweitert werden, dass der zu einem Label gehörende Datenverkehr anteilig auf 
-mehrer Interfaces verteilt  werden kann.
+mehrere Interfaces verteilt  werden kann.
 MPLS-ff erweitert dazu die Datenstruktur so, dass sie mehrere NHLFE Einträge 
 enthalten kann. 
 Außerdem wird jedem NHLFE ein Faktor (\textit{next-hop splitting ratio}) 
-zugeordnet, anhand dessen der Router die Pakete wie in \ref{tD2_R3} beschrieben, 
-auf die diesem Label zugeordneten Interfaces aufteilen kann. 
+zugeordnet, anhand dessen der Router die Pakete wie in Abschnitt \ref{tD2_R3} 
+beschrieben, auf die diesem Label zugeordneten Interfaces aufteilen kann. 
 
 Damit Pakete die zu einer TCP-Verbindung gehören nicht unnötig über 
 unterschiedliche Wege durch das Netz geschickt werden, wodurch 
@@ -576,7 +577,7 @@ weitergeleitet werden.
 Angenommen O1 und O2 wollen beide mittels eine TCP-Verbindung Daten über das 
 Netzwerk an D1 übertragen.
 Sei weiter angenommen, der normale Label Switch Pfad von R1 zu R3 führt über 
-R2, wie in \ref{tD2_Implementation_Example_01} gezeigt.
+R2, wie in Abbildung \ref{tD2_Implementation_Example_01} gezeigt.
 Trifft ein Paket bei Router R1 ein, so ordnet er diesem Paket ein Label zu, z.B 
 das Label 100 für den Pfad R1-R2-R3 und leitet das Paket entsprechend weiter.
 
@@ -584,7 +585,7 @@ das Label 100 für den Pfad R1-R2-R3 und leitet das Paket entsprechend weiter.
 \Abbildungf{!h}{width= 0.50\textwidth}{tD2_Implementation_Example_02}{tD2_Implementation_Example_02}{Routing im Fehlerfall}
 
 Kommt es nun zu einem Link-Ausfall zwischen zwischen R1 und R2, 
-wie in \ref{tD2_Implementation_Example_02} dargestellt, 
+wie in Abbildung \ref{tD2_Implementation_Example_02} dargestellt, 
 so muss R1 sein Protection Routing aktivieren 
 und die Pakete entsprechend über die Alternativrouten umleiten. 
 Dazu ordnet R1 anhand seiner ILM den Paketen ein neues Protection Label, 
@@ -717,7 +718,7 @@ Leistungsfähigkeit des Routings.
 
 Tabelle \ref{tD2_OfflinePhase} zeigt die ermittelten Zeiten der Offline-Phase. 
 Gelöst wurde das zugrunde liegende lineare Optimierungsproblem 
-\ref{tD2_LPSimple} mit ILOG CPLEX 10.0. Die Laufzeiten nehmen mit zunehmender 
+(\ref{tD2_LPSimple}) mit ILOG CPLEX 10.0. Die Laufzeiten nehmen mit zunehmender 
 Knoten- und Linkanzahl zu, schwanken aber über der Anzahl der Fehler.
 
 \begin{table}[!htb]  
@@ -757,10 +758,17 @@ festgestellt werden.
 % Kapitel - Zusammenfassung
 %------------------------------------------------------------------------------
 \section{Zusammenfassung}
-
-
-
-
+In dieser Arbeit wurde das von Wang et al. in \cite{tD2_WWMA10} entwickelte 
+Routing Protection Verfahren \textit{Resilient Routing Reconfiguration} 
+behandelt. R3 bietet die Möglichkeit sowohl Routing als auch Protection Routing 
+zu berechnen und mittels Rekonfiguraton während des Netzbetriebs auf aktuelle 
+Fehlerereignisse zu reagieren und das Routing entsprechend anzupassen.
+Eine Stärke von R3 besteht darin, Staufreiheit für ein gewisse Anzahl zeitlich 
+überlappender Fehler garantieren zu können. Den Beweise führt Wang et al. 
+ebenfalls in \cite{tD2_WWMA10}. Neben der Grundlegend Arbeitsweise von R3 ist auch 
+die von Wang et al. vorgeschlagene Implementierung auf 
+Basis von MPLS sowie eine Zusammenfassung der Evaluationsergebnisse aus 
+\cite{tD2_WWMA10} teil dieser Arbeit.
 
 % /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ 
 % -----------------------------------------------------------------------------
