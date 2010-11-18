@@ -106,16 +106,16 @@ In diesem Fall spricht man von einem vermaschten Netz.
 Um Information über das Netz zu entfernten Knoten zu übertragen, müssen 
 diese von den dazwischen liegenden Netzknoten solange weitergereicht werden, 
 bis der Zielknoten erreicht wird.
-Die Wahl der zu verwendeten Zwischensysteme, also die Wahl eines Weges durch 
+Die Wahl der zu verwendenden Zwischensysteme, also die Wahl eines Weges durch 
 das Netz wird als Routing bezeichnet.
 Da in aller Regel mehrere Weg zu Verfügung stehen, ist die Optimierung des 
 Weges bezüglich eine Metrik, wie z.B der kürzeste Weg, oder die aktuelle 
 Netzauslastung ein wichtiger Aspekt beim Routing.
 
-Neben der Optimierung des Weges spielt beim Routing ein weiterer Aspekt ein 
+Neben der Optimierung des Weges, spielt beim Routing ein weiterer Aspekt ein 
 wichtige Rolle. 
 Über die Zeit hinweg kann sich ein Netztopologie ständig ändern, wodurch zuvor 
-gefunden Routen ungültig und neue gesucht werden müssen. Grunde dafür sind 
+gefunden Routen ungültig und neue gesucht werden müssen. Gründe dafür sind 
 beispielsweise der Ausfall eines Netzknotens, das Ändern von Routing-Metriken, 
 die aktuelle Netzauslastung etc..
 Um auf solche Situationen reagieren zu können, müssen die Router die 
@@ -125,18 +125,19 @@ Hierfür gibt es eine Reihe von Routing-Protokollen wie beispielsweise die im
 Internet eingesetzten Protokolle Routing Information Protokoll (RIP) 
 \cite{tD2_RFC2453}, Open Shortest Path First (OSPF) \cite{tD2_RFC2328} oder 
 Intermediate System - Intermediate System (IS-IS) \cite{tD2_RFC1142}. 
+
 Eine wichtige Eigenschaft in diesem Zusammenhang ist 
 \textit{Network Resiliency} \cite{tD2_WWMA10}.
-Mit Network Resiliency wird Fähigkeit eines Netzes Netzwerks bezeichnet, 
+Mit Network Resiliency wird die Fähigkeit eines Netzwerks bezeichnet, 
 sich schnell und problemlos nach einer Reihen von Fehlern oder Unterbrechungen 
 zu reorganisieren und eine Datenübertragung wieder zu ermöglichen.
 Viele Verfahren legen dabei vorwiegend Wert auf die Wiederherstellung der 
 Verfügbarkeit eines oder mehrerer Netzknoten.
 Weitergehende Problem, die z.B aus der Umgehung defekter Links hervorgehen 
-können, werden häufig außer acht gelassen. Dazu zählt vorwiegend die 
+können, werden häufig außer acht gelassen. Dazu zählt beispielsweise die 
 Mehrbelastung des verbliebenen Netzwerks durch die verminderte Netzkapazität 
 und den umgeleiteten Verkehr.
-Iyer at al. \cite{tD2_Iyer03} führt dies als eine der Hauptursache für das 
+Iyer at al. \cite{tD2_Iyer03} führt dies als eine der Hauptursachen für das 
 Auftreten von Stausituation in IP-basierten Netzen an.
 Ein weiterer, oft nicht berücksichtigter Aspekt ist die fehlende Möglichkeit, 
 Aussagen über die Leistungsfähigkeit des Netzes nach dem Ausfall eines Links zu 
@@ -153,7 +154,7 @@ können, muss eine Aussage für jedes Szenario getroffen werden.
 Das von Wang et al. \cite{tD2_WWMA10} entwickelte Verfahren 
 Routing Resiliency Reconfiguration (R3) ist ein neues Verfahren, um sowohl 
 ein Routing für den Normalbetrieb ohne Fehler, als auch ein Protection Routing 
-für den Fall eines oder mehrere Link-Ausfälle zu berechnen und nach jedem 
+für den Fall eines oder mehrere Link-Ausfälle zu berechnen und diese nach jedem 
 Fehler auf die momentane Netztopologie anzupassen. Dazu wird ein Ansatz 
 vorgestellt, der die Berücksichtigung aller möglichen Fehlerszenarien vermeidet.
 Weiterhin wird gezeigt, dass das Verfahren Staufreiheit durch Link-Ausfälle 
@@ -169,27 +170,27 @@ der Netztopologie ist.
 %------------------------------------------------------------------------------
 \section{Grundlagen}
 \label{tD2_Grundlagen}
-Neben der Pfadbasierten Auffassung von Routings, ist es auch möglich Routing 
-als Fluss aufzufassen \cite{tD2_ApCo03} und das zugrundeliegende 
+Neben der pfadbasierten Auffassung von Routings, ist es auch möglich Routing 
+als Fluss \cite{tD2_ApCo03} und das zugrundeliegende 
 Computernetzwerk als Flussnetzwerk zu betrachten.
-Häufig ist eine Pfad (Route) von einer Quelle zur Senke nicht eindeutig, 
-sondner es gibt mehrer Pfade für das Paar aus Quell und Senke. 
+Häufig ist eine Pfad (Route) von einem Sender zur Empfänger nicht eindeutig, 
+sondner es existieren mehrer Pfade für das Paar aus Sender und Empfänger. 
 Für die Datenübertragung kann nicht nur einer dieser Pfade, sondern auch 
-mehrere unterschiedliche gleichzeitig genutzt werden. 
+mehrere unterschiedliche Pfade gleichzeitig genutzt werden. 
 Jeder Pfad überträgt dann einen gewissen Anteil der zu übermittelnden 
 Informationen.
 Fasst man das Netzwerk als gerichteten Graph $G=(V,E)$ auf, wobei $V$ der 
 Menge der Router und $E$ der Menge der Netzwerkverbindungen zwischen den 
-Routern entspircht, lässt sich so ein Flussnetzwerk definieren.
+Routern entspricht, lässt sich so ein Flussnetzwerk definieren.
 Die Werte $r_{ab}(e)$ geben dazu jeweils den Anteil einer Übertragung von 
 $a \in V$ nach $b \in V$ an, der über die Verbindung $e \in E$ geroutet wird.
 Als Menge $\{r_{ab}(e)|a,b \in V \land e \in E\}$ zusammengefasst beschreiben 
 diese Werte so das gesammte Routing $r$.
 Der Beitrag zur Auslastung einer Verbindung $e$ entspricht dem Produkt 
-$d_{ab}r_{ab}(e)$, wobei $d_{ab}$ dem aktuell von Sender $a$ initiierte Verkehr 
-zum Empfänger $b$ entpsicht und $r_{ab}(e)$ der wie oben beschriebene Anteil.
-Ein so definiertes Routing gilt als korrekt wenn es die in \cite{tD2_WWMA10} 
-definierten Bedingungen erfüllt. Nachfolgend sidn diese Bedungen nocheinmal 
+$d_{ab}r_{ab}(e)$, wobei $d_{ab}$ dem aktuell von Sender $a$ initiierten Verkehr 
+zum Empfänger $b$ entpsicht und $r_{ab}(e)$ dem wie oben beschriebenen Anteil.
+Ein so definiertes Routing gilt als korrekt, wenn es die in \cite{tD2_WWMA10} 
+definierten Bedingungen erfüllt. Nachfolgend sind diese Bedingungen nocheinmal 
 aufgeführt. 
 \begin{Def}
 Ein Routing $r$ ist korrekt, wenn $r$ die nachfolgenden Bedinungen erfüllt:
@@ -205,9 +206,9 @@ Ein Routing $r$ ist korrekt, wenn $r$ die nachfolgenden Bedinungen erfüllt:
 \end{eqnarray}
 \end{Def}
 Die erste Bedingung entspricht dem für Flussnetzwerke üblichen Flusserhalt und 
-fordert, dass jeder Zwischenknoten genausoviel weiterleitet wie in ihn gesendet 
+fordert, dass jeder Zwischenknoten genausoviel weiterleitet wie an ihn gesendet 
 wird.
-Die zweite Bedingung fordert, dass der gesamte von einer Quelle initierte 
+Die zweite Bedingung stellt sicher, dass der gesamte von einer Quelle initiierte 
 Verkehr weitergeleitet wird, während die dritte Bedingung verbietet, dass ein 
 Teil davon wieder zur Quelle zurückgesendet wird.
 Die vierte Bedinung fordert, dass der weitergeleitete Anteil zwischen $0\%$ und 
@@ -245,7 +246,7 @@ Bei Link-Ausfällen ist dieses Routing nicht mehr gültig und muss angepasst
 werden. 
 Dazu existieren unterschieldiche Verfahren, sog. Routing Protection Schemes. 
 Ein häufig genutztes Verfahren ist das in \cite{tD2_RFC5714} für IP definierte 
-Fast-Rerotuing.
+Fast-Rerouting.
 Wird bei der Paketübertragung ein Netzwerkfehler von einem Router erkannt, 
 muss für den ursprünglichen Pfad eine Alternative gefunden werden, 
 die die ausgefallenen Netzkomponenten nicht verwendet. 
@@ -258,7 +259,7 @@ und der Zeit um die Routing-Tabellen in die Hardware zu übertragen.
 Um nun diese Ausfallzeit möglichst kurz zu halten, 
 verwendet Fast-Rerouting eine schon vorab berechnete alternative Route 
 um die ausgefallenen Komponenten zu umgehen.
-Dadurch kann die Ausfallzeit eiens Netzknoten und damit die Verzögerung von 
+Dadurch kann die Ausfallzeit eines Netzknoten und damit die Verzögerung von 
 Dateneinheiten auf die Erkennung des Fehlers am lokalen Router und das 
 aktivieren der Alterniv-Route beschränkt werden. 
 Eine Information der anderen Router im Netz ist nicht zwingen erforderlich.
@@ -272,7 +273,7 @@ Wang et al. \cite{tD2_WWMA10} definiert dazu das folgende Problem.
 \begin{Def} 
 (Routing Resiliency) Das Problem Routing Resiliency besteht darin, sowohl ein 
 Routing $r$ als auch ein Protection Routing $p$ zu berechnen, so dass die 
-Maximale Link Auslastung für bis zu F Link-Fehlern unter 100\% bleibt.
+maximale Link Auslastung für bis zu F Link-Fehler 100\% nicht überschreitet.
 \end{Def}
 
 Bisherige Arbeiten zum diesem Thema behandeln meist nur eine Seite, 
@@ -290,14 +291,18 @@ angepasst und optimiert werden.
 Der Vorteil besteht darin, dass die neuen Routen jeweils auf die aktuelle 
 Netztopologie angepasst sind und diese optimal auslasten können.
 Der Nachteil liegt in der schlechteren Reaktionszeit. 
-Mitunter kann die Reorganisation des Routings für die neue Netztopology sehr 
+Mitunter kann die Reorganisation des Routings für die neue Netztopologie sehr 
 aufwendig zu berechnen und einzurichten sein.
 Ein anderes Aspekt mit dem sich viele Arbeiten befassen ist die Tatsache, 
-dass sich die Verkehrssituationen in einem Netz wie beispielweise dem Internet 
+dass sich die Verkehrssituationen in einem Netz wie beispielsweise dem Internet 
 sehr häufig ändern und man daher ein Routing benötigt, welches dies 
 berücksichtigt.
 
-Mit R3 hat Wang et al. ein Ansatz vorgestellt, der beide Aspekte berücksichtigt.
+Mit R3 hat Wang et al. ein Verfahren vorgestellt, das beide Aspekte 
+berücksichtigt und zudem in der Lage ist Staufreiheit für eine vielzahl von 
+Fehlerszenarien zu garantieren (Den Beweis führt Wang et al. ebenfalls 
+in \cite{tD2_WWMA10}).
+
 
 %------------------------------------------------------------------------------
 % Kapitel - Resilient Routing Reconfiguration
@@ -310,7 +315,7 @@ Entwickeln von Routing-Protection-Schemes in der Vielzahl möglicher
 Fehlerszenarien und der daraus resultierenden Unkenntnis der genauen 
 Netztopologie.
 Für ein Netz mit $|E|$ Links und bis zu $F$ Link-Fehlern entspricht die 
-Anzahl möglicher Fehlerszenarien $\sum_{i=1}^F |E| \choose i$.
+Anzahl möglicher Fehlerszenarien $\sum_{i=1}^F {|E| \choose i}$.
 Die Grundidee von R3 besteht nun darin, nicht jede dieser möglichen Topologien 
 zu berücksichtigen, sondern das Problem in eine besser handhabbare Form zu 
 transformieren.
@@ -324,8 +329,8 @@ Links ab, kann aber höchsten so groß wie die Kapazität $c_{e}$ des Links sein
 und wird als \textit{Virtual Demand} bezeichnet. 
 So lässt sich jedem Link ein Virtual Demand entsprechend seiner Kapazität 
 zuordnen. Werden alle Virtual Demands mittels Konvexkombination 
-zusammengefasst, beschreibt dies den umzuleitenden Verkehr im Fehlerfall, 
-unabhängig vom konkreten Fehlerszenario.
+zusammengefasst, beschreibt dies den gesamten umzuleitenden Verkehr im 
+Fehlerfall, unabhängig vom konkreten Fehlerszenario.
 Formal kann man den Virtual Demand eines Links $e$ als Variable $x_{e}$ 
 auffassen.
 Für bis zu $F$ Link-Fehler überdeckt dann die Menge 
@@ -333,7 +338,7 @@ Für bis zu $F$ Link-Fehler überdeckt dann die Menge
 X_{F} = \{x|0 \le \frac{x_{e}}{c_{e}} \le 1 (\forall e \in V), \sum_{e \in E} \frac{x_{e}}{c_{e}} \le F\}
 \label{tD2_VirtualDemandSet}
 \end{equation} 
-den gesamten umzuleitenden Verkehr, unabhängig vom konkreten Fehlerszenario.
+den gesamten umzuleitenden Verkehr für jedes beliebige Fehlerszenario.
 Anders ausgedrückt, für jedes mögliche Fehlerszenario mit maximal $F$ 
 fehlerhaften Links beschreibt $X_{F}$ den gesamten umzuleitenden Verkehr.
 Anstelle eines Routings für eine konstante Verkehrsmatrix $d$ bei variabler 
@@ -362,8 +367,9 @@ Die Aufzählung aller möglichen Verkehrsmatrizen ist dazu nicht nötig.
 R3 nutzt nun diese Überlegungen als Grundlage.
 Prinzipiell gliedert sich R3 in zwei Teile, einer vom Netzbetrieb unabhängigen 
 Vorberechnung (Offline-Phase), die sowohl ein Routing $r$ als auch ein 
-Protection Routing $p$ berechnet und einer Rekonfiguration (Online-Phase) von 
-$p$ nach jedem Link-Ausfall während des eigentlichen Netzbetriebs.
+Protection Routing $p$ basierend auf den obigen Überlegungen berechnet und 
+einer Rekonfiguration (Online-Phase) von $r$ und $p$ nach jedem Link-Ausfall 
+während des eigentlichen Netzbetriebs.
 
 \subsection{Vorberechnung (Offline-Phase)}
 Aufgabe der Vorberechnungsphase ist es ein möglichst optimales Routing 
@@ -389,10 +395,10 @@ Formal entspricht das Problem den nachfolgenden linearen Optimierungsproblem:
 \end{eqnarray}
 
 Während [C1] sicherstellt,  dass $r$ und $p$ die Bedingungen für ein gültiges 
-Routing einhalten fordert [C2], dass die Maximal-Auslastung (MLU) für jeden 
-Link und jeden Virtual Demand $x \in X_{F}$ nicht überschritten wird.
-In dieser Form des linearen Optimierungsproblems besteht weiterhin das Problem, 
-dass es sich bei $X_{F}$ um eine nicht endliche Menge handelt 
+Routing einhalten fordert [C2], dass die MLU für jeden Link und jeden 
+Virtual Demand $x \in X_{F}$ nicht überschritten wird.
+In dieser Form des linearen Optimierungsproblems besteht weiterhin die 
+Schwierigkeit, dass es sich bei $X_{F}$ um eine nicht endliche Menge handelt 
 und sich daraus unendlich viele Bedingungen ergeben.
 
 Nun kann aber die Dualität von linearen Optimierungsproblemen ausgenutzt werden,  
@@ -415,9 +421,9 @@ zu transformieren.
 \end{eqnarray}
 
 Die Transformation zwischen (\ref{tD2_LPOriginal}) 
-und (\ref{tD2_LPSimple}) ist hauptsächlich Teil der linearen Optimierung und 
-wird in dieser Arbeit nicht näher behandelt. 
-Für ein genau Beschreibung der Transformation siehe \cite{tD2_WWMA10}
+und (\ref{tD2_LPSimple}) basiert vorwiegend auf der dualität von linearen 
+Optimierungsproblemen und wird in dieser Arbeit nicht näher behandelt. 
+Für ein genau Beschreibung der Transformation siehe \cite{tD2_WWMA10}.
 
 \subsection{Rekonfiguration (Online-Phase)}
 Da sich im Fehlerfall, z.B durch den Ausfall eines Links während des 
@@ -439,7 +445,7 @@ Die Anpassung erfolgt nach folgender Formel:
 \begin{equation}
 \xi_{e}(l) = \frac{p_{e}(l)}{1-p_{e}(e)};~\forall l \in E \backslash \{e\} 
 \end{equation}
-Damit wird sichergestellt, dass der gesamte Verkehr auch weiterleitet wird 
+Damit wird sichergestellt, dass der gesamte Verkehr auch weitergeleitet wird 
 und somit Routing-Bedingung [R2] in (\ref{tD2_RoutingConstraints}) gültig bleibt.
 
 Um den fehlerhaften Link $e$ nun generell nicht mehr zu benutzen, 
@@ -448,7 +454,7 @@ Dazu kann einfach der vormals an $e$ zugeteilte Verkehr auf die
 Routing-Alternative $\xi_{e}$ verteilt werden.
 Der über einen Link $l \in E \backslash \{e\}$ geroutete Verkehr $r_{ab}(l)$ 
 erhöht sich dann um den an ihn, durch die Umleitung $\xi_{e}$ zugeteilten 
-Anteil $r_{ab}(e)\xi_{e}(l)$. Entsprechend gilt dies auch für das Protection 
+Anteil $r_{ab}(e)\xi_{e}(l)$. Entsprechendes gilt auch für das Protection 
 Routing $p$.
 
 
@@ -458,20 +464,24 @@ Standartansatz von R3 erweitert werden kann.
 
 Eine Erweiterung ist der Umgang mit variablen Verkehrsmatrizen, 
 anstelle der wie bisher angenommen konstanten Verkehrsmatrix $d$. 
+Dazu wird die konstante Verkehrsmatrix in (\ref{tD2_VirtualDemandSet}) durch 
+die konvexe Hülle einer Menge verschiedene Verkehrsmatrizen 
+$d_{1},...,d_{n}$ ersetzt. Damit wird ein größerer Bereich von Verkehrsmustern 
+erfasst.
 
-Die nächste Erweiterung ist die Behandlung von Zusammenhängenden Link-Ausfällen.
+Die nächste Erweiterung ist die Behandlung zusammenhängender Link-Ausfälle.
 Link-Ausfälle treten nicht immer einzeln und unabhängig voneinander auf, 
 sondern können in einem gewissen Zusammenhang stehen. 
 Als Beispiel wird in \cite{tD2_WWMA10} der Ausfall einer von mehreren 
 IP-Links gemeinsam genutzten Komponente angeben, oder das gleichzeitige 
 Abschalten mehrerer Links durch den Netzbetreiber für Wartungsarbeiten. 
 Wang et al. unterscheidet dazu die beiden Klassen, Shared Risk Link Group 
-(SRLG) zu denen das erste Beispiel gehört und die Maintenance Link Group (MLG) 
+(SRLG) zu der das erste Beispiel gehört und die Maintenance Link Group (MLG) 
 zu der das zweite Beispiel gehört.
 Eine Shared Risk Link Group besteht aus Links, die aus technischen Gründen immer 
 gleichzeitig unterbrochen werden, da sie dieselben Komponenten nutzen, 
 z.B. dieselbe Glasfaserleitung.
-Eine MLG besteht aus Links die vom Netzbetreiber zusammengefasst werden und bei 
+Eine MLG besteht aus Links die vom Netzbetreiber zusammengefasst und bei 
 Wartungsarbeiten zusammen abgeschaltet werden.
 R3 kann nun ergänzt werden um solche Fehlercharakteristiken zu berücksichtigen.
 
@@ -479,24 +489,24 @@ Eine weitere Möglichkeit von R3 besteht darin unterschiedliche Verkehrsklassen
 unterschiedlich zu behandeln. 
 Dazu kann für jede Klasse, die in der Regel gewissen Service Level Agreements 
 (SLA) entspricht festgelegt werden, wie viele zeitlich überlappende 
-Link-Ausfälle tolleriert werden können.
+Link-Ausfälle sie tollerieren kann.
 
 Die letzten beiden vorgestellten Erweiterungen befassen sich mit dem Verhältnis 
 zwischen Leistung im Normalbetrieb und Fehlerfall und mit dem Verhältnis 
 zwischen Netzauslastung und Verzögerungszeit.
 Da bei Ausfall eines oder mehrere Links die Netzkapazität gemindert wird und 
-der Zusatzverkehr des defekten Links zusätzlich übertragen werden muss, 
-müssen entsprechende Redundanz in Form von Kapazitätsreserven berücksichtigt 
-werden. 
+der Verkehrs des defekten Links zusätzlich übertragen werden muss, 
+sind entsprechende Redundanzen in Form von Kapazitätsreserven zu 
+berücksichtigen.
 Will man im Fehlerfall weiterhin eine hohe Leistung ermöglichen, 
-muss diese Redundanz entsprechend groß sein. 
-Umgekehrt bedeutet dies das im Normalbetrieb nicht die bestmögliche 
+muss diese Redundanz dementsprechend groß sein. 
+Umgekehrt bedeutet dies, im Normalbetrieb nicht die bestmögliche 
 Auslastung erreicht werden kann. 
 Um die Auslastung für den regulären Betrieb zu beeinflussen bzw. zu verbessern,
-wird das Lineare Optimierungsproblem (\ref{tD2_LPSimple}) um zusätzliche 
-Bedingungen ergänzt, mit denen die Entfernung der Leistung im Normalbetrieb 
-vom Optimum beeinflusst werden kann. 
-Auf ähnliche Weise kann auch die für die durchschnittliche Verzögerungszeit für 
+wird das lineare Optimierungsproblem (\ref{tD2_LPSimple}) um zusätzliche 
+Bedingungen ergänzt, mit denen die Differnz zwischen Leistung im Normalbetrieb 
+und dem Optimum beeinflusst werden kann. 
+Auf ähnliche Weise kann auch die durchschnittliche Verzögerungszeit für 
 eine Ende-zu-End Übertragung beeinflusst werden. Hierzu wird 
 (\ref{tD2_LPSimple}) ebenfalls durch zusätzliche Bedingungen ergänzt.
 
@@ -527,7 +537,7 @@ jedes Label eine entsprechende
 Da für jedes Label nur ein Eintrag vorhanden ist, wird der gesamte Verkehr der 
 mit demselben Label gekennzeichnet ist auch immer über dasselbe Interface 
 geroutet.
-Um nun eine flussbasiertes Routing mit MPLS zu ermöglichen muss MPLS so 
+Um nun flussbasiertes Routing mit MPLS zu ermöglichen muss MPLS so 
 erweitert werden, dass der zu einem Label gehörende Datenverkehr anteilig auf 
 mehrere Interfaces verteilt  werden kann.
 MPLS-ff erweitert dazu die Datenstruktur so, dass sie mehrere NHLFE Einträge 
@@ -543,7 +553,7 @@ Laufzeitunterschiede entstehen können, verwendet Wang et al. in
 stehenden Links zu verteilen.
 Die Hashfunktion erhält als Eingabe die Quell- und Ziel-IP, die Quell- und 
 Ziel-Ports sowie eine ID, abhängig vom aktuellen Router.
-Ziel der Hash-Funktion ist es, Pakete die zur selben TCP-Verbindung gehören auf 
+Ziel der Hash-Funktion ist es, Paketen die zur selben TCP-Verbindung gehören auf 
 einem Router immer denselben Hash-Wert zuzuordnen, 
 für unterschiedliche Router aber unterschiedlich zu sein.
 So wird erreicht, dass die Pakete einer TCP-Verbindung denselben Weg nehmen.  
@@ -558,19 +568,19 @@ auf Fehlerereignisse beobachtet werden.
 Auch andere Fehlererkennungsverfahren wie z.B \cite{tD2_KYGS05} sind möglich.
 Wird ein fehlerhafter Link erkannt, 
 werden alle andern Router mittels ICMP Pakete über den Fehler informiert, so 
-dass diese entsprechend ihr Protection Routing anpassen können.
+dass diese ihr Protection Routing entsprechend anpassen können.
 Dazu muss jeder Router die \textit{next-hop splitting ratio} für die zu dem 
-ausgefallenen Link gehörenden Alternative-Links anpassen.
+ausgefallenen Link gehörenden Alternativ-Links anpassen.
 
-Um nun Pakete im Fehlerfall umzuleiten wird der Label-Stack von MPLS verwendet. 
-Erkennt ein Router einen Linkfehler wird die für das Label des Paketes 
+Um Pakete im Fehlerfall umzuleiten, wird der Label-Stack von MPLS verwendet. 
+Erkennt ein Router einen Linkfehler, wird die für das Label des Paketes 
 definierte Alternative-Route aktiviert.
 Dazu legt der Router ein weiteres Label auf den Label-Stack des Paketes und 
-ordnet es damit der Alternative-Route zu.
+ordnet es damit der Alternativ-Route zu.
 Das Paket wird dann entsprechend diesem Label weitergeleitet. 
 Erreicht ein Paket wieder die Ursprungsroute, 
-wird das neue Label wieder vom Label-Stack entfernt und kann auf normalem Weg 
-weitergeleitet werden.
+wird das neue Label wieder vom Label-Stack entfernt und das Paket kann auf 
+normalem Weg weitergeleitet werden.
 
 \begin{Bsp}
 \label{tD2_ExampleFailurResponse}
@@ -584,20 +594,20 @@ das Label 100 für den Pfad R1-R2-R3 und leitet das Paket entsprechend weiter.
 \Abbildungf{!h}{width= 0.50\textwidth}{tD2_Implementation_Example_01}{tD2_Implementation_Example_01}{Routing ohne Link-Fehler}
 \Abbildungf{!h}{width= 0.50\textwidth}{tD2_Implementation_Example_02}{tD2_Implementation_Example_02}{Routing im Fehlerfall}
 
-Kommt es nun zu einem Link-Ausfall zwischen zwischen R1 und R2, 
+Kommt es nun zu einem Link-Ausfall zwischen R1 und R2, 
 wie in Abbildung \ref{tD2_Implementation_Example_02} dargestellt, 
 so muss R1 sein Protection Routing aktivieren 
-und die Pakete entsprechend über die Alternativrouten umleiten. 
+und die Pakete entsprechend über die Alternativ-Routen umleiten. 
 Dazu ordnet R1 anhand seiner ILM den Paketen ein neues Protection Label, 
 beispielsweise 101 zu und legt es auf den Label Stack der MPLS Dateneinheit.
 Für dieses Label existieren angenommen zwei NHLFE in der ILM von R1, die 
 besagen, dass jeweils 50\% des Verkehrs von (R1,R2) über (R1,R4) 
 und (R1,R5) übertragen werden.
 Um nun Pakete für dieselbe TCP-Verbindung auch auf demselben Weg zu 
-transportieren, berechnet R1 wie oben beschrieben eine Hashwert. 
-Anhand dieses Wertes teilt die Pakete entsprechend für O1 an den nächsten Router 
-R4 zu und die Pakete von O2 an den nächsten Router R5.
-R4 und R5 leiten die Pakte dann entsprechend des Labels 101 an R2 weiter, 
+transportieren, berechnet R1 wie oben beschrieben einen Hashwert. 
+Anhand dieses Wertes teilt R1 entsprechend die Pakete für O1 an den nächsten 
+Router R4 und die Pakete von O2 an den nächsten Router R5 zu.
+R4 und R5 leiten die Pakte dann anhand des Labels 101 an R2 weiter, 
 wo das oberste Label 101 wieder vom Stack entfernt und auf normalem Weg weiter 
 zu R3 geleitet wird. 
 Ein ähnliches Beispiel findet sich auch in \cite{tD2_WWMA10}
@@ -612,8 +622,8 @@ Ein ähnliches Beispiel findet sich auch in \cite{tD2_WWMA10}
 Der nachfolgende Abschnitt gibt einen Überblick über die in \cite{tD2_WWMA10} 
 vorgestellte Evaluierung von R3.
 Zur Evaluierung wurden zum einen Simulationen und zum anderen die ebenfalls in 
-\cite{tD2_WWMA10} vorgestellte, auf Linux MPLS basierende reale Implementierung von 
-R3 verwendet. 
+\cite{tD2_WWMA10} vorgestellte, auf Linux MPLS basierende reale Implementierung 
+von R3 verwendet. 
 
 Die verwendeten Netztopologien zur Simulation sind zum einen die Topologie 
 eines Tier-1 Internet Servie Providers (ISP) nachfolgend US-ISP genannt, und 
@@ -767,8 +777,8 @@ zu berechnen und mittels Rekonfiguraton während des Netzbetriebs auf aktuelle
 Fehlerereignisse zu reagieren und das Routing entsprechend anzupassen.
 Eine Stärke von R3 besteht darin, Staufreiheit für ein gewisse Anzahl zeitlich 
 überlappender Fehler garantieren zu können. Den Beweise führt Wang et al. 
-ebenfalls in \cite{tD2_WWMA10}. Neben der Grundlegend Arbeitsweise von R3 ist auch 
-die von Wang et al. vorgeschlagene Implementierung auf 
+ebenfalls in \cite{tD2_WWMA10}. Neben der grubdlegenden Arbeitsweise von R3 ist 
+auch die von Wang et al. vorgeschlagene Implementierung auf 
 Basis von MPLS sowie eine Zusammenfassung der Evaluationsergebnisse aus 
 \cite{tD2_WWMA10} teil dieser Arbeit.
 
