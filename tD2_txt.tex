@@ -373,7 +373,7 @@ während des eigentlichen Netzbetriebs.
 
 \subsection{Vorberechnung (Offline-Phase)}
 Aufgabe der Vorberechnungsphase ist es ein möglichst optimales Routing 
-$r$ für eine gegeben Verkehrsmatrix $d$ sowie ein entsprechendes 
+$r$ für eine gegeben Verkehrsmatrix $d$, sowie ein entsprechendes 
 Protection Routing $p$ für den Virtual Demand $X_{F}$ zu berechnen.
 Optimierungsziel ist dabei die Minimierung der maximalen Link-Auslastung (MLU) 
 für die ursprüngliche Netztopologie und das kombinierte Verkehrsaufkommen 
@@ -402,7 +402,7 @@ Schwierigkeit, dass es sich bei $X_{F}$ um eine nicht endliche Menge handelt
 und sich daraus unendlich viele Bedingungen ergeben.
 
 Nun kann aber die Dualität von linearen Optimierungsproblemen ausgenutzt werden,  
-um das ursprüngliche Problem \ref{tD2_LPOriginal} in das nachfolgende 
+um das ursprüngliche Problem (\ref{tD2_LPOriginal}) in das nachfolgende 
 einfachere lineare Optimierungsproblem mit polynomialer Anzahl an Bedingungen 
 zu transformieren.
 
@@ -438,8 +438,8 @@ Da $p$ allerdings nicht für die Topologie in diesem konkreten Fehlerfall,
 sondern auf der ursprünglichen Netztopologie definiert wurde, 
 muss $p$ zuvor entsprechend des Fehlers angepasst werden, 
 um sicherzustellen das der defekte Link $e$ nicht mehr verwendet wird.  
-Um dies zu erreichen, muss lediglich eine einfache Anpassung (re-scaling) der 
-verbliebenen Links durchgeführt werden, die den Verkehr von $e$ nun mittragen 
+Erreicht lässt sich dies durch eine einfache Anpassung (re-scaling) der 
+verbliebenen Links, die den Verkehr von $e$ nun mittragen 
 müssen. 
 Die Anpassung erfolgt nach folgender Formel:
 \begin{equation}
@@ -472,11 +472,11 @@ erfasst.
 Die nächste Erweiterung ist die Behandlung zusammenhängender Link-Ausfälle.
 Link-Ausfälle treten nicht immer einzeln und unabhängig voneinander auf, 
 sondern können in einem gewissen Zusammenhang stehen. 
-Als Beispiel wird in \cite{tD2_WWMA10} der Ausfall einer von mehreren 
+Als Beispiel wird in \cite{tD2_WWMA10} der Ausfall einer, von mehreren 
 IP-Links gemeinsam genutzten Komponente angeben, oder das gleichzeitige 
-Abschalten mehrerer Links durch den Netzbetreiber für Wartungsarbeiten. 
+Abschalten mehrerer Links für Wartungsarbeiten durch den Netzbetreiber. 
 Wang et al. unterscheidet dazu die beiden Klassen, Shared Risk Link Group 
-(SRLG) zu der das erste Beispiel gehört und die Maintenance Link Group (MLG) 
+(SRLG) zu der das erste Beispiel gehört und Maintenance Link Group (MLG) 
 zu der das zweite Beispiel gehört.
 Eine Shared Risk Link Group besteht aus Links, die aus technischen Gründen immer 
 gleichzeitig unterbrochen werden, da sie dieselben Komponenten nutzen, 
@@ -495,12 +495,12 @@ Die letzten beiden vorgestellten Erweiterungen befassen sich mit dem Verhältnis
 zwischen Leistung im Normalbetrieb und Fehlerfall und mit dem Verhältnis 
 zwischen Netzauslastung und Verzögerungszeit.
 Da bei Ausfall eines oder mehrere Links die Netzkapazität gemindert wird und 
-der Verkehrs des defekten Links zusätzlich übertragen werden muss, 
+der Verkehr des defekten Links zusätzlich übertragen werden muss, 
 sind entsprechende Redundanzen in Form von Kapazitätsreserven zu 
 berücksichtigen.
 Will man im Fehlerfall weiterhin eine hohe Leistung ermöglichen, 
 muss diese Redundanz dementsprechend groß sein. 
-Umgekehrt bedeutet dies, im Normalbetrieb nicht die bestmögliche 
+Umgekehrt bedeutet dies, dass im Normalbetrieb nicht die bestmögliche 
 Auslastung erreicht werden kann. 
 Um die Auslastung für den regulären Betrieb zu beeinflussen bzw. zu verbessern,
 wird das lineare Optimierungsproblem (\ref{tD2_LPSimple}) um zusätzliche 
@@ -537,7 +537,7 @@ jedes Label eine entsprechende
 Da für jedes Label nur ein Eintrag vorhanden ist, wird der gesamte Verkehr der 
 mit demselben Label gekennzeichnet ist auch immer über dasselbe Interface 
 geroutet.
-Um nun flussbasiertes Routing mit MPLS zu ermöglichen muss MPLS so 
+Um nun flussbasiertes Routing mit MPLS zu ermöglichen, muss MPLS so 
 erweitert werden, dass der zu einem Label gehörende Datenverkehr anteilig auf 
 mehrere Interfaces verteilt  werden kann.
 MPLS-ff erweitert dazu die Datenstruktur so, dass sie mehrere NHLFE Einträge 
@@ -554,8 +554,8 @@ stehenden Links zu verteilen.
 Die Hashfunktion erhält als Eingabe die Quell- und Ziel-IP, die Quell- und 
 Ziel-Ports sowie eine ID, abhängig vom aktuellen Router.
 Ziel der Hash-Funktion ist es, Paketen die zur selben TCP-Verbindung gehören auf 
-einem Router immer denselben Hash-Wert zuzuordnen, 
-für unterschiedliche Router aber unterschiedlich zu sein.
+einem Router immer denselben Hash-Wert zuzuordnen. 
+Für unterschiedliche Router kann der Wert allerdings unterschiedlich sein. 
 So wird erreicht, dass die Pakete einer TCP-Verbindung denselben Weg nehmen.  
 
 %TODO Referenz zu Fehlererkennung auf Schicht 2 einfügen
@@ -567,24 +567,24 @@ Zu Fehlererkennung während des Betriebs kann die Sicherungsschicht (Layer 2)
 auf Fehlerereignisse beobachtet werden. 
 Auch andere Fehlererkennungsverfahren wie z.B \cite{tD2_KYGS05} sind möglich.
 Wird ein fehlerhafter Link erkannt, 
-werden alle andern Router mittels ICMP Pakete über den Fehler informiert, so 
+werden alle andern Router mittels ICMP über den Fehler informiert, so 
 dass diese ihr Protection Routing entsprechend anpassen können.
 Dazu muss jeder Router die \textit{next-hop splitting ratio} für die zu dem 
 ausgefallenen Link gehörenden Alternativ-Links anpassen.
 
 Um Pakete im Fehlerfall umzuleiten, wird der Label-Stack von MPLS verwendet. 
 Erkennt ein Router einen Linkfehler, wird die für das Label des Paketes 
-definierte Alternative-Route aktiviert.
+definierte Alternativ-Route aktiviert.
 Dazu legt der Router ein weiteres Label auf den Label-Stack des Paketes und 
 ordnet es damit der Alternativ-Route zu.
 Das Paket wird dann entsprechend diesem Label weitergeleitet. 
 Erreicht ein Paket wieder die Ursprungsroute, 
-wird das neue Label wieder vom Label-Stack entfernt und das Paket kann auf 
+wird das neue Label vom Label-Stack entfernt und das Paket kann auf 
 normalem Weg weitergeleitet werden.
 
 \begin{Bsp}
 \label{tD2_ExampleFailurResponse}
-Angenommen O1 und O2 wollen beide mittels eine TCP-Verbindung Daten über das 
+Angenommen O1 und O2 wollen beide mittels einer TCP-Verbindung Daten über das 
 Netzwerk an D1 übertragen.
 Sei weiter angenommen, der normale Label Switch Pfad von R1 zu R3 führt über 
 R2, wie in Abbildung \ref{tD2_Implementation_Example_01} gezeigt.
@@ -664,7 +664,7 @@ optimalem flussbasiertem Routing. Je näher dieser Wert an 1 liegt, desto besser
 ist die Leistung des verwendeten Verfahrens.
 
 Verglichen wurden die beiden Routingverfahren OSPF und MPLS-ff im Zusammenhang 
-mit den Sicherungs-Verfahren Constrained Shortest Path First (CSPF) \cite{tD2_Zieg07}, 
+mit den Protection-Verfahren Constrained Shortest Path First (CSPF) \cite{tD2_Zieg07}, 
 OSPF reconvergence (recon) \cite{tD2_WWMA10}, Failure-Carrying-Packet (FCP) 
 \cite{tD2_LCRA07}, Path Splicing (PathSplicing) \cite{tD2_MEFV08}, R3 und 
 Flow-based optimal link detour routing (opt) \cite{tD2_WWMA10}.
@@ -677,10 +677,10 @@ alle Zwei-Fehler Events und 1100 zufälligen Drei-Fehler Events.
 Angegeben ist jeweils das Leistungsverhältnis für ein Szenario. 
 Die Werte wurden entsprechend ihres Leistungswertes aufsteigend 
 sortiert.
-In alle drei Grafiken lässt sich die gleiche Gruppierung erkennen. 
+In allen drei Grafiken lässt sich die gleiche Gruppierung erkennen. 
 OSPF+R3, OSPF+opt, MPLS+R3 liegen immer nahe beieinander und sind dem Optimum 
 am nächsten.
-PSPF+CSPF, OSPF+recon und FCP bilden ebenfalls eine Gruppe  liegen ebenfalls 
+PSPF+CSPF, OSPF+recon und FCP bilden ebenfalls eine Gruppe, liegen ebenfalls 
 eng zusammen und sind zumindest für die Extremwerte am weitesten vom Optimum 
 entfernt.
 PathSplicing liegt in der Regel zwischen den beiden Gruppen. 
