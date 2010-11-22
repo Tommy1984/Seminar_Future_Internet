@@ -280,13 +280,13 @@ Bisherige Arbeiten zum diesem Thema behandeln meist nur eine Seite,
 entweder \textit{Routing im Fehlerfall} oder 
 \textit{Routing für sich ändernde Netzauslastungen}.
 Das Hauptaugenmerk bei Routing im Fehlerfall liegt dabei in aller Regel auf 
-der Ausfallzeit und wie dieser minimiert werden kann. 
+der Ausfallzeit und wie diese minimiert werden kann. 
 Ein häufig verwendeter Ansatz ist die Vorberechnung von Alternativ-Routen und 
 das schnell Umschalten im Fehlerfall. 
-Dieser Ansatz bietet allerdings noch keine Möglichkeit um Stausituation zu 
+Dieser Ansatz bietet allerdings noch keine Möglichkeit um Stausituationen zu 
 vermeiden oder die voraussichtliche Leistung nach einem Link-Fehler zu 
 bestimmen.
-Alternativ zu Vorberechnung können bestehende Routen auch nach jedem Fehler 
+Alternativ zur Vorberechnung können bestehende Routen auch nach jedem Fehler 
 angepasst und optimiert werden. 
 Der Vorteil besteht darin, dass die neuen Routen jeweils auf die aktuelle 
 Netztopologie angepasst sind und diese optimal auslasten können.
@@ -300,7 +300,7 @@ berücksichtigt.
 
 Mit R3 hat Wang et al. ein Verfahren vorgestellt, das beide Aspekte 
 berücksichtigt und zudem in der Lage ist Staufreiheit für eine Vielzahl von 
-Fehlerszenarien zu garantieren (Den Beweis führt Wang et al. ebenfalls 
+Fehlerszenarien zu garantieren (den Beweis führt Wang et al. ebenfalls 
 in \cite{tD2_WWMA10}).
 
 
@@ -421,7 +421,7 @@ zu transformieren.
 \end{eqnarray}
 
 Die Transformation zwischen (\ref{tD2_LPOriginal}) 
-und (\ref{tD2_LPSimple}) basiert vorwiegend auf der dualität von linearen 
+und (\ref{tD2_LPSimple}) basiert vorwiegend auf der Dualität von linearen 
 Optimierungsproblemen und wird in dieser Arbeit nicht näher behandelt. 
 Für ein genau Beschreibung der Transformation siehe \cite{tD2_WWMA10}.
 
@@ -489,7 +489,7 @@ Eine weitere Möglichkeit von R3 besteht darin, unterschiedliche Verkehrsklassen
 unterschiedlich zu behandeln. 
 Dazu kann für jede Klasse, die in der Regel gewissen Service Level Agreements 
 (SLA) entspricht festgelegt werden, wie viele zeitlich überlappende 
-Link-Ausfälle sie tollerieren kann.
+Link-Ausfälle sie tolerieren kann.
 
 Die letzten beiden vorgestellten Erweiterungen befassen sich mit dem Verhältnis 
 zwischen Leistung im Normalbetrieb und Fehlerfall und mit dem Verhältnis 
@@ -504,10 +504,10 @@ Umgekehrt bedeutet dies, im Normalbetrieb nicht die bestmögliche
 Auslastung erreicht werden kann. 
 Um die Auslastung für den regulären Betrieb zu beeinflussen bzw. zu verbessern,
 wird das lineare Optimierungsproblem (\ref{tD2_LPSimple}) um zusätzliche 
-Bedingungen ergänzt, mit denen die Differnz zwischen Leistung im Normalbetrieb 
+Bedingungen ergänzt, mit denen die Differenz zwischen Leistung im Normalbetrieb 
 und dem Optimum beeinflusst werden kann. 
 Auf ähnliche Weise kann auch die durchschnittliche Verzögerungszeit für 
-eine Ende-zu-End Übertragung beeinflusst werden. Hierzu wird 
+eine Ende-zu-Ende Übertragung beeinflusst werden. Hierzu wird 
 (\ref{tD2_LPSimple}) ebenfalls durch zusätzliche Bedingungen ergänzt.
 
 
@@ -521,7 +521,7 @@ wie sie von Wange et al. in \cite{tD2_WWMA10} vorgeschlagen wird vorgestellt
 werden.
 
 Die Grundlage von R3 bildet die flussbasierte Darstellung des Routings.
-Eine solches Routing-Schema wird von heutigen Routern allerdings noch nicht 
+Ein solches Routing-Schema wird von heutigen Routern allerdings noch nicht 
 unterstützt, weshalb für eine Implementierung bestehende Verfahren daraufhin 
 angepasst oder neue implementiert werden müssen.
 Wang et al. verwendet MPLS (Linux MPLS) als Grundlage 
@@ -626,7 +626,7 @@ Zur Evaluierung wurden zum einen Simulationen und zum anderen die ebenfalls in
 von R3 verwendet. 
 
 Die verwendeten Netztopologien zur Simulation sind zum einen die Topologie 
-eines Tier-1 Internet Servie Providers (ISP) nachfolgend US-ISP genannt, und 
+eines Tier-1 Internet Service Providers (ISP) nachfolgend US-ISP genannt, und 
 zum anderen die durch das Rocketfuel-Projekt \cite{tD2_SpMW02} aufgezeichneten 
 Netztopologien von Level-3, SBC und UUNet, sowie einer mittels GT-ITM 
 generierten Backbonetopologie.
@@ -775,9 +775,9 @@ Routing Protection Verfahren \textit{Resilient Routing Reconfiguration}
 behandelt. R3 bietet die Möglichkeit sowohl Routing als auch Protection Routing 
 zu berechnen und mittels Rekonfiguraton während des Netzbetriebs auf aktuelle 
 Fehlerereignisse zu reagieren und das Routing entsprechend anzupassen.
-Eine Stärke von R3 besteht darin, Staufreiheit für ein gewisse Anzahl zeitlich 
-überlappender Fehler garantieren zu können. Den Beweise führt Wang et al. 
-ebenfalls in \cite{tD2_WWMA10}. Neben der grubdlegenden Arbeitsweise von R3 ist 
+Eine Stärke von R3 besteht darin, Staufreiheit für eine gewisse Anzahl zeitlich 
+überlappender Fehler garantieren zu können. Den Beweis führt Wang et al. 
+ebenfalls in \cite{tD2_WWMA10}. Neben der grundlegenden Arbeitsweise von R3 ist 
 auch die von Wang et al. vorgeschlagene Implementierung auf 
 Basis von MPLS sowie eine Zusammenfassung der Evaluationsergebnisse aus 
 \cite{tD2_WWMA10} teil dieser Arbeit.
