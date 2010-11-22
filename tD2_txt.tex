@@ -36,13 +36,13 @@
 
 Die Wiederherstellung der Erreichbarkeit von Netzknoten nach dem Ausfall eines 
 Netzwerk-Links ist eine wichtige Aufgabe heutiger Routing-Protokolle. 
-Weiterführende, oder daraus resultierende Problem werden von heutigen Verfahren 
+Weiterführende, oder daraus resultierende Probleme werden von heutigen Verfahren 
 jedoch oft außer Acht gelassen.
 Routing Resiliency Rekonfiguration (R3) von Wang et al. \cite{tD2_WWMA10} ist 
-ein neuer Ansatz, der es ermöglicht einige dieser Problem zu berücksichtigen. 
+ein neuer Ansatz, der es ermöglicht einige dieser Probleme zu berücksichtigen. 
 R3 kann zum einen Staufreiheit nach Link-Ausfällen garantieren, ist flexibel an 
 verschiedene Leistungsanforderung anpassbar und ist robust gegenüber 
-variierender Netzbelastung oder sich ändernde Netztopologie. Außerdem 
+variierender Netzbelastung oder sich ändernde Netztopologien. Außerdem 
 erfordert R3 nur geringen Berechnungs- und Speicheraufwand für die eingesetzten 
 Router.  
 
@@ -115,7 +115,7 @@ Netzauslastung ein wichtiger Aspekt beim Routing.
 Neben der Optimierung des Weges, spielt beim Routing ein weiterer Aspekt ein 
 wichtige Rolle. 
 Über die Zeit hinweg kann sich ein Netztopologie ständig ändern, wodurch zuvor 
-gefunden Routen ungültig und neue gesucht werden müssen. Gründe dafür sind 
+gefundene Routen ungültig und neue gesucht werden müssen. Gründe dafür sind 
 beispielsweise der Ausfall eines Netzknotens, das Ändern von Routing-Metriken, 
 die aktuelle Netzauslastung etc..
 Um auf solche Situationen reagieren zu können, müssen die Router die 
@@ -129,25 +129,25 @@ Intermediate System - Intermediate System (IS-IS) \cite{tD2_RFC1142}.
 Eine wichtige Eigenschaft in diesem Zusammenhang ist 
 \textit{Network Resiliency} \cite{tD2_WWMA10}.
 Mit Network Resiliency wird die Fähigkeit eines Netzwerks bezeichnet, 
-sich schnell und problemlos nach einer Reihen von Fehlern oder Unterbrechungen 
+sich schnell und problemlos nach einer Reihe von Fehlern oder Unterbrechungen 
 zu reorganisieren und eine Datenübertragung wieder zu ermöglichen.
 Viele Verfahren legen dabei vorwiegend Wert auf die Wiederherstellung der 
 Verfügbarkeit eines oder mehrerer Netzknoten.
-Weitergehende Problem, die z.B aus der Umgehung defekter Links hervorgehen 
+Weitergehende Probleme, die z.B aus der Umgehung defekter Links hervorgehen 
 können, werden häufig außer acht gelassen. Dazu zählt beispielsweise die 
 Mehrbelastung des verbliebenen Netzwerks durch die verminderte Netzkapazität 
 und den umgeleiteten Verkehr.
 Iyer at al. \cite{tD2_Iyer03} führt dies als eine der Hauptursachen für das 
-Auftreten von Stausituation in IP-basierten Netzen an.
+Auftreten von Stausituationen in IP-basierten Netzen an.
 Ein weiterer, oft nicht berücksichtigter Aspekt ist die fehlende Möglichkeit, 
-Aussagen über die Leistungsfähigkeit des Netzes nach dem Ausfall eines Links zu 
+Aussagen über die Leistungsfähigkeit eines Netzes nach einem Link-Ausfall zu 
 treffen. 
 
 Eine Schwierigkeit bei der Entwicklung von Routing-Verfahren, die auch die oben 
 genannten Probleme berücksichtigen, ist die Vielzahl möglicher Fehlerszenarien. 
 Bei einem Netz mit 500 Links sind bei 3 Link-Fehlern schon über 20 Millionen 
 Szenarien möglich. Die Berücksichtigung jedes dieser Szenarien 
-bedeutet i.d.R ein zu hohen Berechnungsaufwand. 
+bedeutet i.d.R einen zu hohen Berechnungsaufwand. 
 Um aber eben beispielsweise Staufreiheit nach einem Link-Fehler garantieren zu 
 können, muss eine Aussage für jedes Szenario getroffen werden.  
 
@@ -170,11 +170,11 @@ der Netztopologie ist.
 %------------------------------------------------------------------------------
 \section{Grundlagen}
 \label{tD2_Grundlagen}
-Neben der pfadbasierten Auffassung von Routings, ist es auch möglich Routing 
-als Fluss \cite{tD2_ApCo03} und das zugrundeliegende 
+Neben der pfadbasierten Auffassung von Routing, ist es auch möglich Routing 
+als Fluss \cite{tD2_ApCo03} und das zugrunde liegende 
 Computernetzwerk als Flussnetzwerk zu betrachten.
-Häufig ist eine Pfad (Route) von einem Sender zur Empfänger nicht eindeutig, 
-sondner es existieren mehrer Pfade für das Paar aus Sender und Empfänger. 
+Häufig ist ein Pfad (Route) von Sender zu Empfänger nicht eindeutig, 
+sondern es existieren mehrere Pfade für das Paar aus Sender und Empfänger. 
 Für die Datenübertragung kann nicht nur einer dieser Pfade, sondern auch 
 mehrere unterschiedliche Pfade gleichzeitig genutzt werden. 
 Jeder Pfad überträgt dann einen gewissen Anteil der zu übermittelnden 
@@ -185,10 +185,10 @@ Routern entspricht, lässt sich so ein Flussnetzwerk definieren.
 Die Werte $r_{ab}(e)$ geben dazu jeweils den Anteil einer Übertragung von 
 $a \in V$ nach $b \in V$ an, der über die Verbindung $e \in E$ geroutet wird.
 Als Menge $\{r_{ab}(e)|a,b \in V \land e \in E\}$ zusammengefasst beschreiben 
-diese Werte so das gesammte Routing $r$.
+diese Werte so das gesamte Routing $r$.
 Der Beitrag zur Auslastung einer Verbindung $e$ entspricht dem Produkt 
 $d_{ab}r_{ab}(e)$, wobei $d_{ab}$ dem aktuell von Sender $a$ initiierten Verkehr 
-zum Empfänger $b$ entpsicht und $r_{ab}(e)$ dem wie oben beschriebenen Anteil.
+zu Empfänger $b$ entpsicht und $r_{ab}(e)$ dem wie oben beschriebenen Anteil.
 Ein so definiertes Routing gilt als korrekt, wenn es die in \cite{tD2_WWMA10} 
 definierten Bedingungen erfüllt. Nachfolgend sind diese Bedingungen nocheinmal 
 aufgeführt. 
@@ -206,12 +206,12 @@ Ein Routing $r$ ist korrekt, wenn $r$ die nachfolgenden Bedinungen erfüllt:
 \end{eqnarray}
 \end{Def}
 Die erste Bedingung entspricht dem für Flussnetzwerke üblichen Flusserhalt und 
-fordert, dass jeder Zwischenknoten genausoviel weiterleitet wie an ihn gesendet 
+fordert, dass jeder Zwischenknoten genauso viel weiterleitet wie an ihn gesendet 
 wird.
 Die zweite Bedingung stellt sicher, dass der gesamte von einer Quelle initiierte 
 Verkehr weitergeleitet wird, während die dritte Bedingung verbietet, dass ein 
 Teil davon wieder zur Quelle zurückgesendet wird.
-Die vierte Bedinung fordert, dass der weitergeleitete Anteil zwischen $0\%$ und 
+Die vierte Bedingung fordert, dass der weitergeleitete Anteil zwischen $0\%$ und 
 $100\%$ liegt.
 
 Alternativ zum klassischen IP-Routing gibt es auch andere Verfahren zur 
@@ -240,11 +240,11 @@ entfernt werden.
 Der Label-Stack von MPLS wird in \cite{tD2_WWMA10} zu Implementierung von R3 
 verwendet.
 
-Solgange die urspüngliche Netztopologie besteht, kann das reguläre Routing 
+Sologange die urspüngliche Netztopologie besteht, kann das reguläre Routing 
 (d.h bereits berechnete Routen) verwendet werden. 
 Bei Link-Ausfällen ist dieses Routing nicht mehr gültig und muss angepasst 
 werden. 
-Dazu existieren unterschieldiche Verfahren, sog. Routing Protection Schemes. 
+Dazu existieren unterschiedliche Verfahren, sog. Routing Protection Schemes. 
 Ein häufig genutztes Verfahren ist das in \cite{tD2_RFC5714} für IP definierte 
 Fast-Rerouting.
 Wird bei der Paketübertragung ein Netzwerkfehler von einem Router erkannt, 
@@ -267,7 +267,7 @@ Für MPLS gibt es eine ähnlich arbeitenden Variante die in \cite{tD2_RFC4090}
 beschrieben wird.
 
 Leider kann auch mit FRR nicht sichergestellt werden, 
-dass es aufgrund ausgefallener Links und dadurch umgeleiten Netzwerkverkehr 
+dass es aufgrund ausgefallener Links und dadurch umgeleiteten Netzwerkverkehr 
 zu Stausitutation kommt. 
 Wang et al. \cite{tD2_WWMA10} definiert dazu das folgende Problem.
 \begin{Def} 
@@ -281,10 +281,10 @@ entweder \textit{Routing im Fehlerfall} oder
 \textit{Routing für sich ändernde Netzauslastungen}.
 Das Hauptaugenmerk bei Routing im Fehlerfall liegt dabei in aller Regel auf 
 der Ausfallzeit und wie dieser minimiert werden kann. 
-Ein häufig verwender Ansatz ist die Vorbrechnung von Alternativ-Routen und 
+Ein häufig verwendeter Ansatz ist die Vorberechnung von Alternativ-Routen und 
 das schnell Umschalten im Fehlerfall. 
 Dieser Ansatz bietet allerdings noch keine Möglichkeit um Stausituation zu 
-vermeiden oder die vorraussichtliche Leistung nach einem Link-Fehler zu 
+vermeiden oder die voraussichtliche Leistung nach einem Link-Fehler zu 
 bestimmen.
 Alternativ zu Vorberechnung können bestehende Routen auch nach jedem Fehler 
 angepasst und optimiert werden. 
@@ -293,13 +293,13 @@ Netztopologie angepasst sind und diese optimal auslasten können.
 Der Nachteil liegt in der schlechteren Reaktionszeit. 
 Mitunter kann die Reorganisation des Routings für die neue Netztopologie sehr 
 aufwendig zu berechnen und einzurichten sein.
-Ein anderes Aspekt mit dem sich viele Arbeiten befassen ist die Tatsache, 
+Ein anderer Aspekt mit dem sich viele Arbeiten befassen ist die Tatsache, 
 dass sich die Verkehrssituationen in einem Netz wie beispielsweise dem Internet 
 sehr häufig ändern und man daher ein Routing benötigt, welches dies 
 berücksichtigt.
 
 Mit R3 hat Wang et al. ein Verfahren vorgestellt, das beide Aspekte 
-berücksichtigt und zudem in der Lage ist Staufreiheit für eine vielzahl von 
+berücksichtigt und zudem in der Lage ist Staufreiheit für eine Vielzahl von 
 Fehlerszenarien zu garantieren (Den Beweis führt Wang et al. ebenfalls 
 in \cite{tD2_WWMA10}).
 
