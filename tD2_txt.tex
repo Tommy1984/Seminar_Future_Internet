@@ -269,34 +269,38 @@ beschrieben wird.
 Leider kann auch mit FRR nicht sichergestellt werden, 
 dass es aufgrund ausgefallener Links und dadurch umgeleiteten Netzwerkverkehr 
 zu Stausitutation kommt. 
-Wang et al. \cite{tD2_WWMA10} definiert dazu das folgende Problem.
+Wang et al. \cite{tD2_WWMA10} definiert dazu das folgende Problem:
 \begin{Def} 
 (Routing Resiliency) Das Problem Routing Resiliency besteht darin, sowohl ein 
 Routing $r$ als auch ein Protection Routing $p$ zu berechnen, so dass die 
 maximale Link Auslastung für bis zu F Link-Fehler 100\% nicht überschreitet.
 \end{Def}
 
-Bisherige Arbeiten zum diesem Thema behandeln meist nur eine Seite, 
-entweder \textit{Routing im Fehlerfall} oder 
-\textit{Routing für sich ändernde Netzauslastungen}.
-Das Hauptaugenmerk bei Routing im Fehlerfall liegt dabei in aller Regel auf 
-der Ausfallzeit und wie diese minimiert werden kann. 
-Ein häufig verwendeter Ansatz ist die Vorberechnung von Alternativ-Routen und 
-das schnell Umschalten im Fehlerfall. 
-Dieser Ansatz bietet allerdings noch keine Möglichkeit um Stausituationen zu 
-vermeiden oder die voraussichtliche Leistung nach einem Link-Fehler zu 
+Die bisherigen Arbeiten zu diesem Thema lassen sich in zwei Gruppen unterteilen. 
+Eine Gruppe behandelt \textit{Routing im Fehlerfall}, 
+während sich die andere mit \textit{Routing für sich ändernde Netzauslastungen} 
+beschäftigt.
+Das Hauptaugenmerk bei Routing im Fehlerfall liegt in der Regel auf 
+der Minimierung Ausfallzeit einzelner Netzkomponenten. 
+Ein häufig verwendeter Ansatz \cite{tD2_RFC5286,tD2_LCRA07,tD2_RFC5714} 
+ist die Vorberechnung von Alternativ-Routen und das schnell Umschalten im 
+Fehlerfall. 
+Dieser Ansatz bietet jedoch noch keine Möglichkeit um Stausituationen zu 
+vermeiden oder die voraussichtliche Leistung nach einem Link-Ausfall zu 
 bestimmen.
 Alternativ zur Vorberechnung können bestehende Routen auch nach jedem Fehler 
-angepasst und optimiert werden. 
-Der Vorteil besteht darin, dass die neuen Routen jeweils auf die aktuelle 
-Netztopologie angepasst sind und diese optimal auslasten können.
-Der Nachteil liegt in der schlechteren Reaktionszeit. 
-Mitunter kann die Reorganisation des Routings für die neue Netztopologie sehr 
-aufwendig zu berechnen und einzurichten sein.
-Ein anderer Aspekt mit dem sich viele Arbeiten befassen ist die Tatsache, 
-dass sich die Verkehrssituationen in einem Netz wie beispielsweise dem Internet 
-sehr häufig ändern und man daher ein Routing benötigt, welches dies 
-berücksichtigt.
+angepasst und optimiert werden \cite{tD2_WXQY06}. 
+Der Vorteil besteht in der besseren Anpassbarkeit der neuen Routen an die 
+aktuelle Netztopologie, wodurch diese optimal ausgelastet werden können.
+Der Nachteil liegt in der schlechteren Reaktionszeit, da mitunter die 
+Reorganisation des Routings für die neue Netztopologie sehr 
+aufwendig zu berechnen und einzurichten sein kann.
+Der anderer Aspekt mit dem sich die zweite Gruppe von Abreiten befasst, ist 
+die Tatsache, dass sich die Verkehrssituationen in Netzen wie 
+dem Internet sehr häufig ändern und man daher ein Routing benötigt, welches dies 
+berücksichtigt. Auch hierzu gibt es unterschiedliche Ansätze. 
+Ein Möglichkeit ist die Optimeriung von Routen auf Grundlage von zuvor 
+beobachtetem Netzwerkverkehr \cite{tD2_AgNB05, tD2_RoTZ03}.
 
 Mit R3 hat Wang et al. ein Verfahren vorgestellt, das beide Aspekte 
 berücksichtigt und zudem in der Lage ist Staufreiheit für eine Vielzahl von 
@@ -773,7 +777,7 @@ festgestellt werden.
 In dieser Arbeit wurde das von Wang et al. in \cite{tD2_WWMA10} entwickelte 
 Routing Protection Verfahren \textit{Resilient Routing Reconfiguration} 
 behandelt. R3 bietet die Möglichkeit sowohl Routing als auch Protection Routing 
-zu berechnen und mittels Rekonfiguraton während des Netzbetriebs auf aktuelle 
+zu berechnen und mittels Rekonfiguration während des Netzbetriebs auf aktuelle 
 Fehlerereignisse zu reagieren und das Routing entsprechend anzupassen.
 Eine Stärke von R3 besteht darin, Staufreiheit für eine gewisse Anzahl zeitlich 
 überlappender Fehler garantieren zu können. Den Beweis führt Wang et al. 
@@ -781,6 +785,14 @@ ebenfalls in \cite{tD2_WWMA10}. Neben der grundlegenden Arbeitsweise von R3 ist
 auch die von Wang et al. vorgeschlagene Implementierung auf 
 Basis von MPLS sowie eine Zusammenfassung der Evaluationsergebnisse aus 
 \cite{tD2_WWMA10} teil dieser Arbeit.
+
+Die Arbeit von Wang et al. ist meiner Ansicht nach gut verfasst. 
+Das Thema wird gut motiviert und die theoretischen Aspekte sind vollständig 
+und verständlich beschrieben. Bei der Implementierung wird allerdings lediglich 
+ausführlich auf die zweite Phase von R3, die Rekonfiguration des Netzes 
+eingegangen. Die erste Phase kommt hier meiner Ansicht nach etwas kurz.
+Die Evaluierung ist wieder sehr ausführlich beschrieben.
+
 
 % /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ /\ 
 % -----------------------------------------------------------------------------
