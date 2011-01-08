@@ -108,8 +108,8 @@ diese von den dazwischen liegenden Netzknoten solange weitergereicht werden,
 bis der Zielknoten erreicht wird.
 Die Wahl der zu verwendenden Zwischensysteme, also die Wahl eines Weges durch 
 das Netz wird als Routing bezeichnet.
-Da in aller Regel mehrere Weg zu Verfügung stehen, ist die Optimierung des 
-Weges bezüglich eine Metrik, wie z.B der kürzeste Weg, oder die aktuelle 
+Da in aller Regel mehrere Weg zur Verfügung stehen, ist die Optimierung des 
+Weges bezüglich einer Metrik, wie z.B der kürzeste Weg, oder die aktuelle 
 Netzauslastung ein wichtiger Aspekt beim Routing.
 
 Neben der Optimierung des Weges, spielt beim Routing ein weiterer Aspekt ein 
@@ -134,7 +134,7 @@ zu reorganisieren und eine Datenübertragung wieder zu ermöglichen.
 Viele Verfahren legen dabei vorwiegend Wert auf die Wiederherstellung der 
 Verfügbarkeit eines oder mehrerer Netzknoten.
 Weitergehende Probleme, die z.B aus der Umgehung defekter Links hervorgehen 
-können, werden häufig außer acht gelassen. Dazu zählt beispielsweise die 
+können, werden häufig außer Acht gelassen. Dazu zählt beispielsweise die 
 Mehrbelastung des verbliebenen Netzwerks durch die verminderte Netzkapazität 
 und den umgeleiteten Verkehr.
 Iyer at al. \cite{tD2_Iyer03} führt dies als eine der Hauptursachen für das 
@@ -188,7 +188,7 @@ Als Menge $\{r_{ab}(e)|a,b \in V \land e \in E\}$ zusammengefasst beschreiben
 diese Werte so das gesamte Routing $r$.
 Der Beitrag zur Auslastung einer Verbindung $e$ entspricht dem Produkt 
 $d_{ab}r_{ab}(e)$, wobei $d_{ab}$ dem aktuell von Sender $a$ initiierten Verkehr 
-zu Empfänger $b$ entpsicht und $r_{ab}(e)$ dem wie oben beschriebenen Anteil.
+zu Empfänger $b$ entspricht und $r_{ab}(e)$ dem wie oben beschriebenen Anteil.
 Ein so definiertes Routing gilt als korrekt, wenn es die in \cite{tD2_WWMA10} 
 definierten Bedingungen erfüllt. Nachfolgend sind diese Bedingungen nocheinmal 
 aufgeführt. 
@@ -217,7 +217,7 @@ $100\%$ liegt.
 Alternativ zum klassischen IP-Routing gibt es auch andere Verfahren zur 
 Weiterleitung von Dateneinheiten innerhalb eines Netzwerks.
 Ein Beispiel, welches auch in \cite{tD2_WWMA10} als Implementierungsgrundlage 
-von R3 verwendet wird, ist Multiprotolkoll-Label-Switching (MPSL) 
+von R3 verwendet wird, ist Multiprotolkoll-Label-Switching (MPLS) 
 \cite{tD2_RFC3031}. MPLS ist ein Verfahren, welches eine verbindungsorientierte 
 Datenübertragung auch in ansonsten verbindungslosen Netzen ermöglicht. 
 Während beim klassichen Routing auf Schicht 3 jeder Router erneut den 
@@ -229,7 +229,7 @@ Dazu wird ihr eine kurze Kennung fester Länge, ein sog. Label zugeordnet.
 Die nachfolgenden Knoten können anhand dieses Labels aus einer Tabelle 
 (Incoming Lable Map - ILM) den nächsten Knoten bestimmen. 
 Eine Auswertung des kompletten Paketkopfes ist nicht mehr notwendig.
-MPSL biete außerdem die Möglichkeit einem Paket auch mehr als ein Label 
+MPLS biete außerdem die Möglichkeit einem Paket auch mehr als ein Label 
 zuzuordnen. 
 Dazu werden die Labels auf einem Stack, dem Lable-Stack abgelegt. 
 Ein Router kann neue Labels auf dem Stack ablegen. 
@@ -240,7 +240,7 @@ entfernt werden.
 Der Label-Stack von MPLS wird in \cite{tD2_WWMA10} zu Implementierung von R3 
 verwendet.
 
-Sologange die urspüngliche Netztopologie besteht, kann das reguläre Routing 
+Solange die urspüngliche Netztopologie besteht, kann das reguläre Routing 
 (d.h bereits berechnete Routen) verwendet werden. 
 Bei Link-Ausfällen ist dieses Routing nicht mehr gültig und muss angepasst 
 werden. 
@@ -262,7 +262,7 @@ um die ausgefallenen Komponenten zu umgehen.
 Dadurch kann die Ausfallzeit eines Netzknoten und damit die Verzögerung von 
 Dateneinheiten auf die Erkennung des Fehlers am lokalen Router und das 
 aktivieren der Alterniv-Route beschränkt werden. 
-Eine Information der anderen Router im Netz ist nicht zwingen erforderlich.
+Eine Information der anderen Router im Netz ist nicht zwingend erforderlich.
 Für MPLS gibt es eine ähnlich arbeitenden Variante die in \cite{tD2_RFC4090} 
 beschrieben wird.
 
@@ -303,7 +303,7 @@ Ein Möglichkeit ist die Optimeriung von Routen auf Grundlage von zuvor
 beobachtetem Netzwerkverkehr \cite{tD2_AgNB05, tD2_RoTZ03}.
 
 Mit R3 hat Wang et al. ein Verfahren vorgestellt, das beide Aspekte 
-berücksichtigt und zudem in der Lage ist Staufreiheit für eine Vielzahl von 
+berücksichtigt und zudem in der Lage ist, Staufreiheit für eine Vielzahl von 
 Fehlerszenarien zu garantieren (den Beweis führt Wang et al. ebenfalls 
 in \cite{tD2_WWMA10}).
 
@@ -356,7 +356,7 @@ Noch einmal zusammengefasst bedeutet dies:
 Durch die Verlagerung des Problems von der unbekannten Netztopologie (aber 
 bekanntem Verkehrsaufkommen) hin zu unbekanntem Verkehrsaufkommen (aber 
 bekannter Netztopologie), wird das Aufzählen aller möglichen Fehlerszenarien 
-zu Berechnung eines Routings sowie Protection Routings unnötig.
+zur Berechnung eines Routings sowie Protection Routings unnötig.
 
 Zu beachten ist allerdings, dass im Gegensatz zur endlichen Anzahl 
 möglicher Netztopologien die Anzahl möglicher neuer Verkehrsmatrizen $d+X_{F}$ 
@@ -377,7 +377,7 @@ während des eigentlichen Netzbetriebs.
 
 \subsection{Vorberechnung (Offline-Phase)}
 Aufgabe der Vorberechnungsphase ist es ein möglichst optimales Routing 
-$r$ für eine gegeben Verkehrsmatrix $d$, sowie ein entsprechendes 
+$r$ für eine gegebene Verkehrsmatrix $d$, sowie ein entsprechendes 
 Protection Routing $p$ für den Virtual Demand $X_{F}$ zu berechnen.
 Optimierungsziel ist dabei die Minimierung der maximalen Link-Auslastung (MLU) 
 für die ursprüngliche Netztopologie und das kombinierte Verkehrsaufkommen 
@@ -405,7 +405,7 @@ In dieser Form des linearen Optimierungsproblems besteht weiterhin die
 Schwierigkeit, dass es sich bei $X_{F}$ um eine nicht endliche Menge handelt 
 und sich daraus unendlich viele Bedingungen ergeben.
 
-Nun kann aber die Dualität von linearen Optimierungsproblemen ausgenutzt werden,  
+Nun kann aber die Dualität von linearen Optimierungsproblemen ausgenutzt werden 
 um das ursprüngliche Problem (\ref{tD2_LPOriginal}) in das nachfolgende 
 einfachere lineare Optimierungsproblem mit polynomialer Anzahl an Bedingungen 
 zu transformieren.
@@ -427,7 +427,7 @@ zu transformieren.
 Die Transformation zwischen (\ref{tD2_LPOriginal}) 
 und (\ref{tD2_LPSimple}) basiert vorwiegend auf der Dualität von linearen 
 Optimierungsproblemen und wird in dieser Arbeit nicht näher behandelt. 
-Für ein genau Beschreibung der Transformation siehe \cite{tD2_WWMA10}.
+Für eine genaue Beschreibung der Transformation siehe \cite{tD2_WWMA10}.
 
 \subsection{Rekonfiguration (Online-Phase)}
 Da sich im Fehlerfall, z.B durch den Ausfall eines Links während des 
@@ -437,12 +437,12 @@ dass $p$ keine ungültigen (defekten) Links verwendet.
 
 Nachdem ein Link-Fehler auf einem Link $e$ von einem Router erkannt wird, 
 aktiviert dieser sofort sein Protection Routing $p$ und leitet den Verkehr 
-entsprechen einer Routing-Alternative $\xi_{e}$ um.
+entsprechend einer Routing-Alternative $\xi_{e}$ um.
 Da $p$ allerdings nicht für die Topologie in diesem konkreten Fehlerfall, 
 sondern auf der ursprünglichen Netztopologie definiert wurde, 
 muss $p$ zuvor entsprechend des Fehlers angepasst werden, 
 um sicherzustellen das der defekte Link $e$ nicht mehr verwendet wird.  
-Erreicht lässt sich dies durch eine einfache Anpassung (re-scaling) der 
+Erreichen lässt sich dies durch eine einfache Anpassung (re-scaling) der 
 verbliebenen Links, die den Verkehr von $e$ nun mittragen 
 müssen. 
 Die Anpassung erfolgt nach folgender Formel:
@@ -469,7 +469,7 @@ Standartansatz von R3 erweitert werden kann.
 Eine Erweiterung ist der Umgang mit variablen Verkehrsmatrizen, 
 anstelle der wie bisher angenommen konstanten Verkehrsmatrix $d$. 
 Dazu wird die konstante Verkehrsmatrix in (\ref{tD2_VirtualDemandSet}) durch 
-die konvexe Hülle einer Menge verschiedene Verkehrsmatrizen 
+die konvexe Hülle einer Menge verschiedener Verkehrsmatrizen 
 $d_{1},...,d_{n}$ ersetzt. Damit wird ein größerer Bereich von Verkehrsmustern 
 erfasst.
 
@@ -562,7 +562,6 @@ einem Router immer denselben Hash-Wert zuzuordnen.
 Für unterschiedliche Router kann der Wert allerdings unterschiedlich sein. 
 So wird erreicht, dass die Pakete einer TCP-Verbindung denselben Weg nehmen.  
 
-%TODO Referenz zu Fehlererkennung auf Schicht 2 einfügen
 Mithilfe der Erweiterung MPLS-ff kann nun R3 implementiert werden.
 Die Vorberechnung des \textit{Protection Routing p} und die Einrichtung von 
 MPLS-ff kann von einem zentralen Server erledigt werden.
@@ -571,8 +570,8 @@ Zu Fehlererkennung während des Betriebs kann die Sicherungsschicht (Layer 2)
 auf Fehlerereignisse beobachtet werden. 
 Auch andere Fehlererkennungsverfahren wie z.B \cite{tD2_KYGS05} sind möglich.
 Wird ein fehlerhafter Link erkannt, 
-werden alle andern Router mittels ICMP über den Fehler informiert, so 
-dass diese ihr Protection Routing entsprechend anpassen können.
+werden alle anderen Router mittels ICMP über den Fehler informiert, 
+sodass diese ihr Protection Routing entsprechend anpassen können.
 Dazu muss jeder Router die \textit{next-hop splitting ratio} für die zu dem 
 ausgefallenen Link gehörenden Alternativ-Links anpassen.
 
@@ -675,7 +674,7 @@ Flow-based optimal link detour routing (opt) \cite{tD2_WWMA10}.
 
 
 \subsection{Simulation}
-Abbildung \ref{tD2_USISPMeasurement} zeigt die in\cite{tD2_WWMA10} ermittelten 
+Abbildung \ref{tD2_USISPMeasurement} zeigt die in \cite{tD2_WWMA10} ermittelten 
 Messergebnisse der US-ISP Topologie für alle Einzel-Fehler Events, 
 alle Zwei-Fehler Events und 1100 zufälligen Drei-Fehler Events. 
 Angegeben ist jeweils das Leistungsverhältnis für ein Szenario. 
@@ -716,7 +715,7 @@ Bei Drei-Fehler Events beträgt der Abstand hingegen mindestens 50\%
 
 Weiterhin interessant sind die Ergebnisse für die SBC Topologie, siehe 
 Abbildung \ref{tD2_SBC_ThreeFailure}.
-Die Grafik zweigt ein deutlich besseres Leistungsverhältnis für 
+Die Grafik zeigt ein deutlich besseres Leistungsverhältnis für 
 MPLS-ff+R3 gegenüber allen anderen Verfahren. Nach Wang et al. liegt dieses 
 Verhalten in der gemeinsamen Optimierung von Routing und Protection-Routing von 
 MPLS-ff+R3 begründet und zeigt dessen Vorteile.
