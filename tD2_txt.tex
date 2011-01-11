@@ -220,7 +220,7 @@ Ein Beispiel, welches auch in \cite{tD2_WWMA10} als Implementierungsgrundlage
 von R3 verwendet wird, ist Multiprotolkoll-Label-Switching (MPLS) 
 \cite{tD2_RFC3031}. MPLS ist ein Verfahren, welches eine verbindungsorientierte 
 Datenübertragung auch in ansonsten verbindungslosen Netzen ermöglicht. 
-Während beim klassichen Routing auf Schicht 3 jeder Router erneut den 
+Während beim klassischen Routing auf Schicht 3 jeder Router erneut den 
 nächsten Knoten (Next Hop) für eine Dateneinheit bestimmen muss, wird bei MPLS 
 zu Beginn einer Übertragung jede Dateneinheit einer Weiterleitungsklasse 
 (Forwarding Equivalent Class - FEC) zugeordnet, die den Pfad 
@@ -295,11 +295,11 @@ aktuelle Netztopologie, wodurch diese optimal ausgelastet werden können.
 Der Nachteil liegt in der schlechteren Reaktionszeit, da mitunter die 
 Reorganisation des Routings für die neue Netztopologie sehr 
 aufwendig zu berechnen und einzurichten sein kann.
-Der anderer Aspekt mit dem sich die zweite Gruppe von Abreiten befasst, ist 
+Der anderer Aspekt mit dem sich die zweite Gruppe von Arbeiten befasst, ist 
 die Tatsache, dass sich die Verkehrssituationen in Netzen wie 
 dem Internet sehr häufig ändern und man daher ein Routing benötigt, welches dies 
 berücksichtigt. Auch hierzu gibt es unterschiedliche Ansätze. 
-Ein Möglichkeit ist die Optimeriung von Routen auf Grundlage von zuvor 
+Ein Möglichkeit ist die Optimierung von Routen auf Grundlage von zuvor 
 beobachtetem Netzwerkverkehr \cite{tD2_AgNB05, tD2_RoTZ03}.
 
 Mit R3 hat Wang et al. ein Verfahren vorgestellt, das beide Aspekte 
@@ -385,7 +385,7 @@ $d+X_{F}$ aus aktuellem Verkehr $d$ und Virtual Demand $X_{F}$.
 Wie Eingangs schon erwähnt lässt sich dieses Problem mittels linearer 
 Optimierung effizient lösen.
 
-Formal entspricht das Problem den nachfolgenden linearen Optimierungsproblem:
+Formal entspricht das Problem dem nachfolgenden linearen Optimierungsproblem:
 \begin{eqnarray}
  \begin{array}{rl}
     \mbox{\textbf{minimize}}_{(r,p)}    & MLU \\
@@ -430,7 +430,7 @@ Optimierungsproblemen und wird in dieser Arbeit nicht näher behandelt.
 Für eine genaue Beschreibung der Transformation siehe \cite{tD2_WWMA10}.
 
 \subsection{Rekonfiguration (Online-Phase)}
-Da sich im Fehlerfall, z.B durch den Ausfall eines Links während des 
+Da sich im Fehlerfall, z.B. durch den Ausfall eines Links während des 
 Betriebes die Netztopologie ändert, muss das von der Offline-Phase für das 
 gesamte Netzwerk ermittelte Protection Routing $p$ so angepasst werden, 
 dass $p$ keine ungültigen (defekten) Links verwendet. 
@@ -464,7 +464,7 @@ Routing $p$.
 
 \subsection{Erweiterungen}
 Wang et al. beschreibt in \cite{tD2_WWMA10} einige Erweiterungen mit denen der 
-Standartansatz von R3 erweitert werden kann.
+Standardansatz von R3 erweitert werden kann.
 
 Eine Erweiterung ist der Umgang mit variablen Verkehrsmatrizen, 
 anstelle der wie bisher angenommen konstanten Verkehrsmatrix $d$. 
