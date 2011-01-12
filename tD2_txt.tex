@@ -109,7 +109,7 @@ bis der Zielknoten erreicht wird.
 Die Wahl der zu verwendenden Zwischensysteme, also die Wahl eines Weges durch 
 das Netz wird als Routing bezeichnet.
 Da in aller Regel mehrere Weg zur Verfügung stehen, ist die Optimierung des 
-Weges bezüglich einer Metrik, wie z.B der kürzeste Weg, oder die aktuelle 
+Weges bezüglich einer Metrik, wie z.B. der kürzeste Weg, oder die aktuelle 
 Netzauslastung ein wichtiger Aspekt beim Routing.
 
 Neben der Optimierung des Weges, spielt beim Routing ein weiterer Aspekt ein 
@@ -133,7 +133,7 @@ sich schnell und problemlos nach einer Reihe von Fehlern oder Unterbrechungen
 zu reorganisieren und eine Datenübertragung wieder zu ermöglichen.
 Viele Verfahren legen dabei vorwiegend Wert auf die Wiederherstellung der 
 Verfügbarkeit eines oder mehrerer Netzknoten.
-Weitergehende Probleme, die z.B aus der Umgehung defekter Links hervorgehen 
+Weitergehende Probleme, die z.B. aus der Umgehung defekter Links hervorgehen 
 können, werden häufig außer Acht gelassen. Dazu zählt beispielsweise die 
 Mehrbelastung des verbliebenen Netzwerks durch die verminderte Netzkapazität 
 und den umgeleiteten Verkehr.
@@ -160,7 +160,7 @@ vorgestellt, der die Berücksichtigung aller möglichen Fehlerszenarien vermeidet.
 Weiterhin wird gezeigt, dass das Verfahren Staufreiheit durch Link-Ausfälle 
 garantieren kann. Zudem wird gezeigt, dass das Verfahren effizient in Hinsicht 
 auf Berechnungs-Overhead und Speicherverbrauch ist, es flexibel an verschieden 
-Leistungsanforderungen (z.B zur Einhaltung von Service Level Agreements) 
+Leistungsanforderungen (z.B. zur Einhaltung von Service Level Agreements) 
 angepasst werden kann und robust gegenüber Änderungen der Netzauslastung oder 
 der Netztopologie ist.
 
@@ -194,7 +194,6 @@ definierten Bedingungen erfüllt. Nachfolgend sind diese Bedingungen nocheinmal
 aufgeführt. 
 \begin{Def}
 Ein Routing $r$ ist korrekt, wenn $r$ die nachfolgenden Bedinungen erfüllt:
-%TODO Quellenangabe einfügen
 \begin{eqnarray}
  \begin{array}{rl}
 	\mbox{[R1]} & \forall i \neq a,b: \sum_{(i,j) \in E} r_{ab}(i,j) = \sum_{(j,i) \in E} r_ab(j,i) \\ 
@@ -568,7 +567,7 @@ MPLS-ff kann von einem zentralen Server erledigt werden.
 Die Rekonfiguration während des Betriebes muss jeder Router selbst durchführen.
 Zu Fehlererkennung während des Betriebs kann die Sicherungsschicht (Layer 2) 
 auf Fehlerereignisse beobachtet werden. 
-Auch andere Fehlererkennungsverfahren wie z.B \cite{tD2_KYGS05} sind möglich.
+Auch andere Fehlererkennungsverfahren wie z.B. \cite{tD2_KYGS05} sind möglich.
 Wird ein fehlerhafter Link erkannt, 
 werden alle anderen Router mittels ICMP über den Fehler informiert, 
 sodass diese ihr Protection Routing entsprechend anpassen können.
@@ -591,7 +590,7 @@ Angenommen O1 und O2 wollen beide mittels einer TCP-Verbindung Daten über das
 Netzwerk an D1 übertragen.
 Sei weiter angenommen, der normale Label Switch Pfad von R1 zu R3 führt über 
 R2, wie in Abbildung \ref{tD2_Implementation_Example_01} gezeigt.
-Trifft ein Paket bei Router R1 ein, so ordnet er diesem Paket ein Label zu, z.B 
+Trifft ein Paket bei Router R1 ein, so ordnet er diesem Paket ein Label zu, z.B. 
 das Label 100 für den Pfad R1-R2-R3 und leitet das Paket entsprechend weiter.
 
 \Abbildungf{!h}{width= 0.50\textwidth}{tD2_Implementation_Example_01}{tD2_Implementation_Example_01}{Routing ohne Link-Fehler}
